@@ -329,7 +329,7 @@ $(document).ready( function () {
 		$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
 				// reading input stream into string, so that multiple digit value can be captured
-				numberValue = $(this).text();
+				numberValue += $(this).text();
 				ux.displayValue(numberValue);
 				console.log('input stream..' + numberValue);
 
