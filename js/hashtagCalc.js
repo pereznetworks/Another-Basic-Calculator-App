@@ -33,7 +33,6 @@ const calc = {
 		sumValue: 0,
 		allClear: function() {
 			this.sumValue = 0;
-			debug.log(this.sumValue);
 			return this.sumValue;
 		},
 		divide: function(numValue1, numValue2) {
@@ -94,7 +93,6 @@ const calc = {
 			return this.sumValue;
 		},
 		equals: function() {
-			debug.log(this.sumValue);
 			return this.sumValue;
 		}
 } // end calculator object
@@ -248,17 +246,36 @@ $(document).ready( function () {
 		$('#equals').click(function(event){
 
 				equals = $(this).text();
+				debug.log('calcStatus:' + calcStatus);
 
-				if ( calcStatus <= 1 ) {  // entered something like, + 3 = or 3 + 4 =
+				if ( opValue == " " ) {  // entered something like, 3 =
+
+					// so need to make sure second numberValue value parsed into secondNumberValue
+					firstNumberValue = parseFloat(numberValue, 10);
+					debug.log('firstNumberValue: ' + firstNumberValue);
+					calcSum = calc.addition(firstNumberValue, secondNumberValue);
+					ux.displayValue(calcSum);
+					debug.log("calcSum:" + calcSum);
+					// secondNumberValue should be 0
+
+				} else if ( opValue == "+" || opValue == "-" || opValue == "*" || opValue == "/" ) {  // entered something like, + 3 = or 3 + 4 =
 
 					// so need to make sure second numberValue value parsed into secondNumberValue
 					secondNumberValue = parseFloat(numberValue, 10);
-					debug.log('firstNumberValue: ' + firstNumberValue);
-					debug.log('opValue: ' + opValue);
 					debug.log('secondNumberValue: ' + secondNumberValue);
+					debug.log('opValue: ' + opValue);
+
+				} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
+
+					// so need to make sure first and second numberValue value parsed into first and secondNumberValue
+
+					firstNumberValue = calcSum;
+					debug.log('firstNumberValue: ' + firstNumberValue);
+					secondNumberValue = parseFloat(numberValue, 10);
+					debug.log('secondNumberValue: ' + secondNumberValue);
+					debug.log('opValue: ' + opValue);
 					// secondNumberValue may be 0
 				}
-
 				/* secondNumberValue = parseFloat(numberValue, 10);
 				debug.log('firstNumberValue: ' + firstNumberValue);
 				opValue1 = opValue2;
@@ -274,42 +291,42 @@ $(document).ready( function () {
 
 							calcSum = calc.divide(firstNumberValue, secondNumberValue);
 							ux.displayValue(calcSum);
-							debug.log(calcSum);
+							debug.log("calcSum:" + calcSum);
 
 					} else if ( opValue === '*' ) {
 
 							calcSum = calc.multiply(firstNumberValue, secondNumberValue);
 							ux.displayValue(calcSum);
-							debug.log(calcSum);
+							debug.log("calcSum:" + calcSum);
 
 					} else if ( opValue === '-' ) {
 
 							calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 							ux.displayValue(calcSum);
-							debug.log(calcSum);
+							debug.log("calcSum:" + calcSum);
 
 					} else if ( opValue === '+' ) {
 
 							calcSum = calc.addition(firstNumberValue, secondNumberValue);
 							ux.displayValue(calcSum);
-							debug.log(calcSum);
+							debug.log("calcSum:" + calcSum);
+
 					} // end if to match opValue
 
-					calcSum = calc.equals();
+					// calcSum = calc.equals();
 					// get ready for more math
 					numberValue = calcSum.toString(10);
 					firstNumberValue = calcSum;
-					secondNumberValue = 0;
-					opValue = '';
-					calcStatus = 1;
+					// secondNumberValue = 0;
 					debug.log("calcStatus: " + calcStatus);
+					calcStatus += 1;
 
 		});   // end equals button click event handler
 
 		$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
 				// reading input stream into string, so that multiple digit value can be captured
-				numberValue += $(this).text();
+				numberValue = $(this).text();
 				ux.displayValue(numberValue);
 				debug.log('input stream..' + numberValue);
 
@@ -319,7 +336,7 @@ $(document).ready( function () {
 
 				inputValue = $(this).text();
 				debug.log('input stream...' + inputValue);
-				debug.log('calcStatus: ' + calcStatus);
+				opValue = inputValue;
 
 				// calcSum (how many numbers do we have)
 				// if 0 save numberValue to firstNumberValue
@@ -329,21 +346,17 @@ $(document).ready( function () {
 									firstNumberValue = parseFloat(numberValue, 10);
 									numberValue = '';
 									debug.log('firstNumberValue:' + firstNumberValue);
-									opValue = inputValue;
 									debug.log('opValue: ' + opValue);
-									calcStatus += 1;
 									debug.log('calcStatus: ' + calcStatus);
 						} else if (calcStatus == 1) {
 									secondNumberValue = parseFloat(numberValue, 10);
 									debug.log('secondNumberValue:' + secondNumberValue);
-									opValue2 = inputValue;
-									debug.log('opValue2: ' + opValue2);
+									debug.log('opValue: ' + opValue);
 									numberValue = '';
-									calcStatus += 1;
 									debug.log('calcStatus: ' + calcStatus);
 						}
 
-			 // is calcStatus >= 1, do we have 2 number values,
+			 // is calcStatus >= 1, then a calc has already been performed
 			 // if true, do math
 			 // for each math operation, save calcSum to firstNumberValue, as subtotal
 			if ( calcStatus >= 2 && opValue === '/' ) {
@@ -352,8 +365,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					debug.log(calcSum);
 					firstNumberValue = calcSum;
-					calcStatus = 1;
-					opValue = opValue2;
+				  calcStatus += 1;
 
 			} else if ( calcStatus >= 2 && opValue === '*' ) {
 
@@ -361,8 +373,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					debug.log(calcSum);
 					firstNumberValue = calcSum;
-					calcStatus = 1;
-					opValue = opValue2;
+				  calcStatus += 1;
 
 			} else if ( calcStatus >= 2 && opValue === '-' ) {
 
@@ -370,8 +381,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					debug.log(calcSum);
 					firstNumberValue = calcSum;
-					calcStatus = 1;
-					opValue = opValue2;
+				  calcStatus += 1;
 
 			} else if ( calcStatus >= 2 && opValue === '+' ) {
 
@@ -379,8 +389,8 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					debug.log(calcSum);
 					firstNumberValue = calcSum;
-					calcStatus = 1;
-					opValue = opValue2;
+				  calcStatus += 1;
+
 			} // end if (calcStatus > 2)
 
 		}); // end operators click event handler
