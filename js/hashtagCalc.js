@@ -20,6 +20,71 @@ let secondNumberValue = 0;
 let numberOfValues = 0;  // number of values that are passed to a object-method
 
 
+const runningCalc = {
+
+	equals: function () {
+
+		if ( opValue === '' ) {  // entered something like, 3 =
+
+			// so need to make sure second numberValue value parsed into secondNumberValue
+			firstNumberValue = parseFloat(numberValue, 10);
+			console.log('firstNumberValue: ' + firstNumberValue);
+			calcSum = calc.addition(firstNumberValue, secondNumberValue);
+			ux.displayValue(calcSum);
+			console.log("calcSum:" + calcSum);
+			// secondNumberValue should be 0
+
+		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  // entered something like, + 3 = or 3 + 4 =
+
+			// so need to make sure second numberValue value parsed into secondNumberValue
+			secondNumberValue = parseFloat(numberValue, 10);
+			console.log('secondNumberValue: ' + secondNumberValue);
+			console.log('opValue: ' + opValue);
+
+		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
+
+			// so need to make sure first and second numberValue value parsed into first and secondNumberValue
+
+			firstNumberValue = calcSum;
+			console.log('firstNumberValue: ' + firstNumberValue);
+			secondNumberValue = parseFloat(numberValue, 10);
+			console.log('secondNumberValue: ' + secondNumberValue);
+			console.log('opValue: ' + opValue);
+			// secondNumberValue may be 0
+
+		}
+
+	  // do math, get and save calcSum
+
+		if ( opValue === '/' ) {
+
+				calcSum = calc.divide(firstNumberValue, secondNumberValue);
+				ux.displayValue(calcSum);
+				console.log("calcSum:" + calcSum);
+
+		} else if ( opValue === '*' ) {
+
+				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
+				ux.displayValue(calcSum);
+				console.log("calcSum:" + calcSum);
+
+		} else if ( opValue === '-' ) {
+
+				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
+				ux.displayValue(calcSum);
+				console.log("calcSum:" + calcSum);
+
+		} else if ( opValue === '+' ) {
+
+				calcSum = calc.addition(firstNumberValue, secondNumberValue);
+				ux.displayValue(calcSum);
+				console.log("calcSum:" + calcSum);
+
+		} // end if to match opValue
+
+	}
+}
+
 const calc = {
 	/* Calc object with methods for basic calculations
       basic math function (fx):
@@ -149,23 +214,23 @@ $(document).ready( function () {
 		$('#ac').click(function(event){
 
 				allClear = $(this).text();
-				debug.log('AC clicked, reseting all values');
+				console.log('AC clicked, reseting all values');
 
 				calcSum = calc.allClear();
 				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
+				console.log('calcSum:' + calcSum);
 				calcStatus = 0;
-				debug.log('calcStatus:' + calcStatus);
+				console.log('calcStatus:' + calcStatus);
 				numberValue = '';
-				debug.log('numberValue:' + numberValue);
+				console.log('numberValue:' + numberValue);
 				opValue = '';
-				debug.log('opValue:' + opValue);
+				console.log('opValue:' + opValue);
 				equals = '';
-				debug.log('equals:' + equals);
+				console.log('equals:' + equals);
 				firstNumberValue = 0;
-				debug.log('firstNumberValue:' + firstNumberValue);
+				console.log('firstNumberValue:' + firstNumberValue);
 				secondNumberValue = 0;
-				debug.log('secondNumberValue:' + secondNumberValue);
+				console.log('secondNumberValue:' + secondNumberValue);
 		});
 
 		$('#posNeg, #percent').click(function(event){
@@ -178,9 +243,9 @@ $(document).ready( function () {
 				// so need to make sure numberValue value parsed into firstNumberValue
 				// there is no secondNumberValue, yet
 				opValue = $(this).text();
-				debug.log('opValue:', opValue);
+				console.log('opValue:', opValue);
 				firstNumberValue = parseFloat(numberValue, 10);
-				debug.log('firstNumberValue:' + firstNumberValue);
+				console.log('firstNumberValue:' + firstNumberValue);
 				numberOfValues = 0;  // or only 1 value that can be passed to object-method
 
 					if ( opValue === '%' ) {
@@ -190,7 +255,7 @@ $(document).ready( function () {
 								// simply divide firstNumberValue value by 100
 								// return result
 						ux.displayValue(firstNumberValue);
-						debug.log('firstNumberValue:' + firstNumberValue);
+						console.log('firstNumberValue:' + firstNumberValue);
 						calcStatus += 1;
 						// result not read into calcSum, since this is part of larger math op
 
@@ -199,7 +264,7 @@ $(document).ready( function () {
 
 						firstNumberValue = calc.posNeg(firstNumberValue);
 						ux.displayValue(firstNumberValue);
-						debug.log('firstNumberValue:' + firstNumberValue);
+						console.log('firstNumberValue:' + firstNumberValue);
 						calcStatus += 1;
 					  // result not read into calcSum, since this is part of larger math op
 					}
@@ -213,9 +278,9 @@ $(document).ready( function () {
 				// so current numberValue string is a second number value
 				// '%' or '+/-' is opValue2
 				opValue2 = $(this).text();
-				debug.log('opValue2:', opValue2);
+				console.log('opValue2:', opValue2);
 				secondNumberValue = parseFloat(numberValue, 10);
-				debug.log('secondNumberValue:' + secondNumberValue);
+				console.log('secondNumberValue:' + secondNumberValue);
 				numberOfValues = 1; // 2 values sthat can be passed to object-method
 
 					if ( opValue2 === '%' ) {
@@ -225,7 +290,7 @@ $(document).ready( function () {
 								// multiply first number by result of (divide second number by 100),
 								// return result
 						ux.displayValue(secondNumberValue);
-						debug.log('secondNumberValue:' + secondNumberValue);
+						console.log('secondNumberValue:' + secondNumberValue);
 						calcStatus += 1;
 						// result not read into calcSum, since this is part of larger math op
 
@@ -233,7 +298,7 @@ $(document).ready( function () {
 
 						secondNumberValue = calc.posNeg(secondNumberValue);
 						ux.displayValue(secondNumberValue);
-						debug.log('secondNumberValue:' + secondNumberValue);
+						console.log('secondNumberValue:' + secondNumberValue);
 						calcStatus += 1;
 						// result not read into calcSum, since this is part of larger math op
 
@@ -246,80 +311,18 @@ $(document).ready( function () {
 		$('#equals').click(function(event){
 
 				equals = $(this).text();
-				debug.log('calcStatus:' + calcStatus);
+				console.log('opValue:' + opValue);
 
-				if ( opValue == " " ) {  // entered something like, 3 =
-
-					// so need to make sure second numberValue value parsed into secondNumberValue
-					firstNumberValue = parseFloat(numberValue, 10);
-					debug.log('firstNumberValue: ' + firstNumberValue);
-					calcSum = calc.addition(firstNumberValue, secondNumberValue);
-					ux.displayValue(calcSum);
-					debug.log("calcSum:" + calcSum);
-					// secondNumberValue should be 0
-
-				} else if ( opValue == "+" || opValue == "-" || opValue == "*" || opValue == "/" ) {  // entered something like, + 3 = or 3 + 4 =
-
-					// so need to make sure second numberValue value parsed into secondNumberValue
-					secondNumberValue = parseFloat(numberValue, 10);
-					debug.log('secondNumberValue: ' + secondNumberValue);
-					debug.log('opValue: ' + opValue);
-
-				} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
-
-					// so need to make sure first and second numberValue value parsed into first and secondNumberValue
-
-					firstNumberValue = calcSum;
-					debug.log('firstNumberValue: ' + firstNumberValue);
-					secondNumberValue = parseFloat(numberValue, 10);
-					debug.log('secondNumberValue: ' + secondNumberValue);
-					debug.log('opValue: ' + opValue);
-					// secondNumberValue may be 0
-				}
-				/* secondNumberValue = parseFloat(numberValue, 10);
-				debug.log('firstNumberValue: ' + firstNumberValue);
-				opValue1 = opValue2;
-				opValue2 = "";
-				debug.log('opValue: ' + opValue1);
-				debug.log('secondNumberValue: ' + secondNumberValue);
-				debug.log(equals); */
-
-					// do math, get and save calcSum
-
-
-					if ( opValue === '/' ) {
-
-							calcSum = calc.divide(firstNumberValue, secondNumberValue);
-							ux.displayValue(calcSum);
-							debug.log("calcSum:" + calcSum);
-
-					} else if ( opValue === '*' ) {
-
-							calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-							ux.displayValue(calcSum);
-							debug.log("calcSum:" + calcSum);
-
-					} else if ( opValue === '-' ) {
-
-							calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-							ux.displayValue(calcSum);
-							debug.log("calcSum:" + calcSum);
-
-					} else if ( opValue === '+' ) {
-
-							calcSum = calc.addition(firstNumberValue, secondNumberValue);
-							ux.displayValue(calcSum);
-							debug.log("calcSum:" + calcSum);
-
-					} // end if to match opValue
-
-					// calcSum = calc.equals();
-					// get ready for more math
-					numberValue = calcSum.toString(10);
-					firstNumberValue = calcSum;
-					// secondNumberValue = 0;
-					debug.log("calcStatus: " + calcStatus);
-					calcStatus += 1;
+				runningCalc.equals();
+				opValue = '';
+				// calcSum = calc.equals();
+				// get ready for more math
+				numberValue = calcSum.toString(10);
+				firstNumberValue = calcSum;
+				// secondNumberValue = 0
+				console.log("calcSum: " + calcSum)
+				calcStatus += 1;
+				console.log("calcStatus: " + calcStatus);
 
 		});   // end equals button click event handler
 
@@ -328,33 +331,38 @@ $(document).ready( function () {
 				// reading input stream into string, so that multiple digit value can be captured
 				numberValue = $(this).text();
 				ux.displayValue(numberValue);
-				debug.log('input stream..' + numberValue);
+				console.log('input stream..' + numberValue);
 
 		});
 
 		$('#divide, #multiply, #subtract, #add').click(function(event) {
 
 				inputValue = $(this).text();
-				debug.log('input stream...' + inputValue);
-				opValue = inputValue;
+				console.log('input stream...' + inputValue);
 
 				// calcSum (how many numbers do we have)
 				// if 0 save numberValue to firstNumberValue
 				// if 1 save numberValue to secondNumberValue
 				// increment calcStatus, += 1
-				if (calcStatus == 0) {
-									firstNumberValue = parseFloat(numberValue, 10);
-									numberValue = '';
-									debug.log('firstNumberValue:' + firstNumberValue);
-									debug.log('opValue: ' + opValue);
-									debug.log('calcStatus: ' + calcStatus);
-						} else if (calcStatus == 1) {
-									secondNumberValue = parseFloat(numberValue, 10);
-									debug.log('secondNumberValue:' + secondNumberValue);
-									debug.log('opValue: ' + opValue);
-									numberValue = '';
-									debug.log('calcStatus: ' + calcStatus);
-						}
+				if (opValue === '' ) {
+						firstNumberValue = parseFloat(numberValue, 10);
+						numberValue = '';
+						opValue = inputValue;
+						console.log('firstNumberValue:' + firstNumberValue);
+						console.log('opValue: ' + opValue);
+						console.log('calcStatus: ' + calcStatus);
+
+				} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
+						runningCalc.equals();
+						calcStatus += 1;
+						firstNumberValue = calcSum;
+						secondNumberValue = parseFloat(numberValue, 10);
+						console.log('secondNumberValue:' + secondNumberValue);
+						console.log('opValue: ' + inputValue);
+						opValue = inputValue;
+						numberValue = '';
+						console.log('calcStatus: ' + calcStatus);
+				}
 
 			 // is calcStatus >= 1, then a calc has already been performed
 			 // if true, do math
@@ -363,7 +371,7 @@ $(document).ready( function () {
 
 					calcSum = calc.divide(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					debug.log(calcSum);
+					console.log(calcSum);
 					firstNumberValue = calcSum;
 				  calcStatus += 1;
 
@@ -371,7 +379,7 @@ $(document).ready( function () {
 
 					calcSum = calc.multiply(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					debug.log(calcSum);
+					console.log(calcSum);
 					firstNumberValue = calcSum;
 				  calcStatus += 1;
 
@@ -379,7 +387,7 @@ $(document).ready( function () {
 
 					calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					debug.log(calcSum);
+					console.log(calcSum);
 					firstNumberValue = calcSum;
 				  calcStatus += 1;
 
@@ -387,7 +395,7 @@ $(document).ready( function () {
 
 					calcSum = calc.addition(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					debug.log(calcSum);
+					console.log(calcSum);
 					firstNumberValue = calcSum;
 				  calcStatus += 1;
 
