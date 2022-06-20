@@ -1,0 +1,63 @@
+/* #Calc, Alpha v.04 */
+
+/* to do: (for 2018 week 9) goals for Alpha v.05
+  if decimal, display 0.0
+  implement % math/operation function
+  implement +/- math/operation function
+*/
+
+/*  implemented so far...as of Alpha week v.04, 2018 week 8
+    input value of 2 or greater digits
+    get sum value displayed, even if no equals, after successive math operators
+*/
+
+
+/* implemented so far...as of alpha v.03, 2018 week 7
+implement User Experience (UX) and logic;
+  check status,
+    implement AC/CLR function and status logic
+  perform math function,
+    store sumValue and display sumValue
+  after equals, save sum and continue number and math operator input until AC
+*/
+
+/* implemented so far... alpha v.01
+  ...html and css layout "good enough" for both PC and iPhone/Android Phone and iPad/tablet
+  behavior in response to user, (UX object method):
+    store inputValue,
+    display inputValue,
+    stop zero from blinking when button clicked,
+*/
+
+/* buggy....
+  ....calc.css layout, viewport media query needs work,
+  ....high-res mobile devices cont to use main media query and do not respond to min/max width setting
+  ... mobile devices now have very high pixel values
+*/
+
+/* Steps and logic, update and use in implementing in calc.js
+
+On Click of any button....
+
+	if button number button;
+		assign that number to a "stored value", erasing any previous stored value
+		then
+    if calcStatus == 1, assign input to firstNumberValue,
+      increment calcStatus,if blinking zero, stop it
+  		display the number,
+    if calcStatus == 2, assign input to secondNumberValue,
+      increment calcStatus, display the number
+		then wait for another button to be clicked
+	if math function button,
+		check calcStatus if >= 2 and math operator matches,
+      do math and assign result to sumValue
+      if calcStatus >= 1 and math operator == '='
+        then display sumValue
+        and assign to firstNumberValue
+        set calcStatus to 1
+   		  display subtotal/result
+  if AC,
+      reset all int values to 0 and string values to ''
+      display 0
+
+*/

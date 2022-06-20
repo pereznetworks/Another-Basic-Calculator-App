@@ -1,0 +1,174 @@
+/* Major Code change:
+    to continue to with ToDo items, and add more features...
+    idea from initial #calc code is to ...
+
+     1: use Input-object-array
+
+       ....use 1 object array for both number and operator values
+        inputs read into array last first;            [0:3], [1:+], [2:5]
+        .. once 2nd math operator entered, ..      [0:/], [1:3], [2:+], [3:5]
+        .. end of array, removing last 3 values ;
+        .. calculating...                     5 + 3 = 8
+        total would be read into end of array;    [0:/], [1:8]
+        then more values entered;                  [0:=], [1:2], [2:/], [3:8]
+        ..then with equals, ..or any other math-op
+        .. would calc and remove these...     8 / 2 = 4
+        total would be only value in object array;  [0:4]
+        .. user could do allClear or Clear..
+        .. or keep entering values, like ;  [0:7], [1:+], [2:4]
+
+     2: use for loop to iterate through object arrays
+
+        for each value in Input-object-array
+        read from end of array, removing each value as read
+            test opStatus == 0, then if number, numValue1, opStatus += 1
+              if opStatus == 1 , then if operator, assigned to math-Op,
+              if opStatus == 1, then if number, numValue2, opStatus += 1
+              if opStatus == 2, then if math-Op, do math calc,
+                after a calc with equals, opStatus reset to 1
+                after a calc with math-Op, opStatus allowed to keep incrementing
+                subtotal read into end of array, in place of last num value
+                new values read into beginning of array
+*/
+
+/* To Do :
+  1: currently, switching math operators requires first hitting equals, "="
+      add code so to enable: key combinations like [9] [/] [3] [+] [2] [=] can display "5"
+
+  2: change calc operation to that same button used for AC and C
+      toggles so that when there are values being entered, button is C
+        when entered values are reset to default, but calc'ed sum present, button is AC
+*/
+
+/* update:
+    // 12/15: added library danielsMath.js - mathOp object
+            // mathOp.calc: if-if/else statement to math operation
+            // mathOp.makeInt: parseInt and if(isNaN) assign 0 to value
+            // mathOp.allClear: clears or reset values to 0
+            // mathOp.resetValue() resets input number values to 0
+            //
+            // enabled subtotal with math-operators after initial math operator
+            //
+            // enabled input of two-digit numbers, 10 and higher values
+*/
+
+/* current operation steps: */
+
+  /* default values
+    sum value and number values start at 0, number string at " "
+  */
+
+  /* number button clicked
+     read number button input to string until math operator button clicked
+     test new-number-string test length, display number
+  */
+
+
+  /* a math operator button or equals button clicked
+
+     if only one math operator
+        new-number-string assigned as previous-number-string
+        reset new-number value to ''
+     read math operator button input into string opValue
+     no math calc done, only 1 math operator
+  */
+
+
+  /* Only do math if two math operators have been inputed
+       add new code here convert equals operator click event handler for all math operator buttons
+       parseInt(10) from new-number-string into num-Value2
+       parseInT(10) from previous-number-string into numValue1
+       if numValue2 is NaN, assign a value of 0 to numValue2
+
+       check for <opValue>
+          calc: sum = sum <opValue> (numValue1 + numValue2)
+            this keeps a running balance
+              but equals button has to be clicked
+
+        convert sum.toString(10) into answer string
+
+        read answer string into calc input/display field
+        check length of answer string using testNumLength, which fixes it
+
+        new-number-string reset to " "
+        assign subtotal tp previous-number-value
+        allow operators-inputted-status to cont to be incremented
+  */
+
+  /* number button clicked
+     read number button input to string until math operator button clicked
+     test new-number-string test length, display number
+  */
+
+  /* a 2nd math operator input, do math
+     a math operator button clicked
+
+     new-number-string assigned as previous-number-string
+     read math operator button input into string opValue
+
+         parseInt(10) from new-number-string into num-Value2
+         parseInT(10) from previous-number-string into numValue1
+         if numValue2 is NaN, assign a value of 0 to numValue2
+
+         check for <opValue>
+            calc: sum = sum <opValue> (numValue1 + numValue2)
+              this keeps a running balance
+                but equals button has to be clicked
+
+          convert sum.toString(10) into answer string
+
+          read answer string into calc input/display field
+          check length of answer string using testNumLength, which fixes it
+
+          new-number-string reset to " "
+          assign subtotal tp previous-number-value
+          allow operators-inputted-status to cont to be incremented
+
+      if equals clicked
+        allow math calc if opStatus >= 1, opr at least 1 math operator inputted
+        then same as above
+          but total assigned to previous-number-value
+          operators-inputted-status reset to 1
+
+  */
+
+/* prototype object with math for integer and calculator methods
+
+      const mathOp = {
+
+          makeInt: function (stringValue) {
+              let numValue = parseInt(stringValue, 10);
+              if ( isNaN(parseInt(stringValue, 10)) ) {
+                  numValue = 0;
+                  console.log("numValue set to 0, stringValue, '" + stringValue + "', could not be converted into an integer")
+                  }
+              return numValue;
+          },
+
+         calc: function (numValue1, operator, numValue2) {
+            let sum = 0;
+            if (operator === "+") {
+
+               sum = sum + (numValue1 + numValue2);
+               console.log("sum is: " + sum);
+
+              } else if ( operator === "-") {
+
+               sum = sum - (numValue1 + numValue2);
+               console.log("sum is: " + sum);
+
+             } else if ( operator === "/") {
+
+               sum = sum / (numValue1 + numValue2);
+               console.log("sum is: " + sum);
+
+             } else if ( operator === "*") {
+
+               sum = sum * (numValue1 + numValue2);
+               console.log("sum is: " + sum);
+
+             }
+             return sum;
+         }
+      }
+ */

@@ -1,0 +1,50 @@
+
+/* broken
+.row {
+    display: -webkit-flex;
+    display: flex;
+    max-height: 800px;
+    max-width: 800px;
+}
+.grid-container {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 1px;
+  background-color: #2196F3;
+  border: 10px;
+  padding: 10px;
+}
+.grid-container-2 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: inline-grid;
+  grid-template-columns: auto;
+  grid-gap: 1px;
+  background-color: #2196F3;
+  border: 2px;
+  padding: 2px;
+}
+.grid-container > div {
+  display: block;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  text-align: center;
+  font-size: 2em;
+  height:120px;
+  width:120px;
+}
+.grid-container-2 > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  text-align: center;
+  font-size: 2em;
+  height: 80px;
+  width: 50px;
+} */
