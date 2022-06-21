@@ -9,6 +9,7 @@
 
 let allClear = '';
 let eqauls = '';
+let percent = false;
 let inputValue = '';
 let opValue2 = '';
 let opValue = '';
@@ -235,76 +236,41 @@ $(document).ready( function () {
 
 		$('#posNeg, #percent').click(function(event){
 
-			if ( calcStatus == 0 ) {
+			// entered something like, 3 % or 3 +/-
+			opValue = $(this).text();
+			console.log('opValue:', opValue);
 
-				// entered something like, 3 % or 3 +/-
-				// math op click event has not parseFloat numberValue string into firstNumberValue, yet
+			// so need to make sure numberValue value parsed into firstNumberValue
+			// there is no secondNumberValue, yet
+			firstNumberValue = parseFloat(numberValue, 10);
+			console.log('firstNumberValue:' + firstNumberValue);
 
-				// so need to make sure numberValue value parsed into firstNumberValue
-				// there is no secondNumberValue, yet
-				opValue = $(this).text();
-				console.log('opValue:', opValue);
-				firstNumberValue = parseFloat(numberValue, 10);
-				console.log('firstNumberValue:' + firstNumberValue);
+			if ( opValue === '%' ) {
+
+				calcSum = calc.percent(numberOfValues, firstNumberValue);
+				// for calc.perecent function: one number value passed,
+						// simply divide firstNumberValue value by 100
+						// return result
+
 				numberOfValues = 0;  // or only 1 value that can be passed to object-method
+				percent = true;
+				numberValue = '';
+				// result not read into calcSum, since this is part of larger math op
 
-					if ( opValue === '%' ) {
+			} else if ( opValue === '+/-' ) {
 
-						firstNumberValue = calc.percent(numberOfValues, firstNumberValue);
-						// for calc.perecent function: one number value passed,
-								// simply divide firstNumberValue value by 100
-								// return result
-						ux.displayValue(firstNumberValue);
-						console.log('firstNumberValue:' + firstNumberValue);
-						calcStatus += 1;
-						// result not read into calcSum, since this is part of larger math op
+				calcSum = calc.posNeg(firstNumberValue);
+				posNeg = true;
+				numberValue = '';
+			  // result not read into calcSum, since this is part of larger math op
 
+			} // end if ( opValue..)
 
-					} else if ( opValue === '+/-' ) {
-
-						firstNumberValue = calc.posNeg(firstNumberValue);
-						ux.displayValue(firstNumberValue);
-						console.log('firstNumberValue:' + firstNumberValue);
-						calcStatus += 1;
-					  // result not read into calcSum, since this is part of larger math op
-					}
-
-			} else {
-
-				// else then something like, + 3 % or 4 + 3 %
-				// OR  + 3 +/- or 4 + 3 +/- has been entered
-				// a math oeprator click event has already parseFloat first numberValue into firstNumberValue
-				// firstNumberValue may be 0, but ussualy will be a number > 0
-				// so current numberValue string is a second number value
-				// '%' or '+/-' is opValue2
-				opValue2 = $(this).text();
-				console.log('opValue2:', opValue2);
-				secondNumberValue = parseFloat(numberValue, 10);
-				console.log('secondNumberValue:' + secondNumberValue);
-				numberOfValues = 1; // 2 values sthat can be passed to object-method
-
-					if ( opValue2 === '%' ) {
-
-						secondNumberValue = calc.percent(numberOfValues, firstNumberValue, secondNumberValue);
-						// for calc.perecent function: two number values passed
-								// multiply first number by result of (divide second number by 100),
-								// return result
-						ux.displayValue(secondNumberValue);
-						console.log('secondNumberValue:' + secondNumberValue);
-						calcStatus += 1;
-						// result not read into calcSum, since this is part of larger math op
-
-					} else if ( opValue2 === '+/-' ) {
-
-						secondNumberValue = calc.posNeg(secondNumberValue);
-						ux.displayValue(secondNumberValue);
-						console.log('secondNumberValue:' + secondNumberValue);
-						calcStatus += 1;
-						// result not read into calcSum, since this is part of larger math op
-
-					} // end if (opValue ...)
-
-			} // end if (calcStatus ...)
+			ux.displayValue(calcSum);
+			console.log('calcSum:' + calcSum);
+			calcStatus += 1;
+			firstNumberValue = calcSum;
+			console.log('firstNumberValue: ' + firstNumberValue);
 
 		}); // end posNeg, percent button click event handler
 
@@ -338,6 +304,8 @@ $(document).ready( function () {
 		$('#divide, #multiply, #subtract, #add').click(function(event) {
 
 				inputValue = $(this).text();
+
+				numberValue = '';
 				console.log('input stream...' + inputValue);
 
 				// calcSum (how many numbers do we have)
@@ -362,6 +330,19 @@ $(document).ready( function () {
 						opValue = inputValue;
 						numberValue = '';
 						console.log('calcStatus: ' + calcStatus);
+				} else if ( opValue === '%') {
+					opValue2 = opValue;
+					opValue = inputValue;
+					numberValue = '';
+					firstNumberValue = calcSum;
+					secondNumberValue = parseFloat(numberValue, 10);
+					runningCalc.equals();
+					console.log('firstNumberValue:' + firstNumberValue);
+					console.log('opValue: ' + inputValue);
+					console.log('secondNumberValue:' + secondNumberValue);
+					console.log('calcSum:' + calcSum);
+
+					console.log('calcStatus: ' + calcStatus);
 				}
 
 			 // is calcStatus >= 1, then a calc has already been performed
