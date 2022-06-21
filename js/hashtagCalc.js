@@ -10,7 +10,6 @@
 
 // TOTO : finish built-in debug feature: log errors, error handling
 
-
 // TODO : built-in tape feature
 // but need to build UI for it
 
@@ -21,6 +20,10 @@
 // console.log.bind(window.console)
 // taken from stackoverflow.com
 // https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number
+
+
+$(document).ready( function () {
+// waiting for html document to load
 
 let allClear = '';
 let equals = false;
@@ -231,11 +234,6 @@ const ux = {
 } // end ux object
 
 if (debug.loggingOn) {console.log.bind(window.console)}
-
-$(document).ready( function () {
-// waiting for html document to load
-
-
 		$('#ac').click(function(event){
 
 				allClear = $(this).text();
