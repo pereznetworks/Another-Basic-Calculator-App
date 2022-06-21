@@ -1,4 +1,6 @@
-//#Calc: calc.js v1.0a
+//#Calc: calc.js v2.0a
+
+// Milestone: all basic calcs and running balance math works
 
 // TODO: simplfy logic for tracking calculations
 
@@ -19,7 +21,7 @@
 // for beta and release versions will move inside ready function
 
 let allClear = '';
-let eqauls = '';
+let equals = false;
 let percent = false;
 let inputValue = '';
 let opValue2 = '';
@@ -237,7 +239,7 @@ $(document).ready( function () {
 				console.log('numberValue:' + numberValue);
 				opValue = '';
 				console.log('opValue:' + opValue);
-				equals = '';
+				equals = false;
 				console.log('equals:' + equals);
 				firstNumberValue = 0;
 				console.log('firstNumberValue:' + firstNumberValue);
@@ -287,7 +289,6 @@ $(document).ready( function () {
 
 		$('#equals').click(function(event){
 
-				equals = $(this).text();
 				console.log('opValue:' + opValue);
 
 				runningCalc.equals();
@@ -298,7 +299,7 @@ $(document).ready( function () {
 				firstNumberValue = calcSum;
 				// secondNumberValue = 0
 				console.log("calcSum: " + calcSum)
-				calcStatus += 1;
+				calcStatus = 0;
 				console.log("calcStatus: " + calcStatus);
 
 		});   // end equals button click event handler
@@ -323,38 +324,41 @@ $(document).ready( function () {
 				// increment calcStatus, += 1
 				if (opValue === '' ) {
 						firstNumberValue = parseFloat(numberValue, 10);
+						console.log('firstNumberValue:' + firstNumberValue);
 						numberValue = '';
 						opValue = inputValue;
-						console.log('firstNumberValue:' + firstNumberValue);
 						console.log('opValue: ' + opValue);
+						calcStatus += 1;
 						console.log('calcStatus: ' + calcStatus);
 
 				} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
-						runningCalc.equals();
-						calcStatus += 1;
-						firstNumberValue = calcSum;
+						// runningCalc.equals();
+						// firstNumberValue = calcSum;
 						secondNumberValue = parseFloat(numberValue, 10);
-						console.log('secondNumberValue:' + secondNumberValue);
-						console.log('opValue: ' + inputValue);
-						opValue = inputValue;
 						numberValue = '';
+						console.log('secondNumberValue:' + secondNumberValue);
+						opValue2 = inputValue;
+						console.log('opValue2: ' + opValue);
+						calcStatus += 1;
 						console.log('calcStatus: ' + calcStatus);
 
-				} else if ( opValue === '%' || opValue === '+/-') {
+				} else if ( opValue === '%') {
 
 					opValue2 = opValue;
 					opValue = inputValue;
 					numberValue = '';
 					firstNumberValue = calcSum;
-					secondNumberValue = parseFloat(numberValue, 10);
-					runningCalc.equals();
+					// runningCalc.equals();
 					console.log('firstNumberValue:' + firstNumberValue);
-					console.log('opValue: ' + inputValue);
-					console.log('secondNumberValue:' + secondNumberValue);
-					console.log('calcSum:' + calcSum);
-
+					console.log('opValue: ' + opValue);
+					console.log('opValue2: ' + opValue2);
 					console.log('calcStatus: ' + calcStatus);
+
+				} else if ( opValue === '+/-') {
+
+					opValue = inputValue;
+					console.log('opValue: ' + inputValue);
 				}
 
 			 // is calcStatus >= 1, then a calc has already been performed
@@ -364,32 +368,36 @@ $(document).ready( function () {
 
 					calcSum = calc.divide(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					console.log(calcSum);
+					console.log('calcSum:' + calcSum);
 					firstNumberValue = calcSum;
+					secondNumberValue = 0;
 				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '*' ) {
 
 					calcSum = calc.multiply(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					console.log(calcSum);
+					console.log('calcSum:' + calcSum);
 					firstNumberValue = calcSum;
+					secondNumberValue = 0;
 				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '-' ) {
 
 					calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					console.log(calcSum);
+					console.log('calcSum:' + calcSum);
 					firstNumberValue = calcSum;
+					secondNumberValue = 0;
 				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '+' ) {
 
 					calcSum = calc.addition(firstNumberValue, secondNumberValue);
 					ux.displayValue(calcSum);
-					console.log(calcSum);
+					console.log('calcSum:' + calcSum);
 					firstNumberValue = calcSum;
+					secondNumberValue = 0;
 				  calcStatus = 0;
 
 			} // end if (calcStatus > 2)
