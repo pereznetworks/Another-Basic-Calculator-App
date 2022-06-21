@@ -24,7 +24,8 @@
 
 $(document).ready( function () {
 // waiting for html document to load
-
+let appStatus = 0;
+let version = 'v2.0a'
 let allClear = '';
 let equals = false;
 let percent = false;
@@ -209,7 +210,6 @@ const ux = {
 		any code needed to implement a working calculator user interface, UI,
 		so UX is how a UI should work, look and feel
 	*/
-
   acToogle: true,
 
   /*  acToogle to be used with toogleAllClear method ....
@@ -228,12 +228,22 @@ const ux = {
 	*/
 
 	displayValue: function (value) {
-			$('.display').html('<input type="text" id="inputNoBlink" value="' + value + '"></input>');
-		}  // display input and for initial input stop blinking
+		 
+			$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
+
+		},  // display input and for initial input stop blinking
+
+	displayVersion: function (version) {
+		$('#version').html(version);
+
+	}
 
 } // end ux object
 
+ux.displayVersion(version);
+
 if (debug.loggingOn) {console.log.bind(window.console)}
+
 		$('#ac').click(function(event){
 
 				allClear = $(this).text();

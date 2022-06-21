@@ -10,6 +10,15 @@ body {
     font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+footer {
+  bottom:0;
+  background-color: #4a525a;
+  width:100%;
+  margin: auto;
+  text-align: center;
+  position: absolute;
+}
+
 .outer-div {
     width: 420px;
     height: 620px;
@@ -70,14 +79,14 @@ body {
     border-radius: 5px 5px 0px 0px;
     }
 
-#input {
+#input{
     -webkit-animation: blink_me 1s infinite;
     -webkit-animation-timing-function: linear;
     animation-name: blink_me 1s infinite;
     animation-timing-function: linear;
 }
 
-#inputNoBlink {
+#inputNoBlink{
     background-color: black;
     border: 1px solid black;
     width: 375px;
@@ -332,4 +341,13 @@ a {
   }
 
     }
+}
+
+#version {
+      color: black;
+      margin: auto;
+      text-indent: 0;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 5px 5px 0px 0px;
 }
