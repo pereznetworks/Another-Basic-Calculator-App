@@ -8,9 +8,7 @@
 
 // TODO: make code more modular, object compmnent-oriented
 
-// TOTO : finish built-in debug.log feature: log errors,
-// want to preserve line number of code snippet
-// also error handling
+// TOTO : finish built-in debug feature: log errors, error handling
 
 
 // TODO : built-in tape feature
