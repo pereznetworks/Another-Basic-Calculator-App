@@ -18,6 +18,10 @@
 // ... before ready function for console access
 // for beta and release versions will move inside ready function
 
+// console.log.bind(window.console)
+// taken from stackoverflow.com
+// https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number
+
 let allClear = '';
 let equals = false;
 let percent = false;
