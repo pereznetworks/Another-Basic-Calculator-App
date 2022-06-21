@@ -1,5 +1,7 @@
 //#Calc: calc.js v1.0a
 
+// TODO: simplfy logic for tracking calculations
+
 // TODO: some ready function and code probably should be moved to UX object functions
 
 // TODO: make code more modular, object compmnent-oriented
