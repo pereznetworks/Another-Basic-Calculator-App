@@ -2,9 +2,9 @@
 
 // Milestone: all basic calcs and running balance math works
 
-// TODO: simplfy logic for tracking calculations
+// TODO:  inputing calcSum value as part of rewrite of entire html element .display
 
-// TODO: some ready function and code probably should be moved to UX object functions
+// TODO: simplfy logic for tracking calculations
 
 // TODO: make code more modular, object compmnent-oriented
 
@@ -228,7 +228,7 @@ const ux = {
 	*/
 
 	displayValue: function (value) {
-		 
+
 			$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
 		},  // display input and for initial input stop blinking
