@@ -1,12 +1,20 @@
 //#Calc: calc.js v1.0a
 
-// declaring variables before ready function for console access
-// for beta and release versions will move inside ready function
+// TODO: some ready function and code probably should be moved to UX object functions
 
-// built-in debug.log feature: log errors, error handling
-// except want to preserve line number of code snippet
+// TODO: make code more modular, object compmnent-oriented
+
+// TOTO : finish built-in debug.log feature: log errors,
+// want to preserve line number of code snippet
+// also error handling
+
+
+// TODO : built-in tape feature
+// but need to build UI for it
 
 // declaring variables that may change
+// ... before ready function for console access
+// for beta and release versions will move inside ready function
 
 let allClear = '';
 let eqauls = '';
