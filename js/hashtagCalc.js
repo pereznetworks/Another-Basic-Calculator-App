@@ -321,6 +321,7 @@ $(document).ready( function () {
 						console.log('calcStatus: ' + calcStatus);
 
 				} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
+
 						runningCalc.equals();
 						calcStatus += 1;
 						firstNumberValue = calcSum;
@@ -330,7 +331,9 @@ $(document).ready( function () {
 						opValue = inputValue;
 						numberValue = '';
 						console.log('calcStatus: ' + calcStatus);
-				} else if ( opValue === '%') {
+
+				} else if ( opValue === '%' || opValue === '+/-') {
+
 					opValue2 = opValue;
 					opValue = inputValue;
 					numberValue = '';
