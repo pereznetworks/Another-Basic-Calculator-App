@@ -4,6 +4,7 @@
 // for beta and release versions will move inside ready function
 
 // built-in debug.log feature: log errors, error handling
+// except want to preserve line number of code snippet
 
 // declaring variables that may change
 
