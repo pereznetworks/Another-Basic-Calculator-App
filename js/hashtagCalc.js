@@ -313,8 +313,6 @@ $(document).ready( function () {
 		$('#divide, #multiply, #subtract, #add').click(function(event) {
 
 				inputValue = $(this).text();
-
-				numberValue = '';
 				console.log('input stream...' + inputValue);
 
 				// calcSum (how many numbers do we have)
@@ -366,7 +364,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					console.log(calcSum);
 					firstNumberValue = calcSum;
-				  calcStatus += 1;
+				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '*' ) {
 
@@ -374,7 +372,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					console.log(calcSum);
 					firstNumberValue = calcSum;
-				  calcStatus += 1;
+				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '-' ) {
 
@@ -382,7 +380,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					console.log(calcSum);
 					firstNumberValue = calcSum;
-				  calcStatus += 1;
+				  calcStatus = 0;
 
 			} else if ( calcStatus >= 2 && opValue === '+' ) {
 
@@ -390,7 +388,7 @@ $(document).ready( function () {
 					ux.displayValue(calcSum);
 					console.log(calcSum);
 					firstNumberValue = calcSum;
-				  calcStatus += 1;
+				  calcStatus = 0;
 
 			} // end if (calcStatus > 2)
 
