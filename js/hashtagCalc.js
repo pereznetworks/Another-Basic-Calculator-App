@@ -39,9 +39,9 @@ let firstNumberValue = 0;
 let secondNumberValue = 0;
 let numberOfValues = 0;  // number of values that are passed to a object-method
 
-const runningCalc = {
+const calcEval = {
 
-	equals: function () {
+	ops: function () {
 
 		if ( opValue === '' ) {  // entered something like, 3 =
 
@@ -184,9 +184,9 @@ const calc = {
 const tape = {
 	// add methods for showing history of calculations, a tape
 	showTape: false,
-}
+} // end tape (calc history) object
 
-debug = {
+const debug = {
 
 // custom debug tool
 // at present, manually enable in js console
@@ -202,7 +202,7 @@ debug = {
 
 // TODO: add more debug functtions
 
-}
+} // end debug object
 
 const ux = {
 
@@ -308,19 +308,23 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		$('#equals').click(function(event){
 
+				// treating = special; when pressed, =, completes any ongoing math operation
+				// so after math operation completed, equals is true until another math op or number is pressed
 				equals = true;
+			  // for debug purposes, what math op are we doing, show what the current opValue is
 				debug.log('opValue:' + opValue);
 
-				runningCalc.equals();
+				// eval calcStatus, opValue and complete current math operation
+				calcEval.ops();
+				// reset opValue
 				opValue = '';
-				// calcSum = calc.equals();
-				// get ready for more math
-				numberValue = calcSum.toString(10);
+
+				// get ready for another math operation
 				firstNumberValue = calcSum;
-				// secondNumberValue = 0
-				debug.log("calcSum: " + calcSum)
+				debug.log("calcSum = firstNumberValue: " + firstNumberValue)
+				// reset calcStatus
 				calcStatus = 0;
-				debug.log("calcStatus: " + calcStatus);
+				debug.log("reset calcStatus: " + calcStatus);
 
 		});   // end equals button click event handler
 
@@ -329,6 +333,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 				if (equals) {
 					numberValue = '';
+					equals = false;
 				} // after equals calculation, reset numberValue entry
 
 				// reading input as a stream into string, so that multiple digits value can be captured
@@ -343,6 +348,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 				inputValue = $(this).text();
 				debug.log('input stream...' + inputValue);
+				equals = false;
 
 				// calcSum (how many numbers do we have)
 				// if 0 save numberValue to firstNumberValue
@@ -359,7 +365,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 				} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
-						// runningCalc.equals();
+						// calcEval.ops();
 						// firstNumberValue = calcSum;
 						secondNumberValue = parseFloat(numberValue, 10);
 						numberValue = '';
@@ -375,7 +381,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 					opValue = inputValue;
 					numberValue = '';
 					firstNumberValue = calcSum;
-					// runningCalc.equals();
+					// calcEval.ops();
 					debug.log('firstNumberValue:' + firstNumberValue);
 					debug.log('opValue: ' + opValue);
 					debug.log('opValue2: ' + opValue2);
