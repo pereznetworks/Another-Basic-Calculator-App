@@ -18,10 +18,10 @@
   - Coming Features
     - a backspace key
     - a show tape feature, a history of math operations
-    - more modes
+    - more modes with advanced calculator layout
 
   - MIT License
-  
+
 ## Current Version 2.0a
 
 ### Milestone
