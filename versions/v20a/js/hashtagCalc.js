@@ -1,27 +1,5 @@
 //#Calc: calc.js v2.0a
 
-// Milestone: all basic calcs and running balance math works
-
-// TODO:  inputing calcSum value as part of rewrite of entire html element .display
-
-// TODO: simplfy logic for tracking calculations
-
-// TODO: make code more modular, object compmnent-oriented
-
-// TOTO : finish built-in debug feature: log errors, error handling
-
-// TODO : built-in tape feature
-// but need to build UI for it
-
-// declaring variables that may change
-// ... before ready function for console access
-// for beta and release versions will move inside ready function
-
-// console.log.bind(window.console)
-// taken from stackoverflow.com
-// https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number
-
-
 let appStatus = 0;
 let version = 'v2.0a'
 let allClear = '';
