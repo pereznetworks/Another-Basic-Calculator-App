@@ -20,6 +20,8 @@
     - a show tape feature, a history of math operations
     - more modes
 
+  - MIT License
+  
 ## Current Version 2.0a
 
 ### Milestone
@@ -48,8 +50,10 @@
 
   - UI features
     - a menu
-      - show tape button in the menu
-    - actually displaying the tape
+      - a "show tape" button in the menu
+      - actually displaying the tape
+    - a backspace key,
+      - preferably within current UI
 
   - backend ops
     - new build environment
