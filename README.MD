@@ -3,7 +3,7 @@
 ## A Calculator
 
   -  Basic mode
-    - Default Mode
+    - will be Default Mode *(only mode for now =)*
     - only Basic Math is expected
     - 1 line display, to show input of numbers
     - buttons and operation
@@ -29,29 +29,28 @@
 
   - javascript custom debug feature
     - manually enable in browser javascript console
-    - using .log, but preserving line number
+    - wrapped console.log, but preserving line number
     ```
     console.log.bind(window.console)  
     ```
-    - [based on notes from stackoverflow.com](https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number)
+    - [click here for notes from stackoverflow.com](https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number)
 
 ### TODO
 
-  - code finish
-    - debugger
-    - tape, history numbers entered, operators and totals
+  - debugger
+    - error logging and error handling
+  - tape
+    - history of input and math results
 
-  -  code re-write
-    - simplify logic for tracking calculations
-    -  convert project for release
-    -  finish built-in debug feature: log errors, error handling
+  - for release
+    - improve logic for tracking input, calculations
+    - port to react or bootstrap
 
   - UI features
     - a menu
       - show tape button in the menu
     - actually displaying the tape
 
-  -  prep for release
+  - backend ops
     - new build environment
-    - move to react or bootstrap
     - considering a CMS
