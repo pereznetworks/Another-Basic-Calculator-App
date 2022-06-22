@@ -22,8 +22,6 @@
 // https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number
 
 
-$(document).ready( function () {
-// waiting for html document to load
 let appStatus = 0;
 let version = 'v2.0a'
 let allClear = '';
@@ -242,7 +240,10 @@ const ux = {
 
 ux.displayVersion(version);
 
-if (debug.loggingOn) {console.log.bind(window.console)}
+$(document).ready( function () {
+// waiting for html document to load
+
+		if (debug.loggingOn) {console.log.bind(window.console)}
 
 		$('#ac').click(function(event){
 
