@@ -37,6 +37,7 @@ let firstNumberValue = 0;
 let secondNumberValue = 0;
 let numberOfValues = 0;  // number of values that are passed to a object-method
 
+// evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 
 	ops: function () {
@@ -102,16 +103,15 @@ const calcEval = {
 	}
 }
 
-const calc = {
-	/* Calc object with methods for basic calculations
-      basic math function (fx):
-      divide, multiply, subtract, add, use decimals
-		  input Negitave/Positive (-/+) values
-			convert active input value into Percent (%)
+/* Calc object with methods for basic math
+		divide, multiply, subtract, add, use decimals
+		input Negitave/Positive (-/+) values
+		convert active input value into Percent (%)
 
-      future : Menory fx
-			future : "scientific" calculator fx
-	*/
+		future : more math operations
+*/
+const calc = {
+
 		sumValue: 0,
 		allClear: function() {
 			this.sumValue = 0;
@@ -138,7 +138,7 @@ const calc = {
 			return this.sumValue;
 		},
 		percent: function(numberOfValues, numValue1, numValue2){
-			// % fx is just like other calculator %
+			// % just like any other calculator %
 			//
 			// research shows that on calculators this function....
 			// was designed for customer at a retail shop, asking...
@@ -179,11 +179,13 @@ const calc = {
 		}
 } // end calculator object
 
+// history of calculations, a tape
 const tape = {
 	// add methods for showing history of calculations, a tape
 	showTape: false,
 } // end tape (calc history) object
 
+// custom debug tool
 const debug = {
 
 // custom debug tool
@@ -202,6 +204,7 @@ const debug = {
 
 } // end debug object
 
+// UI specific tasks
 const ux = {
 
 	/* User Experience, UX
@@ -238,12 +241,17 @@ const ux = {
 
 } // end ux object
 
+// display the current version of the app
 ux.displayVersion(version);
 
 $(document).ready( function () {
 // waiting for html document to load
 
+		// turn on debugger or not
 		if (debug.loggingOn) {console.log.bind(window.console)}
+
+// event-listeners
+// listen for events, buttons pressed, and actions to performn
 
 		$('#ac').click(function(event){
 
