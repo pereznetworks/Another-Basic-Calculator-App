@@ -39,6 +39,13 @@
 
 ### TODO
 
+  - current bug
+    - multiple math ops
+      - when to use opValue2
+    - posNeg math ops
+      - when to use opValue
+      - apply mathOp to correct numbers entered
+      
   - debugger
     - error logging and error handling
   - tape

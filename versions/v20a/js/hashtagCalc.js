@@ -96,22 +96,22 @@ const calc = {
 			return this.sumValue;
 		},
 		divide: function(numValue1, numValue2) {
-			// normal divide fx
+			// normal divide
 			this.sumValue = numValue1 / numValue2;
 			return this.sumValue;
 		},
 		multiply: function(numValue1, numValue2) {
-			// normal mutliply fx
+			// normal mutliply
 			this.sumValue = numValue1 * numValue2;
 			return this.sumValue;
 		},
 		subtract: function(numValue1, numValue2) {
-			// normal subtract fx
+			// normal subtract
 			this.sumValue = numValue1 - numValue2;
 			return this.sumValue;
 		},
 		addition: function(numValue1, numValue2) {
-			// normal addition fx
+			// normal addition
 			this.sumValue = numValue1 + numValue2;
 			return this.sumValue;
 		},
@@ -256,16 +256,19 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#posNeg, #percent').click(function(event){
 
+
 		// entered something like, 3 % or 3 +/-
 		opValue = $(this).text();
 		debug.log('opValue:', opValue);
 
-		// so need to make sure numberValue value parsed into firstNumberValue
-		// there is no secondNumberValue, yet
-		firstNumberValue = parseFloat(numberValue, 10);
-		debug.log('firstNumberValue:' + firstNumberValue);
+		// if posNeg, have to wait for a number to entered
 
 		if ( opValue === '%' ) {
+
+			// so need to make sure numberValue value parsed into firstNumberValue
+			// there is no secondNumberValue, yet
+			firstNumberValue = parseFloat(numberValue, 10);
+			debug.log('firstNumberValue:' + firstNumberValue);
 
 			calcSum = calc.percent(numberOfValues, firstNumberValue);
 			// for calc.perecent function: one number value passed,
@@ -279,12 +282,17 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		} else if ( opValue === '+/-' ) {
 
-			calcSum = calc.posNeg(firstNumberValue);
-			posNeg = true;
+			// get numberValue entered
+			firstNumberValue = parseFloat(numberValue, 10);
+			// reset numberValue
 			numberValue = '';
-		  // result not read into calcSum, since this is part of larger math op
 
-		} // end if ( opValue..)
+			// most calculators, require pressing +/- first then a number
+		 	calcSum = calc.posNeg(firstNumberValue);
+		 	posNeg = true;
+		 	numberValue = '';
+
+	 }
 
 		ux.displayValue(calcSum);
 		debug.log('calcSum:' + calcSum);
@@ -301,7 +309,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			equals = true;
 		  // for debug purposes, what math op are we doing, show what the current opValue is
 			debug.log('opValue:' + opValue);
-
+			debug.log('opValue2:' + opValue2);
+			
 			// eval calcStatus, opValue and complete current math operation
 			calcEval.ops();
 			// reset opValue
@@ -318,17 +327,20 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
+		if (equals) {
 
-			if (equals) {
+				// after equals calculation, reset numberValue entry
 				numberValue = '';
 				equals = false;
-			} // after equals calculation, reset numberValue entry
 
-			// reading input as a stream into string, so that multiple digits value can be captured
-			numberValue += $(this).text();
-			// displaying value in calc .display element
-			ux.displayValue(numberValue);
-			debug.log('input stream..' + numberValue);
+		 }// end if ( opValue..)
+
+		 // reading input as a stream into string, so that multiple digits value can be captured
+		 numberValue += $(this).text();
+
+		 // displaying value in calc .display element
+		 ux.displayValue(numberValue);
+		 debug.log('input stream..' + numberValue);
 
 	});
 
@@ -351,10 +363,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 					calcStatus += 1;
 					debug.log('calcStatus: ' + calcStatus);
 
-			} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
+			} else if ( opValue === '+/-' || opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
 					// calcEval.ops();
-					// firstNumberValue = calcSum;
+					firstNumberValue = calcSum;
 					secondNumberValue = parseFloat(numberValue, 10);
 					numberValue = '';
 					debug.log('secondNumberValue:' + secondNumberValue);
@@ -369,16 +381,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				opValue = inputValue;
 				numberValue = '';
 				firstNumberValue = calcSum;
+				calcStatus += 1;
 				// calcEval.ops();
-				debug.log('firstNumberValue:' + firstNumberValue);
 				debug.log('opValue: ' + opValue);
 				debug.log('opValue2: ' + opValue2);
+				debug.log('firstNumberValue = calcSum: ' + calcSum);
 				debug.log('calcStatus: ' + calcStatus);
 
-			} else if ( opValue === '+/-') {
-
-				opValue = inputValue;
-				debug.log('opValue: ' + inputValue);
 			}
 
 		 // is calcStatus >= 1, then a calc has already been performed
