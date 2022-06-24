@@ -261,10 +261,31 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		// entered something like, 3 % or 3 +/-
 		opValue = $(this).text();
 		debug.log('opValue:', opValue);
+		secondNumberValue = 0;
+
 
 		// if posNeg, have to wait for a number to entered
 
-		if ( opValue === '%' ) {
+		if ( opValue === '%' && equals == true ) {
+
+			// so need to make sure numberValue value parsed into firstNumberValue
+			// there is no secondNumberValue, yet
+			firstNumberValue = calcSum;
+			debug.log('calcSum = firstNumberValue:' + firstNumberValue);
+
+			calcSum = calc.percent(numberOfValues, firstNumberValue);
+			// for calc.perecent function: one number value passed,
+					// simply divide firstNumberValue value by 100
+					// return result
+
+			numberOfValues = 0;  // or only 1 value that can be passed to object-method
+			percent = true;
+			numberValue = '';
+			equals = false;
+
+			// result not read into calcSum, since this is part of larger math op
+
+		} else if ( opValue === '%' ) {
 
 			// so need to make sure numberValue value parsed into firstNumberValue
 			// there is no secondNumberValue, yet
@@ -314,12 +335,16 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 			// eval calcStatus, opValue and complete current math operation
 			calcEval.ops();
-			// reset opValue
-			opValue = '';
+			// reset for new math operations
 
-			// get ready for another math operation
-			firstNumberValue = calcSum;
-			debug.log("calcSum = firstNumberValue: " + firstNumberValue)
+			numberValue = '';
+			debug.log('numberValue:' + numberValue);
+			opValue = '';
+			debug.log('opValue:' + opValue);
+			opValue2 = '';
+			debug.log('opValue2:' + opValue2);
+
+
 			// reset calcStatus
 			calcStatus = 0;
 			debug.log("reset calcStatus: " + calcStatus);
@@ -349,22 +374,42 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 			inputValue = $(this).text();
 			debug.log('input stream...' + inputValue);
-			equals = false;
 
 			// calcSum (how many numbers do we have)
 			// if 0 save numberValue to firstNumberValue
 			// if 1 save numberValue to secondNumberValue
 			// increment calcStatus, += 1
-			if (opValue === '' ) {
+			if ( equals == true && opValue === '' ) {
+
+					opValue = inputValue;
+					debug.log('opValue: ' + opValue);
+					firstNumberValue = calcSum;
+					debug.log('firstNumberValue:' + firstNumberValue);
+					calcStatus += 1;
+					debug.log('calcStatus: ' + calcStatus);
+					equals = false;
+
+			} else if (opValue === '' ) {
+
+					opValue = inputValue;
 					firstNumberValue = parseFloat(numberValue, 10);
 					debug.log('firstNumberValue:' + firstNumberValue);
 					numberValue = '';
-					opValue = inputValue;
 					debug.log('opValue: ' + opValue);
 					calcStatus += 1;
 					debug.log('calcStatus: ' + calcStatus);
 
-			} else if ( opValue === '+/-' || opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
+			} else if ( opValue === '+/-' ) {
+
+					opValue = inputValue;
+					firstNumberValue = calcSum;
+					debug.log('firstNumberValue:' + firstNumberValue);
+					numberValue = '';
+					debug.log('opValue: ' + opValue);
+					calcStatus += 1;
+					debug.log('calcStatus: ' + calcStatus);
+
+			} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
 					// calcEval.ops();
 					firstNumberValue = calcSum;
@@ -382,7 +427,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				opValue = inputValue;
 				numberValue = '';
 				firstNumberValue = calcSum;
-				calcStatus += 1;
+				// calcStatus += 1;
 				// calcEval.ops();
 				debug.log('opValue: ' + opValue);
 				debug.log('opValue2: ' + opValue2);
