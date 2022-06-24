@@ -189,29 +189,47 @@ const ux = {
 		any code needed to implement a working calculator user interface, UI,
 		so UX is how a UI should work, look and feel
 	*/
-  acToogle: true,
 
-  /*  acToogle to be used with toogleAllClear method ....
-
-	toogleAllClear: function (value) {
-        if (--- what condition to test ? ---- ) {
-          	$('#ac').html('<a id="clear">C</a><a id="ac" style="display: none;">AC</a>');
-        } else {
-            $('#ac').html('<a id="ac" style="display: none;">AC</a><a id="clear">C</a>');
-        }
-
-		},
-		// when a number is entered, change AC button to C
-		// when then when the C button is clicked, then change it back to an AC button
-
+	/* AC/Clear :
+		when number or operator pressed
+				number or operator now stored
+				change AC to Clear
+		when Clear pressed
+				clear last entry
+				change Clear to AC
+		when AC pressed
+				clear any stored entry, numbers or operators
 	*/
+
+	acShow: true,  // true until inital number or math op pressed, or when cleared all of current entry
+
+	acToogle: function () {
+
+	/*  shorthand method for getElementByID
+	 		must refer to first object in array
+			then normal html methods are accessible */
+
+				debug.log('run acToogle:' + this.acShow);
+
+				if ( this.acShow ) {
+					// then toogle C button to AC
+					$('#ac')[0].innerHTML = "AC";
+					debug.log('C change to AC:' + this.acShow);
+				} else {
+
+					// else toogle AC button to C
+						$('#ac')[0].innerHTML = "C";
+					debug.log('AC change to C:' + this.acShow);
+				}
+
+	},
 
 	displayValue: function (value) {
 
 			$('.display').html(
 				'<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
-		},  // display input and for initial input stop blinking
+	},  // display input and for initial input stop blinking
 
 	displayVersion: function (version) {
 		$('#version').html(version);
@@ -238,22 +256,41 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			allClear = $(this).text();
 			debug.log('AC clicked, reseting all values');
 
-			calcSum = calc.allClear();
-			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
-			calcStatus = 0;
-			debug.log('calcStatus:' + calcStatus);
-			numberValue = '';
-			debug.log('numberValue:' + numberValue);
-			opValue = '';
-			debug.log('opValue:' + opValue);
-			equals = false;
-			debug.log('equals:' + equals);
-			firstNumberValue = 0;
-			debug.log('firstNumberValue:' + firstNumberValue);
-			secondNumberValue = 0;
-			debug.log('secondNumberValue:' + secondNumberValue);
+			if ( allClear == 'C' ) {
 
+				if ( opValue ==! '' ) {
+					 inputValue = '';
+					 opValue = '';
+					 debug.log('opValue:' + opValue);
+				} else {
+					 inputValue = '';
+					 numberValue = '';
+					 debug.log('numberValue:' + numberValue);
+
+				}
+
+				ux.acShow = true;
+				ux.acToogle();
+
+			} else if ( allClear === 'AC') {
+
+				 calcSum = calc.allClear();
+				 ux.displayValue(calcSum);
+				 debug.log('calcSum:' + calcSum);
+				 calcStatus = 0;
+				 debug.log('calcStatus:' + calcStatus);
+				 numberValue = '';
+				 debug.log('numberValue:' + numberValue);
+				 opValue = '';
+				 debug.log('opValue:' + opValue);
+				 equals = false;
+				 debug.log('equals:' + equals);
+				 firstNumberValue = 0;
+				 debug.log('firstNumberValue:' + firstNumberValue);
+				 secondNumberValue = 0;
+				 debug.log('secondNumberValue:' + secondNumberValue);
+
+			 }
 	}); // end all-clear button event handler
 
 	$('#posNeg, #percent').click(function(event){
@@ -354,6 +391,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
+		ux.acShow = false;
+		ux.acToogle();
+
+
 		if (equals) {
 
 				// after equals calculation, reset numberValue entry
@@ -372,6 +413,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	}); // end numbers pressed event  handler
 
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
+
+			ux.acShow = false;
+			ux.acToogle();
 
 			inputValue = $(this).text();
 			debug.log('input stream...' + inputValue);
