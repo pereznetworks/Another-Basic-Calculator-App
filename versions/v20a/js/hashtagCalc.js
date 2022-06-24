@@ -208,7 +208,8 @@ const ux = {
 
 	displayValue: function (value) {
 
-			$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
+			$('.display').html(
+				'<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
 		},  // display input and for initial input stop blinking
 
@@ -310,7 +311,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		  // for debug purposes, what math op are we doing, show what the current opValue is
 			debug.log('opValue:' + opValue);
 			debug.log('opValue2:' + opValue2);
-			
+
 			// eval calcStatus, opValue and complete current math operation
 			calcEval.ops();
 			// reset opValue
