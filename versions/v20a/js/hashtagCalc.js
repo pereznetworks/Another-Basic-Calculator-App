@@ -253,7 +253,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			debug.log('firstNumberValue:' + firstNumberValue);
 			secondNumberValue = 0;
 			debug.log('secondNumberValue:' + secondNumberValue);
-	});
+
+	}); // end all-clear button event handler
 
 	$('#posNeg, #percent').click(function(event){
 
@@ -349,7 +350,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			calcStatus = 0;
 			debug.log("reset calcStatus: " + calcStatus);
 
-	});   // end equals button click event handler
+	}); // end equals button click event handler
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
@@ -368,7 +369,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		 ux.displayValue(numberValue);
 		 debug.log('input stream..' + numberValue);
 
-	});
+	}); // end numbers pressed event  handler
 
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
 
