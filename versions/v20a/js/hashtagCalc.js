@@ -13,7 +13,8 @@ let calcStatus = 0; // number of entered math-operators
 let numberValue = '';
 let firstNumberValue = 0;
 let secondNumberValue = 0;
-let numberOfValues = 0;  // number of values that are passed to a object-method
+let numberPressed = false;
+let opPressed = false;
 
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
@@ -254,18 +255,52 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	$('#ac').click(function(event){
 
 			allClear = $(this).text();
-			debug.log('AC clicked, reseting all values');
+
 
 			if ( allClear == 'C' ) {
 
-				if ( opValue ==! '' ) {
+				debug.log('C clicked, roll back to last entry');
+
+				if ( opPressed ) {
+
 					 inputValue = '';
 					 opValue = '';
 					 debug.log('opValue:' + opValue);
-				} else {
+					 debug.log('opValue:' + numberValue);
+
+				} else if ( numberPressed ){
+
 					 inputValue = '';
-					 numberValue = '';
-					 debug.log('numberValue:' + numberValue);
+					 firstNumberValue = initialValue;
+					 numberValue = firsrtNumberValue;
+					 secondNumberValue = 0;
+					 debug.log('firstNumberValue:' + firstNumberValue);
+					 debug.log('secondNumberValue:' + secondNumberValue);
+
+				} else { // if equals just pressed
+
+					calcSum = 0;
+					ux.displayValue(calcSum);
+					debug.log('calcSum:' + calcSum);
+					calcStatus = 0;
+					debug.log('calcStatus:' + calcStatus);
+					numberValue = '';
+					debug.log('numberValue:' + numberValue);
+					opValue = '';
+					debug.log('opValue:' + opValue);
+					equals = false;
+					debug.log('equals:' + equals);
+					numberPressed = false;
+					debug.log('numberPressed:' + numberPressed);
+					opPressed = false;
+					debug.log('opPressed:' + opPressed);
+					percent = false;
+					debug.log('percent:' + percent);
+					firstNumberValue = 0;
+					debug.log('firstNumberValue:' + firstNumberValue);
+					secondNumberValue = 0;
+					debug.log('secondNumberValue:' + secondNumberValue);
+
 
 				}
 
@@ -274,7 +309,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 			} else if ( allClear === 'AC') {
 
-				 calcSum = calc.allClear();
+				 debug.log('AC clicked, reseting all values');
+
+				 calcSum = 0;
 				 ux.displayValue(calcSum);
 				 debug.log('calcSum:' + calcSum);
 				 calcStatus = 0;
@@ -285,16 +322,26 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				 debug.log('opValue:' + opValue);
 				 equals = false;
 				 debug.log('equals:' + equals);
+				 numberPressed = false;
+				 debug.log('numberPressed:' + numberPressed);
+				 opPressed = false;
+				 debug.log('opPressed:' + opPressed);
+				 percent = false;
+				 debug.log('percent:' + percent);
 				 firstNumberValue = 0;
 				 debug.log('firstNumberValue:' + firstNumberValue);
 				 secondNumberValue = 0;
 				 debug.log('secondNumberValue:' + secondNumberValue);
+				 // TODO: storage of memory values cleared 
+				 debug.log("memory storage cleared ")
 
 			 }
 	}); // end all-clear button event handler
 
 	$('#posNeg, #percent').click(function(event){
 
+		numberPressed = false;
+		opPressed = true;
 
 		// entered something like, 3 % or 3 +/-
 		opValue = $(this).text();
@@ -391,6 +438,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
+		numberPressed = true;
+		opPressed = false;
+
 		ux.acShow = false;
 		ux.acToogle();
 
@@ -413,6 +463,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	}); // end numbers pressed event  handler
 
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
+
+			numberPressed = false;
+			opPressed = true;
 
 			ux.acShow = false;
 			ux.acToogle();
@@ -456,8 +509,11 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 			} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
-					// calcEval.ops();
-					firstNumberValue = calcSum;
+					// if just summed using equals
+					if (equals){
+						firstNumberValue = calcSum;
+					}
+
 					secondNumberValue = parseFloat(numberValue, 10);
 					numberValue = '';
 					debug.log('secondNumberValue:' + secondNumberValue);
@@ -491,7 +547,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
 				secondNumberValue = 0;
-			  calcStatus = 0;
+			  calcStatus -= 1;
 
 		} else if ( calcStatus >= 2 && opValue === '*' ) {
 
@@ -500,7 +556,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
 				secondNumberValue = 0;
-			  calcStatus = 0;
+			  calcStatus -= 1;
 
 		} else if ( calcStatus >= 2 && opValue === '-' ) {
 
@@ -509,7 +565,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
 				secondNumberValue = 0;
-			  calcStatus = 0;
+			  calcStatus -= 1;
 
 		} else if ( calcStatus >= 2 && opValue === '+' ) {
 
@@ -518,7 +574,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
 				secondNumberValue = 0;
-			  calcStatus = 0;
+			  calcStatus -= 1;
 
 		} // end if (calcStatus > 2)
 

@@ -19,12 +19,14 @@
 
   - Coming Features
 
+    - a backspace key
+
     - logging feature
       - internal storage of app status and values
       - "send to support" feature
-      
-    - a backspace key
 
+    - Memory functions
+    
     - show math feature
       - when enabled, if entering "3" "+" "3" "="
       - middle display line to show:                3 + 3
