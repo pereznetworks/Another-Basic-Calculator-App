@@ -13,9 +13,9 @@
       - .         : decimal, for entering a number with a decimal
       - =         : equals, or sum, of current math operations
 
-  - All Clear and Clear 
+  - All Clear and Clear
     - AC and C functions, works as standard calculator    
-      - no backspace key, not ready for large UI changes
+      - no separate backspace key, not ready for large UI changes yet
 
   - Coming Features
     - a backspace key
