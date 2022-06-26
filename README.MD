@@ -19,7 +19,22 @@
 
   - Coming Features
     - a backspace key
+
+    - show math feature
+      - when enabled, if entering "3" "+" "3" "="
+      - middle display line to show:                3 + 3
+      - when pressing =, bottom line to show :          6
+        - on 2nd calc, another number with 3rd operator
+          - top display line to show                   3 + 3
+          - middle display line to show:               6 * 3
+          - when pressing =, bottom line to show :        18
+
     - a show tape feature, a history of math operations
+      - a complete separate window,
+      - history of math and results
+      - uses available browser functionality
+        - like "send to" or "share", to print, msg or email
+
     - more modes with advanced calculator layout
 
   - MIT License
