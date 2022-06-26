@@ -18,6 +18,11 @@
       - no separate backspace key, not ready for large UI changes yet
 
   - Coming Features
+
+    - logging feature
+      - internal storage of app status and values
+      - "send to support" feature
+      
     - a backspace key
 
     - show math feature
