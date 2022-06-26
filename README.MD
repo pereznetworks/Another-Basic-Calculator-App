@@ -4,16 +4,18 @@
 
   -  Basic mode
     - will be Default Mode *(only mode for now =)*
-    - only Basic Math is expected
     - 1 line display, to show input of numbers
     - buttons and operation
-      - AC        : all clear
-      - *, /, + - : basic math:
+      - AC/AC      : all clear or clear
+      - *, /, + - : basic math: multiply, divide, add, subtract
       - %         : convert or work with percentages
       - -/+       : converting to a negative or positive number
-      - .         : decimal, for entering a number with a decimal: .
-      - =         : get a total of 1 or series of math operations
+      - .         : decimal, for entering a number with a decimal
+      - =         : equals, or sum, of current math operations
 
+  - All Clear and Clear 
+    - AC and C functions, works as standard calculator    
+      - no backspace key, not ready for large UI changes
 
   - Coming Features
     - a backspace key
@@ -45,7 +47,7 @@
     - posNeg math ops
       - when to use opValue
       - apply mathOp to correct numbers entered
-      
+
   - debugger
     - error logging and error handling
   - tape
