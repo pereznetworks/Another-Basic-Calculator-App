@@ -1,7 +1,7 @@
-//#Calc: calc.js v2.0a
+//#Calc: calc.js v2.1a
 
 let appStatus = 0;
-let version = 'v2.0a'
+let version = 'v2.1a'
 let allClear = '';
 let equals = false;
 let percent = false;
@@ -332,7 +332,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				 debug.log('firstNumberValue:' + firstNumberValue);
 				 secondNumberValue = 0;
 				 debug.log('secondNumberValue:' + secondNumberValue);
-				 // TODO: storage of memory values cleared 
+				 // TODO: storage of memory values cleared
 				 debug.log("memory storage cleared ")
 
 			 }
