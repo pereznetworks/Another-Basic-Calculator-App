@@ -82,14 +82,16 @@ const calcEval = {
 	}
 }
 
-/* Calc object with methods for basic math
-		divide, multiply, subtract, add, use decimals
-		input Negitave/Positive (-/+) values
-		convert active input value into Percent (%)
-
-		future : more math operations
-*/
+// actual math calculation happens here
 const calc = {
+
+	/* Calc object with methods for basic math
+			divide, multiply, subtract, add, use decimals
+			input Negitave/Positive (-/+) values
+			convert active input value into Percent (%)
+
+			future : more math operations
+	*/
 
 		sumValue: 0,
 		allClear: function() {
@@ -239,7 +241,7 @@ const ux = {
 
 } // end ux object
 
-// run code starts here
+// run code starts here, event listeners
 $(document).ready( function () {
 // waiting for html document to load
 
@@ -582,4 +584,4 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 }); // end ready function
 
-// see CalcProject.txt for more developer notes
+// see readme for more developer notes

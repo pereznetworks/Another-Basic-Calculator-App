@@ -1,8 +1,19 @@
-# #Calc, (HashtagCalc)
+# #Calc, (HashtagCalc)  
 
-## A Calculator
+  - a Calculator app
+
+    - Goals
+      - demo front end, updated UI features
+      - demo use of efficient app data and logic
+      - demo use of backend build environment
+      - demo use of CMS
+
+## version 2.0a
+
+  - Goal : get the app working, to a reasonable degree
 
   -  Basic mode
+
     - will be Default Mode *(only mode for now =)*
     - 1 line display, to show input of numbers
     - buttons and operation
@@ -14,10 +25,29 @@
       - =         : equals, or sum, of current math operations
 
   - All Clear and Clear
+
     - AC and C functions, works as standard calculator    
       - no separate backspace key, not ready for large UI changes yet
 
-  - Coming Features
+   - Clear method bug, clears current entry and last number Value also
+
+   - other issues: fixing hampered to due complicated with app logic
+
+## version 2.1a
+
+  - Goal : simplify app logic
+
+    - simplify and create better app logic
+
+    - finish all-clear/clear functionality
+
+    - setup basis for additional features
+
+## version 3.0a
+
+  - Goal : implement at least 2 "coming features"
+
+## Coming Features
 
     - a backspace key
 
@@ -26,7 +56,7 @@
       - "send to support" feature
 
     - Memory functions
-    
+
     - show math feature
       - when enabled, if entering "3" "+" "3" "="
       - middle display line to show:                3 + 3
