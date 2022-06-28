@@ -24,18 +24,25 @@
       - .         : decimal, for entering a number with a decimal
       - =         : equals, or sum, of current math operations
 
-  - All Clear and Clear
+## version 2.1a
+
+  - Goal :
+
+    - implement new app data model
+
+    - All Clear and Clear
 
     - AC and C functions, works as standard calculator    
       - no separate backspace key, not ready for large UI changes yet
 
-   - Clear method bug, clears current entry and last number Value also
+      - Clear method, clears current entry, restores initial numberValue
 
-   - other issues: fixing hampered to due complicated with app logic
+      - fix other issues: fixing hampered to due complicated with app logic
 
-## version 2.1a
 
-  - Goal : simplify app logic
+## Version 2.2a
+
+  - Goal : with new app data model simplify app logic
 
     - simplify and create better app logic
 
