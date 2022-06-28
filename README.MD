@@ -6,7 +6,7 @@
       - demo front end, updated UI features
       - demo use of efficient app data and logic
       - demo use of backend build environment
-      - demo use of CMS
+      - demo use of CI/CD
 
 ## version 2.0a
 
