@@ -5,6 +5,7 @@ let version = 'v2.0a'
 let allClear = '';
 let equals = false;
 let percent = false;
+let initialValue = 0;
 let inputValue = '';
 let opValue2 = '';
 let opValue = '';
@@ -233,7 +234,8 @@ const ux = {
 	},  // display input and for initial input stop blinking
 
 	displayVersion: function (version) {
-		$('#version').html(version);
+		$('#version').html('#Calc ' + version);
+		$('title').html('#Calc ' + version)
 
 	}
 
@@ -272,7 +274,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 					 inputValue = '';
 					 firstNumberValue = initialValue;
-					 numberValue = firsrtNumberValue;
+					 numberValue = firstNumberValue;
 					 secondNumberValue = 0;
 					 debug.log('firstNumberValue:' + firstNumberValue);
 					 debug.log('secondNumberValue:' + secondNumberValue);
@@ -332,7 +334,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				 debug.log('firstNumberValue:' + firstNumberValue);
 				 secondNumberValue = 0;
 				 debug.log('secondNumberValue:' + secondNumberValue);
-				 // TODO: storage of memory values cleared 
+				 // TODO: storage of memory values cleared
 				 debug.log("memory storage cleared ")
 
 			 }
