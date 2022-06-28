@@ -1,10 +1,11 @@
-//#Calc: calc.js v2.1a
+//#Calc: calc.js v2.0a
 
 let appStatus = 0;
 let version = 'v2.1a'
 let allClear = '';
 let equals = false;
 let percent = false;
+let initialValue = 0;
 let inputValue = '';
 let opValue2 = '';
 let opValue = '';
@@ -82,16 +83,14 @@ const calcEval = {
 	}
 }
 
-// actual math calculation happens here
+/* Calc object with methods for basic math
+		divide, multiply, subtract, add, use decimals
+		input Negitave/Positive (-/+) values
+		convert active input value into Percent (%)
+
+		future : more math operations
+*/
 const calc = {
-
-	/* Calc object with methods for basic math
-			divide, multiply, subtract, add, use decimals
-			input Negitave/Positive (-/+) values
-			convert active input value into Percent (%)
-
-			future : more math operations
-	*/
 
 		sumValue: 0,
 		allClear: function() {
@@ -235,13 +234,14 @@ const ux = {
 	},  // display input and for initial input stop blinking
 
 	displayVersion: function (version) {
-		$('#version').html(version);
+		$('#version').html('#Calc ' + version);
+		$('title').html('#Calc ' + version)
 
 	}
 
 } // end ux object
 
-// run code starts here, event listeners
+// run code starts here
 $(document).ready( function () {
 // waiting for html document to load
 
@@ -274,7 +274,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 					 inputValue = '';
 					 firstNumberValue = initialValue;
-					 numberValue = firsrtNumberValue;
+					 numberValue = firstNumberValue;
 					 secondNumberValue = 0;
 					 debug.log('firstNumberValue:' + firstNumberValue);
 					 debug.log('secondNumberValue:' + secondNumberValue);
@@ -584,4 +584,4 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 }); // end ready function
 
-// see readme for more developer notes
+// see CalcProject.txt for more developer notes
