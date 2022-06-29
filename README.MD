@@ -96,15 +96,15 @@
 
 ### TODO
 
-  - current bug
+  - fix things that work intermittently
+    - clear
     - multiple math ops
-      - when to use opValue2
-    - posNeg math ops
-      - when to use opValue
-      - apply mathOp to correct numbers entered
+
+  - better data model and app logic
 
   - debugger
     - error logging and error handling
+
   - tape
     - history of input and math results
 
