@@ -1,0 +1,169 @@
+/* layout changes...*/
+
+/* moved position, top, left, right and width from #quote-box to .container
+    elements with-in .container div, including #loadQuote button,
+    keep position and spacing relative to each other
+    and so appear to move when width and hieght of web page adjusted */
+
+/* since as background-color is set to random colors
+   font color of elements changed to black so text is more readible and reduce "neon" affect
+
+/* added styling for the quote object's tag element */
+
+/* added meta tag name=viewport RWD, to index.html
+   and tweeked styling for mobile devices using @media (max-width: 420px)  */
+
+body {
+  text-align: center;
+  background-color:#800080;
+  color: black;
+  font-family: 'Playfair Display', serif;
+}
+
+.container{
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+}
+#quote-box {
+  line-height: .5;
+}
+.quote {
+  text-align: left;
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  position: relative;
+  margin: 0;
+  }
+.quote:before, .quote:after {
+  font-size: 6rem;
+  line-height: 2.5rem;
+  position: absolute;
+}
+.quote:before {
+  content: "“";
+  top: .25em;
+  left: -.5em;
+}
+.quote:after {
+  content: "”";
+  bottom: -.1em;
+  margin-left: .1em;
+  position: absolute;
+}
+.source:before {
+  content: "—";
+}
+.source {
+  line-height: 1.5rem;
+  text-align: right;
+  font-size: 1rem;
+}
+
+.citation  {
+  font-style: italic;
+  line-height: 1.5rem;
+  text-align: right;
+  font-size: 1rem;
+}
+.citation:before {
+  content: ", ";
+  font-style: normal;
+}
+.year:before {
+  content: ", ";
+  font-style: normal;
+}
+.tag{
+  font-size: 1em;
+  text-align: right;
+  margin-right: 4em;
+  font-style: normal;
+  position: relative;
+  margin: 0;
+}
+.tag:before{
+  content: "category: ";
+}
+#controlButtons {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+}
+#loadQuote {
+  width: 12em;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  margin-left: 6em;
+  margin: 1em;
+  bottom: 150px;
+  border-radius: 4px;
+  border: 2px solid black;
+  color: #fff;
+  background-color: #36b55c;
+  padding: 15px;
+  transition: .5s ;
+}
+#loadQuote:hover {
+  background-color: #808080/*rgba(255,255,255,.25)*/;
+}
+#loadQuote:focus {
+  outline: none;
+}
+
+@media (max-width: 420px) {
+  .container{
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    right: 5%;
+  }
+  .quote {
+    text-align: left;
+    font-size: 2.5rem;
+  }
+  .quote:before, .quote:after {
+    font-size: 1rem;
+    line-height: 1rem;
+    position: absolute;
+  }
+  .quote:before {
+    content: "“";
+    top: .25em;
+    left: -.5em;
+  }
+  .quote:after {
+    content: "”";
+    bottom: -.1em;
+    margin-left: .1em;
+    position: absolute;
+  }
+  .source {
+    line-height: 1rem;
+    text-align: right;
+    font-size: 1rem;
+  }
+
+  .citation  {
+    line-height: 1rem;
+    text-align: right;
+    font-size: 1rem;
+  }
+
+  .tag{
+    font-size: 1em;
+    line-height: 1em;
+    text-align: right;
+    margin-right: 4em;
+    font-style: normal;
+    position: relative;
+    margin: 0;
+  }
+
+}
