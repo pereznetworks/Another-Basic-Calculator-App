@@ -6,6 +6,7 @@
 */
 
 /* also, refactor for JS ES6 or newer if available ...
+
     already const and let instead of var
     already using function expression in object-methods
     need to re-check for best practice
