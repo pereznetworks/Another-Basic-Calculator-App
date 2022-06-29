@@ -35,7 +35,7 @@
 
     - setup basis for additional features
 
-    - [see devNotes](/Users/danielperez/SoftwareDevelopment/Github/A-Calculator/devNotes/MajorCodeChange-InputObjectArray.txt)
+    - [see devNotes](./devNotes/MajorCodeChange-InputObjectArray.md)
 
 ## version 3.0a
 
