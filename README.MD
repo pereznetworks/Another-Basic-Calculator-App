@@ -3,25 +3,33 @@
 
 ## a Calculator app   
 
-![Calculator version 2.0a](./devNotes/20a-screenshot.jpg)
+<table border="0">
+ <tr>
+    <td style="font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
+ </tr>
+ <tr>
+    <td> Basic Math </td>
+    <td rowspan="4" > <image src="./devNotes/20a-screenshot.jpg"> </td>
+ </tr>
+ <tr>
+    <td> Standard Display </td>
+ </tr>
+    <td> real calculator UX feel </td>
+ </tr>
+ <tr>
+    <td> more to come .. </td>
+ </tr>
+</table>
+
+
 
 ## version 2.0a
 
-  - Goal : get the app working, to a reasonable degree
+  - Milestone :
 
-  - (currently has bugs)
+    - got the app working, to a reasonable degree
 
-  -  Basic mode
-
-    - will be Default Mode *(only mode for now =)*
-    - 1 line display, to show input of numbers
-    - buttons and operation
-      - AC/AC      : all clear or clear
-      - *, /, + - : basic math: multiply, divide, add, subtract
-      - %         : convert or work with percentages
-      - -/+       : converting to a negative or positive number
-      - .         : decimal, for entering a number with a decimal
-      - =         : equals, or sum, of current math operations
+      - but, does currently has a few bugs
 
 ## version 2.1a
 
