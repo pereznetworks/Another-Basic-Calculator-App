@@ -9,6 +9,8 @@
 
   - Goal : get the app working, to a reasonable degree
 
+  - (currently has bugs)
+
   -  Basic mode
 
     - will be Default Mode *(only mode for now =)*
@@ -20,8 +22,6 @@
       - -/+       : converting to a negative or positive number
       - .         : decimal, for entering a number with a decimal
       - =         : equals, or sum, of current math operations
-
-  - All Clear and Clear (currently has bugs)
 
 ## version 2.1a
 
