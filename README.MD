@@ -29,7 +29,7 @@
 
     - got the app working, to a reasonable degree
 
-      - but, does currently has a few bugs
+      - but, does currently have a few bugs
 
 ## version 2.1a
 
