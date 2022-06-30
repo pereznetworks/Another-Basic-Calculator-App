@@ -43,8 +43,6 @@
 
     - setup basis for additional features
 
-    - [see devNotes](./devNotes/MajorCodeChange-InputObjectArray.md)
-
 ## version 3.0a
 
   - Goal : implement at least 2 "coming features"
