@@ -17,7 +17,7 @@
     <td> real calculator UX feel </td>
  </tr>
  <tr>
-    <td> more to come .. </td>
+    <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.0a</a></td>
  </tr>
 </table>
 
