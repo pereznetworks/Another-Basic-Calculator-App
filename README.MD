@@ -8,17 +8,17 @@
     <td style="font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
  </tr>
  <tr>
-    <td> Basic Math </td>
+    <td> basic math </td>
     <td rowspan="5" > <image src="./images/20a-screenshot.jpg"> </td>
  </tr>
  <tr>
-    <td> Standard Display </td>
+    <td> standard display </td>
  </tr>
  <tr>
     <td> real calculator UX feel </td>
  </tr>
  <tr>
-    <td> MIT License </td>
+    <td> MIT license </td>
  </tr>
  <tr>
     <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.0a</a></td>
