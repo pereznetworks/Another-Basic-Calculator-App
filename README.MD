@@ -9,7 +9,7 @@
  </tr>
  <tr>
     <td> Basic Math </td>
-    <td rowspan="4" > <image src="./images/20a-screenshot.jpg"> </td>
+    <td rowspan="5" > <image src="./images/20a-screenshot.jpg"> </td>
  </tr>
  <tr>
     <td> Standard Display </td>
