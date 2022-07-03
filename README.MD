@@ -14,7 +14,11 @@
  <tr>
     <td> Standard Display </td>
  </tr>
+ <tr>
     <td> real calculator UX feel </td>
+ </tr>
+ <tr>
+    <td> MIT License </td>
  </tr>
  <tr>
     <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.0a</a></td>
@@ -82,8 +86,6 @@
       - like "send to" or "share", to print, msg or email
 
   - more modes with advanced calculator layout
-
-  - MIT License
 
 ## Current Version 2.0a
 
