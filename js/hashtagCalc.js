@@ -41,18 +41,22 @@ const calcEval = {
 	  // do math, get and save calcSum
 		if ( opValue === '/' ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
+				calcSum = mathSettings.setDecimals(calcSum);
 				ux.displayValue(calcSum);
 				debug.log("calcSum:" + calcSum);
 		} else if ( opValue === '*' ) {
 				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
+				calcSum = mathSettings.setDecimals(calcSum);
 				ux.displayValue(calcSum);
 				debug.log("calcSum:" + calcSum);
 		} else if ( opValue === '-' ) {
 				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
+				calcSum = mathSettings.setDecimals(calcSum);
 				ux.displayValue(calcSum);
 				debug.log("calcSum:" + calcSum);
 		} else if ( opValue === '+' ) {
 				calcSum = calc.addition(firstNumberValue, secondNumberValue);
+				calcSum = mathSettings.setDecimals(calcSum);
 				ux.displayValue(calcSum);
 				debug.log("calcSum:" + calcSum);
 		}
@@ -99,12 +103,21 @@ const calc = {
 		this.sumValue = numValue1 * -1;
 		return this.sumValue;
 	},
-	equals: function() {
+	equals: function() {				
 		return this.sumValue;
 	}
 }
 
+const mathSettings = {
+	
+	numDecimals: 2, // set number of decimals to display
+	trailingZeros: false,  // by default, don't display trailing zeros
 
+	setDecimals: function(value) {
+		debug.log('value:' + value);
+		return value.toFixed(mathSettings.numDecimals);
+	}
+}
 const tape = {
 	// add methods for showing history of calculations, a tape
 	showTape: false,
@@ -143,6 +156,14 @@ const ux = {
 	},
 
 	displayValue: function (value) {
+
+
+		// if (mathSettings.trailingZeros) { // if true 
+		// 	value.toFix(mathSettings.numDecimals);
+		// } else { // if not true, which will be the default 
+		// 	value.toPrecision(mathSettings.numDecimals);
+		// }
+
 		$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
 	},
