@@ -29,7 +29,14 @@
 
     - got the app working, to a reasonable degree
 
-      - but, does currently have a few bugs
+      - working out a few bugs, but sticking with normal basic used by others
+
+        - most calculators only do math to 14 decimal places 
+
+        - don't display trailing zeros
+
+        - decimals displayed when entered                  
+
 
 ## version 2.1a
 
