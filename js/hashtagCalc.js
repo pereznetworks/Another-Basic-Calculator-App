@@ -20,10 +20,11 @@ let opPressed = false;
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 	ops: function () {
-		if ( opValue === '' ) {  // this is the very first operator entered
+		if ( opValue === '' ) {  // this usually when very number is entered
 			firstNumberValue = parseFloat(numberValue, 10);
 			debug.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
+			// in case someone, tries something like, 3 +
 			ux.displayValue(calcSum);
 			debug.log("calcSum:" + calcSum);
 		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  // entered something like, + 3 = or 3 + 4 =
@@ -41,26 +42,26 @@ const calcEval = {
 	  // do math, get and save calcSum
 		if ( opValue === '/' ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
-				calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '*' ) {
 				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-				calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '-' ) {
 				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-				calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '+' ) {
 				calcSum = calc.addition(firstNumberValue, secondNumberValue);
-				calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		}
+	},
+
+	afterMath : function (valueToFix ) {
+
+		let fixedValue = mathSettings.setDecimals(valueToFix);
+		ux.displayValue(fixedValue);
+		debug.log("calcSum:" + fixedValue);
 	}
+
 }
 
 // math happens here
@@ -110,12 +111,12 @@ const calc = {
 
 const mathSettings = {
 	
-	numDecimals: 2, // set number of decimals to display
+	numDecimals: 14, // the max number of significant decimals to display
 	trailingZeros: false,  // by default, don't display trailing zeros
 
 	setDecimals: function(value) {
 		debug.log('value:' + value);
-		return value.toFixed(mathSettings.numDecimals);
+		return parseFloat(value.toFixed(mathSettings.numDecimals));
 	}
 }
 const tape = {
