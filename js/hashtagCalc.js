@@ -20,10 +20,11 @@ let opPressed = false;
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 	ops: function () {
-		if ( opValue === '' ) {  // this is the very first operator entered
+		if ( opValue === '' ) {  // this usually when very number is entered
 			firstNumberValue = parseFloat(numberValue, 10);
 			debug.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
+			// in case someone, tries something like, 3 +
 			ux.displayValue(calcSum);
 			debug.log("calcSum:" + calcSum);
 		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  // entered something like, + 3 = or 3 + 4 =
@@ -41,22 +42,26 @@ const calcEval = {
 	  // do math, get and save calcSum
 		if ( opValue === '/' ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '*' ) {
 				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '-' ) {
 				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		} else if ( opValue === '+' ) {
 				calcSum = calc.addition(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log("calcSum:" + calcSum);
+				this.afterMath(calcSum)
 		}
+	},
+
+	afterMath : function (valueToFix ) {
+
+		let fixedValue = mathSettings.setDecimals(valueToFix);
+		ux.displayValue(fixedValue);
+		debug.log("calcSum:" + fixedValue);
 	}
+
 }
 
 // math happens here
@@ -99,12 +104,21 @@ const calc = {
 		this.sumValue = numValue1 * -1;
 		return this.sumValue;
 	},
-	equals: function() {
+	equals: function() {				
 		return this.sumValue;
 	}
 }
 
+const mathSettings = {
+	
+	numDecimals: 14, // the max number of significant decimals to display
+	trailingZeros: false,  // by default, don't display trailing zeros
 
+	setDecimals: function(value) {
+		debug.log('value:' + value);
+		return parseFloat(value.toFixed(mathSettings.numDecimals));
+	}
+}
 const tape = {
 	// add methods for showing history of calculations, a tape
 	showTape: false,
@@ -143,6 +157,14 @@ const ux = {
 	},
 
 	displayValue: function (value) {
+
+
+		// if (mathSettings.trailingZeros) { // if true 
+		// 	value.toFix(mathSettings.numDecimals);
+		// } else { // if not true, which will be the default 
+		// 	value.toPrecision(mathSettings.numDecimals);
+		// }
+
 		$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
 	},
