@@ -22,6 +22,15 @@
 </table>
 
 
+## Branches 
+
+- Master branch will have the offical release version, currently 2.0a
+
+- Branches will be for implementing new math code, or new ux features 
+
+- Will eventually have a Branch for Devices platforms, Android, Apple, 
+
+- Another Branch for Bootstrap or React UX version 
 
 ## version 2.0a
 
@@ -29,13 +38,13 @@
 
     - got the app working, to a reasonable degree
 
-      - working out a few bugs, but sticking with normal basic used by others
+      - working out a few bugs, by sticking with basics used by others
 
         - most calculators only do math to 14 decimal places 
 
         - don't display trailing zeros
 
-        - decimals displayed when entered                  
+        - decimals displayed and operated on when entered                  
 
 
 ## version 2.1a
