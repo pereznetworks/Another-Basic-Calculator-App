@@ -158,13 +158,6 @@ const ux = {
 
 	displayValue: function (value) {
 
-
-		// if (mathSettings.trailingZeros) { // if true 
-		// 	value.toFix(mathSettings.numDecimals);
-		// } else { // if not true, which will be the default 
-		// 	value.toPrecision(mathSettings.numDecimals);
-		// }
-
 		$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
 
 	},
