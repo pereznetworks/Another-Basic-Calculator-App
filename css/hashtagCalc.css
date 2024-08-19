@@ -62,9 +62,9 @@ footer {
 
 }
 
-#calculator {}
+/* #calculator {}
 
-#total {}
+#total {} */
 
 #input, #input1, #input2 {
     background-color: black;
@@ -215,9 +215,9 @@ a {
 
   }
 
-  #calculator {}
+  /* #calculator {}
 
-  #total {}
+  #total {} */
 
   .input {
       background-color: black;
