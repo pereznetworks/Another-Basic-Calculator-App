@@ -158,7 +158,7 @@ const ux = {
 
 	displayValue: function (value) {
 
-		$('.display').html('<input type="text" id="input1" class="input" placeholder=""></input><input type="text" id="inputNoBlink" class="input" value="' + value + '"></input><input type="text" id="input2" class="input" placeholder=""></input>');
+		$('#input').removeClass('inputBlink').text(value);
 
 	},
 
