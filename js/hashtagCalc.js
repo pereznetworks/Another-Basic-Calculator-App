@@ -298,7 +298,15 @@ $('#ac').click(function(event){
 
 	 }
 
-		ux.displayValue(calcSum);
+		if(isNaN(calcSum)) {
+			let setToZero = 0
+			ux.displayValue(setToZero);
+			firstNumberValue = setToZero;
+			calcStatus = 0;
+		} else {
+			ux.displayValue(calcSum);
+		}
+			
 		debug.log('calcSum:' + calcSum);
 		calcStatus += 1;
 		firstNumberValue = calcSum;
@@ -389,7 +397,7 @@ $('#ac').click(function(event){
 					debug.log('firstNumberValue:' + firstNumberValue);
 					numberValue = '';
 					debug.log('opValue: ' + opValue);
-					calcStatus += 1;
+					// calcStatus += 1; just toggling +/- so no calcStatus change 
 					debug.log('calcStatus: ' + calcStatus);
 
 			} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
