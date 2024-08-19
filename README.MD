@@ -42,7 +42,7 @@
       
       - For example, most use the %, as percent. So divide value by 100.
 
-      - AC, C and Decimnals and equals, =, buttons.
+      - AC, C and Decimals and equals, =, buttons.
 
       - As on a handle-held calcaulator, at first, a blinking zero indicates the calcutor is ready for input
 
