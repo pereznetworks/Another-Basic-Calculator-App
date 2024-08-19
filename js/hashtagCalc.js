@@ -116,7 +116,10 @@ const mathSettings = {
 
 	setDecimals: function(value) {
 		debug.log('value:' + value);
-		return parseFloat(value.toFixed(mathSettings.numDecimals));
+		return parseFloat(value.toPrecision(mathSettings.numDecimals));
+		// toFixed allows for more decimals
+		// for basic math, need to reduce number of digits 
+		// other modes, like scientific or accounting, will reconsider 
 	}
 }
 const tape = {
