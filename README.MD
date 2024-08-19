@@ -36,15 +36,27 @@
 
   - Milestone :
 
-    - got the app working, to a reasonable degree
+    - The app demonstrates the basics of most calculators 
 
-      - working out a few bugs, by sticking with basics used by others
+      - Basic Math: positive and negative numbers, add, substract, divide, multiply
+      
+      - For example, most use the %, as percent. So divide value by 100.
+
+      - AC, C and Decimnals and equals, =, buttons.
+
+      - As on a handle-held calcaulator, at first, a blinking zero indicates the calcutor is ready for input
+
+    - I got the app working, to a reasonable degree
+
+      -  Future versions will have scientific and accounting modes
+  
+    - I am working out a few bugs, by sticking with basics used by others
 
         - most calculators only do math to 14 decimal places 
 
         - don't display trailing zeros
 
-        - decimals displayed and operated on when entered                  
+        - decimals displayed and operated on when entered
 
 
 ## version 2.1a
