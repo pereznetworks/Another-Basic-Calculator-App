@@ -5,7 +5,7 @@
 
 <table border="0">
  <tr>
-    <td style="font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
+    <td style="margin:1em;font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
  </tr>
  <tr>
     <td> Basic Math </td>
@@ -61,8 +61,14 @@
 
 ## version 2.1a
 
-  - Goal :
+  - Goal : implement same UX with React-Bootstrap 
 
+## version 3.0a
+
+  - Goal : 
+  
+    - implement at least 2 "coming features"
+    
     - implement new app data model
 
     - simplify and create better app logic
@@ -70,10 +76,6 @@
     - finish all-clear/clear functionality
 
     - setup basis for additional features
-
-## version 3.0a
-
-  - Goal : implement at least 2 "coming features"
 
 ## Coming Features
 
