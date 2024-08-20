@@ -61,8 +61,14 @@
 
 ## version 2.1a
 
-  - Goal :
+  - Goal : implement same UX with React-Bootstrap 
 
+## version 3.0a
+
+  - Goal : 
+  
+    - implement at least 2 "coming features"
+    
     - implement new app data model
 
     - simplify and create better app logic
@@ -70,10 +76,6 @@
     - finish all-clear/clear functionality
 
     - setup basis for additional features
-
-## version 3.0a
-
-  - Goal : implement at least 2 "coming features"
 
 ## Coming Features
 
