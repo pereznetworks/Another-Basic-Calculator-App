@@ -318,7 +318,7 @@ a {
 
 #version {
       color: black;
-      margin: auto;
+      margin: 1em;
       text-indent: 0;
       text-align: center;
       font-size: 18px;
