@@ -225,10 +225,10 @@ a {
       width: 320px;
       height: 26px;
       color: white;
-      margin: 0;
+      margin: .5em 0 .5em 0;
       text-indent: 0;
       text-align: right;
-      font-size: 18px;
+      font-size: 2.5em;
       border-radius: 5px 5px 0px 0px;
       }
 
