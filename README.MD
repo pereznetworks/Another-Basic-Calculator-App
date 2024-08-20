@@ -5,7 +5,7 @@
 
 <table border="0">
  <tr>
-    <td style="font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
+    <td style="margin:1em;font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
  </tr>
  <tr>
     <td> Basic Math </td>
