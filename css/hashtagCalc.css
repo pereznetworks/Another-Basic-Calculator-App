@@ -69,8 +69,8 @@ footer {
 #input {
     background-color: black;
     border: 1px solid black;
-    width: 320px;
-    height: 26px;
+    width: 100%;
+    height: 50%;
     color: white;
     margin: .5em 0 .5em 0;
     text-indent: 0;
@@ -222,8 +222,8 @@ a {
   .input {
       background-color: black;
       border: 1px solid black;
-      width: 320px;
-      height: 26px;
+      width: 100%;
+      height: 50%;
       color: white;
       margin: .5em 0 .5em 0;
       text-indent: 0;
