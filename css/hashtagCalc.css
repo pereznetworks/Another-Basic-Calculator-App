@@ -219,38 +219,26 @@ a {
 
   #total {} */
 
-  .input {
-      background-color: black;
-      border: 1px solid black;
-      width: 100%;
-      height: 50%;
-      color: white;
-      margin: .5em 0 .5em 0;
-      text-indent: 0;
-      text-align: right;
-      font-size: 2.5em;
-      border-radius: 5px 5px 0px 0px;
-      }
-
   #input {
-      animation: blink_me 1s infinite;
-      -webkit-animation-timing-function: linear;
-      animation-name: blink_me 1s infinite;
-      animation-timing-function: linear;
-  }
+    background-color: black;
+    border: 1px solid black;
+    width: 100%;
+    height: 50%;
+    color: white;
+    margin: .5em 0 .5em 0;
+    text-indent: 0;
+    text-align: right;
+    font-size: 2.5em;
+    border-radius: 5px 5px 0px 0px;
+    }
 
-  #inputNoBlink {
-      background-color: black;
-      border: 1px solid black;
-      width: 320px;
-      height: 26px;
-      color: white;
-      padding: 5px;
-      margin: 0;
-      text-align: right;
-      font-size: 18px;
-      border-radius: 5px 5px 0px 0px;
-  }
+.inputBlink{
+    animation: blink_me 1s infinite;
+    -webkit-animation: blink_me 1s infinite;
+    -webkit-animation-timing-function: linear;
+    animation-name: blink_me;
+    animation-timing-function: linear;
+}
 
   @-webkit-keyframes blink_me {
       100% { opacity: 1; }
