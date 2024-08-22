@@ -10,7 +10,7 @@ let opValue2 = '';
 let opValue = '';
 let calcSum = 0;
 let calcStatus = 0;
-let numberValue = '';
+let numberValue = 0;
 let numberOfValues = 0;
 let firstNumberValue = 0;
 let secondNumberValue = 0;
@@ -19,6 +19,15 @@ let opPressed = false;
 
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
+
+	isValueANum: function (value) {
+		let setToZero =0
+		if (isNaN(value)){
+			value = setToZero;
+		}
+		return value
+	},
+
 	ops: function () {
 		if ( opValue === '' ) {  // this usually when very number is entered
 			firstNumberValue = parseFloat(numberValue, 10);
@@ -38,6 +47,12 @@ const calcEval = {
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
 		}
+
+	  // make sure value are numvers 
+	  firstNumberValue = this.isValueANum(firstNumberValue);
+	  debug.log('firstNumberValue: ' + firstNumberValue);
+	  secondNumberValue = this.isValueANum(secondNumberValue);
+	  debug.log('secondNumberValue: ' + secondNumberValue);
 
 	  // do math, get and save calcSum
 		if ( opValue === '/' ) {
@@ -162,6 +177,7 @@ const ux = {
 	displayValue: function (value) {
 
 		$('#input').removeClass('inputBlink').text(value);
+		debug.log('displaying value ' + value);
 
 	},
 
@@ -305,6 +321,7 @@ $('#ac').click(function(event){
 			let setToZero = 0
 			ux.displayValue(setToZero);
 			firstNumberValue = setToZero;
+			secondNumberValue = setToZero;
 			calcStatus = 0;
 		} else {
 			ux.displayValue(calcSum);
