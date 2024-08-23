@@ -50,6 +50,8 @@
 
         - decimals displayed and operated on when entered
 
+        - test for NaN
+
 
 ## version 2.1a
 
