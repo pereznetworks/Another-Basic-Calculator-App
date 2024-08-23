@@ -42,7 +42,7 @@
 
       -  Future versions will have scientific and accounting modes
   
-    - I am working out a few bugs, by sticking with basics used by others
+    - Worked out a few bugs, by sticking with basics 
 
         - most calculators only do math to 14 decimal places 
 
