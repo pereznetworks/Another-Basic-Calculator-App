@@ -22,15 +22,7 @@
 </table>
 
 
-## Branches 
-
-- Master branch will have the offical release version, currently 2.0a
-
-- Branches will be for implementing new math code, or new ux features 
-
-- Will eventually have a Branch for Devices platforms, Android, Apple, 
-
-- Another Branch for Bootstrap or React UX version 
+## Status
 
 ## version 2.0a
 
