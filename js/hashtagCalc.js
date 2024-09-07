@@ -29,7 +29,7 @@ const calcEval = {
 	},
 
 	ops: function () {
-		if ( opValue === '' ) {  // this usually when very number is entered
+		if ( opValue === '' ) {  // this usually when very first number is entered
 			firstNumberValue = parseFloat(numberValue, 10);
 			debug.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
@@ -372,10 +372,17 @@ $('#ac').click(function(event){
 				equals = false;
 		 }
 
+
 		 // read value entered and display it
-		 numberValue += $(this).text();
-		 ux.displayValue(numberValue);
-		 debug.log('input stream..' + numberValue);
+		 if (numberValue == null) {
+			numberValue = $(this).text();
+			ux.displayValue(numberValue);
+			debug.log('input stream..' + numberValue);
+		 } else {
+			numberValue += $(this).text();
+			ux.displayValue(numberValue);
+			debug.log('input stream..' + numberValue);
+		 }
 
 	});
 
