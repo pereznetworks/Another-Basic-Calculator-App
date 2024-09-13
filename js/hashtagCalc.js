@@ -374,7 +374,7 @@ $('#ac').click(function(event){
 
 
 		 // read value entered and display it
-		 if (numberValue == null) {
+		 if (numberValue == 0) {
 			numberValue = $(this).text();
 			ux.displayValue(numberValue);
 			debug.log('input stream..' + numberValue);
