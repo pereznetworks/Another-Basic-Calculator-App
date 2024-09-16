@@ -75,8 +75,11 @@ const calcEval = {
 		let fixedValue = mathSettings.setDecimals(valueToFix);
 		ux.displayValue(fixedValue);
 		debug.log("calcSum:" + fixedValue);
-	}
+	},
 
+	buttonPressed : function (event){
+		document.getElementById(this).addClass("whenButtonPressed");
+	}
 }
 
 // math happens here
@@ -360,6 +363,7 @@ $('#ac').click(function(event){
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
+
 		numberPressed = true;
 		opPressed = false;
 		ux.acShow = false;
@@ -378,10 +382,14 @@ $('#ac').click(function(event){
 			numberValue = $(this).text();
 			ux.displayValue(numberValue);
 			debug.log('input stream..' + numberValue);
+			debug.log('this..' + this);
+			debug.log('this.text..' + this.text);
 		 } else {
 			numberValue += $(this).text();
 			ux.displayValue(numberValue);
 			debug.log('input stream..' + numberValue);
+			debug.log('this..' + this);
+			debug.log('this.text..' + this.text);
 		 }
 
 	});
