@@ -129,7 +129,8 @@ const calc = {
 
 const mathSettings = {
 	
-	numDecimals: 14, // the max number of significant decimals to display
+	maxNumDecimals: 14, // the max number of significant decimals to display
+	numDecimals: 2,
 	trailingZeros: false,  // by default, don't display trailing zeros
 
 	setDecimals: function(value) {
@@ -179,8 +180,10 @@ const ux = {
 
 	displayValue: function (value) {
 
+		// let safeValue= mathSettings.setDecimals(2);
 		$('#input').removeClass('inputBlink').text(value);
 		debug.log('displaying value ' + value);
+		// debug.log('displaying value ' + safeValue);
 
 	},
 
@@ -378,7 +381,7 @@ $('#ac').click(function(event){
 
 
 		 // read value entered and display it
-		 if (numberValue == 0) {
+		 if (numberPressed != true && numberValue == 0) {
 			numberValue = $(this).text();
 			ux.displayValue(numberValue);
 			debug.log('input stream..' + numberValue);
