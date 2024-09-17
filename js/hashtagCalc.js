@@ -450,6 +450,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	$('#posNeg, #percent').click(function(event){
 
 			numberValue = parseFloat(inputValue);
+			inputValue = '';
 			numberPressed = false;
 			opPressed = true;
 			opValue = $(this).text();
