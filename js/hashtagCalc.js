@@ -203,32 +203,25 @@ const ux = {
 
 	handleOpPressed: function (event) {
 		
-        
 		// setup for various math, based on previous operator entered
 
-		numberPressed = false;
-		opPressed = true;
 		ux.acShow = false;
 		ux.acToogle();
 		debug.log('calcStatus: ' + calcStatus);
 
-		if ( equals == true && opValue === '' ) {
+		if ( equals && calcStatus == 3) {
+
+			debug.log('secondNumberValue:' + secondNumberValue);
+			debug.log('firstNumberValue:' + firstNumberValue);
 
 			debug.log('opValue: ' + opValue);
+			debug.log('opPressesd:' + opPressed);
+			debug.log('calcStatus:' + opPressed);
+			
 			firstNumberValue = calcSum;
 			debug.log('firstNumberValue:' + firstNumberValue);
-			calcStatus += 1;
 			debug.log('calcStatus: ' + calcStatus);
 			equals = false;
-
-	    } else if (opValue === '' ) {
-
-			firstNumberValue = parseFloat(numberValue, 10);
-			debug.log('firstNumberValue:' + firstNumberValue);
-			numberValue = '';
-			debug.log('opValue: ' + opValue);
-			calcStatus += 1;
-			debug.log('calcStatus: ' + calcStatus);
 
         } else if ( opValue === '+/-' ) {
 
@@ -236,36 +229,42 @@ const ux = {
 			debug.log('firstNumberValue:' + firstNumberValue);
 			numberValue = '';
 			debug.log('opValue: ' + opValue);
-			// calcStatus += 1; just toggling +/- so no calcStatus change 
 			debug.log('calcStatus: ' + calcStatus);
 
 	    } else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
-			// if just summed using equals
+			
 			if (calcStatus == 1) {
 
 				debug.log('numberValue:' + numberValue);
-
 				firstNumberValue = parseFloat(numberValue, 10);
 				debug.log('firstNumberValue:' + firstNumberValue);
 				numberValue = '';
 
-				debug.log('opValue: ' + opValue);
-				debug.log('calcStatus: ' + calcStatus);
-
-			} else if (calcStatus >= 2) {
-				
-				debug.log('numberValue:' + numberValue);
-
+				debug.log('secondNumberValue:' + secondNumberValue);
 				debug.log('firstNumberValue:' + firstNumberValue);
-
+	
+				debug.log('opValue: ' + opValue);
+				debug.log('opPressesd:' + opPressed);
+				debug.log('calcStatus:' + opPressed);
+				
+			} else if (calcStatus > 1) {
+				
+				debug.log('input stream...' + inputValue);
+				debug.log('numberValue:' + numberValue)
 				secondNumberValue = parseFloat(numberValue, 10);
 				debug.log('secondNumberValue:' + secondNumberValue);
 				numberValue = '';
 
+				debug.log('secondNumberValue:' + secondNumberValue);
+				debug.log('firstNumberValue:' + firstNumberValue);
+	
+
+				debug.log('opPressesd:' + opPressed);
 				debug.log('opValue: ' + opValue);
 				debug.log('opValue2: ' + opValue2);
-
+				debug.log('calcStatus:' + opPressed);
+				
 
 			}
 
@@ -282,45 +281,75 @@ const ux = {
 			debug.log('calcStatus: ' + calcStatus);
 
     	}
-
+        
 		// if there are 2 values entered, which math operator
-		if ( calcStatus > 1 && opValue === '/' ) {
+		if ( numberPressed && calcStatus > 1 && opValue === '/' ) {
 
-				calcSum = calc.divide(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
-				firstNumberValue = calcSum;
-				secondNumberValue = 0;
-				calcStatus -= 1;
-
-		} else if ( calcStatus > 1 && opValue === '*' ) {
+			calcSum = calc.divide(firstNumberValue, secondNumberValue);
 
 			debug.log('secondNumberValue:' + secondNumberValue);
 			debug.log('firstNumberValue:' + firstNumberValue);
-				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
-				firstNumberValue = calcSum;
-				secondNumberValue = 0;
-				calcStatus -= 1;
+			debug.log('opPressesd:' + opPressed);
+			debug.log('calcStatus:' + calcStatus);
+			debug.log('calcSum:' + calcSum);
 
-		} else if ( calcStatus > 1 && opValue === '-' ) {
+			ux.displayValue(calcSum);
+			debug.log('calcSum:' + calcSum);
+			firstNumberValue = calcSum;
+			secondNumberValue = 0;
+			calcStatus = 3;
+			opPressed = false;
 
-				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
-				firstNumberValue = calcSum;
-				secondNumberValue = 0;
-				calcStatus -= 1;
+		} else if ( numberPressed && calcStatus > 1 && opValue === '*' ) {
 
-		} else if ( calcStatus > 1 && opValue === '+' ) {
+			calcSum = calc.multiply(firstNumberValue, secondNumberValue);
+			debug.log('secondNumberValue:' + secondNumberValue);
+			debug.log('firstNumberValue:' + firstNumberValue);
+			debug.log('opPressesd:' + opPressed);
+			debug.log('calcStatus:' + opPressed);
+			debug.log('calcSum:' + calcSum);
 
-				calcSum = calc.addition(firstNumberValue, secondNumberValue);
-				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
-				firstNumberValue = calcSum;
-				secondNumberValue = 0;
-				calcStatus -= 1;
+			debug.log('calcSum:' + calcSum);
+			ux.displayValue(calcSum);
+			debug.log('calcSum:' + calcSum);
+			firstNumberValue = calcSum;
+			secondNumberValue = 0;
+			calcStatus = 3;
+			opPressed = false;
+
+		} else if ( numberPressed && calcStatus > 1 && opValue === '-' ) {
+
+			calcSum = calc.subtract(firstNumberValue, secondNumberValue);
+
+			debug.log('secondNumberValue:' + secondNumberValue);
+			debug.log('firstNumberValue:' + firstNumberValue);
+			debug.log('opPressesd:' + opPressed);
+			debug.log('calcStatus:' + opPressed);
+			debug.log('calcSum:' + calcSum);
+
+			ux.displayValue(calcSum);
+			debug.log('calcSum:' + calcSum);
+			firstNumberValue = calcSum;
+			secondNumberValue = 0;
+			calcStatus = 3;
+			opPressed = false;
+
+		} else if ( numberPressed && calcStatus > 1 && opValue === '+' ) {
+
+			calcSum = calc.addition(firstNumberValue, secondNumberValue);
+
+			debug.log('secondNumberValue:' + secondNumberValue);
+			debug.log('firstNumberValue:' + firstNumberValue);
+			debug.log('opPressesd:' + opPressed);
+			debug.log('calcStatus:' + opPressed);
+			debug.log('calcSum:' + calcSum);
+
+			ux.displayValue(calcSum);
+			debug.log('calcSum:' + calcSum);
+			firstNumberValue = calcSum;
+			secondNumberValue = 0;
+			calcStatus = 3;
+			opPressed = false;
 
 		}
 	}
@@ -468,7 +497,6 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			}
 				
 			debug.log('calcSum:' + calcSum);
-			calcStatus += 1;
 			firstNumberValue = calcSum;
 			debug.log('firstNumberValue: ' + firstNumberValue);
 
@@ -476,33 +504,30 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#equals').click(function(event){
 
-				equals = true;
-				calcStatus += 1;
-				opValue2 = '=';
+		debug.log('equals pressed');
+		equals = true;
+		opValue2 = '=';
+		calcStatus++
 
-				debug.log('equals:' + equals);
-				debug.log('calcStatus:' + calcStatus)
-				
-				debug.log('opValue:' + opValue);
+		numberValue = parseFloat(inputValue);
+		debug.log('input stream.. ' + inputValue);
+		debug.log('numberValue ' + numberValue);
 
-				debug.log('opValue2:' + opValue2);
+		// eval all numeric entry and operators and do math
+		if (calcStatus == 3) {
+		  calcEval.ops()	
+		} else {
+			ux.handleOpPressed(event);	
+		}
+		
 
-				debug.log('input stream...' + inputValue);
-				numberValue = parseFloat(inputValue);
-
-			    // eval all numeric entry and operators and do math
-				ux.handleOpPressed(event);
-
-				// calcEval.ops();			
 
 	}); // end equals 
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
-            // read value entered and display it
-			
+            // read value 
 			numberPressed = true;
-			opPressed = false;
 			ux.acShow = false;
 			ux.acToogle();     
 
@@ -510,15 +535,22 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			ux.displayValue(inputValue);
 
 			debug.log('input stream..' + inputValue);
-			debug.log('this.text..' + $(this).text());
+			debug.log('this.text..' + $(this).text());			  
 
 	}); // end listner for nums pressed
 	
 	$('#divide').click(function(event) {
 
 		debug.log('input stream...' + inputValue);
+
 		numberValue = parseFloat(inputValue);
-		calcStatus += 1;
+
+        if (equals) {
+			calcStatus = 3;
+		} else {
+			calcStatus++;
+		}
+        opPressed = true;
 		numberPressed = false;
 		opValue = '/'
 		inputValue = '';
@@ -533,7 +565,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		
 		debug.log('input stream...' + inputValue);
 		numberValue = parseFloat(inputValue);
-		calcStatus += 1;
+	
+		if (equals) {
+			calcStatus = 3;
+		} else {
+			calcStatus++;
+		}
+        opPressed = true;
 		opValue = '*'
 		inputValue = '';
 		debug.log('input stream...' + inputValue);
@@ -547,7 +585,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		
 		debug.log('input stream...' + inputValue);
 		numberValue = parseFloat(inputValue);
-		calcStatus += 1;
+		
+		if (equals) {
+			calcStatus = 3;
+		} else {
+			calcStatus++;
+		}
+        opPressed = true;
 		opValue = '-'
 		inputValue = '';
 		debug.log('input stream...' + inputValue);
@@ -561,7 +605,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		
 		debug.log('input stream...' + inputValue);
 		numberValue = parseFloat(inputValue);
-		calcStatus += 1;
+		
+		if (equals) {
+			calcStatus = 3;
+		} else {
+			calcStatus++;
+		}
+        opPressed = true;
 		opValue = '+'
 		inputValue = '';
 		debug.log('input stream...' + opValue);
