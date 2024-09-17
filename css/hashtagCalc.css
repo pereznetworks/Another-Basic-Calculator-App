@@ -133,9 +133,10 @@
       cursor: pointer;
   }
   
-  #operaters a::after, #numbers a::after  {
+  #operaters a::before, #numbers a::before  {
     background: linear-gradient(#EDEDED, #808080);
     border: .5px solid #707075;
+    transition: 5ms;
   }
 
 
@@ -232,7 +233,7 @@
         background-color: #808080;
     }
   
-    #operators a {
+    #operators a, #numbers a  {
         float: left;
         display: block;
         width: 70px;
@@ -249,31 +250,15 @@
         border-radius: 10px;
     }
   
-    #numbers a {
-        float: left;
-        display: block;
-        width: 70px;
-        height: 70px;
-        padding: 6px;
-        margin: 6px 6px;
-        text-align: center;
-        color: black;
-        font-size: 40px;
-        background: linear-gradient(#EDEDED, #808080);
-        background: linear-gradient(linear, left top, left bottom, from(#EDEDED), to(#808080));
-        border: .5px solid #707075;
-        border-radius: 10px;
-    }
-  
     a {
         cursor: pointer;
     }
-    #numbers a:hover {
-       background: linear-gradient(#808080, #EDEDED);
-    }
-    #operators a:hover {
-      background: linear-gradient(#808080, #EDEDED);
-    }
+
+    #operaters a::before, #numbers a::before  {
+        background: linear-gradient(#EDEDED, #808080);
+        border: .5px solid #707075;
+        transition: 5ms;
+      }
   
   #numbers > #zero {
       float: left;
