@@ -483,7 +483,6 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				numberValue = '';
 				calcSum = calc.posNeg(firstNumberValue);
 				posNeg = true;
-				numberValue = '';
 
 		}
 
@@ -494,7 +493,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				secondNumberValue = setToZero;
 				calcStatus = 0;
 			} else {
-				calcSum = mathSettings.setDecimals(calcSum);
+				// calcSum = mathSettings.setDecimals(calcSum);
 				ux.displayValue(calcSum);
 			}
 				
