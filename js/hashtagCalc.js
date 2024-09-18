@@ -28,47 +28,74 @@ const calcEval = {
 		return value
 	},
 
+	runningTotalDoMath: function () {
+
+		// make sure value are numbers 
+		firstNumberValue = this.isValueANum(firstNumberValue);
+		debug.log('firstNumberValue: ' + firstNumberValue);
+		secondNumberValue = this.isValueANum(secondNumberValue);
+		debug.log('secondNumberValue: ' + secondNumberValue);
+
+		// do math, get and save calcSum
+		if ( opValue === '/' && secondNumberValue != 0 ) {
+				calcSum = calc.divide(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				debug.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '*' && secondNumberValue != 0 ) {
+				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				debug.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '-' && secondNumberValue != 0  ) {
+				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				debug.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '+' && secondNumberValue != 0 ) {
+				calcSum = calc.addition(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2; 
+				debug.log("calcStatus: " + calcStatus);	
+		}
+
+
+	},
+
 	ops: function () {
+		// entered : 3 = 
+	    // or : + 3 = 
+		// or starting running total like : 6 + 4 = 10 + 3 = 
+
 		if ( opValue === '' ) {  // this usually when very first number is entered
+			
 			firstNumberValue = parseFloat(numberValue, 10);
 			debug.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 			// in case someone, tries something like, 3 +
 			ux.displayValue(calcSum);
 			debug.log("calcSum:" + calcSum);
-		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  // entered something like, + 3 = or 3 + 4 =
+			//so display value entered, no math actually happens
+
+		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  
+			// entered something like, + 3 = or 3 + 4 =
+			
+			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(numberValue, 10);
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
+			this.runningTotalDoMath();
+
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
+			
 			firstNumberValue = calcSum;
 			debug.log('firstNumberValue: ' + firstNumberValue);
 			secondNumberValue = parseFloat(numberValue, 10);
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
+			this.runningTotalDoMath();
+
 		}
-
-	  // make sure value are numvers 
-	  firstNumberValue = this.isValueANum(firstNumberValue);
-	  debug.log('firstNumberValue: ' + firstNumberValue);
-	  secondNumberValue = this.isValueANum(secondNumberValue);
-	  debug.log('secondNumberValue: ' + secondNumberValue);
-
-	  // do math, get and save calcSum
-		if ( opValue === '/' ) {
-				calcSum = calc.divide(firstNumberValue, secondNumberValue);
-				this.afterMath(calcSum)
-		} else if ( opValue === '*' ) {
-				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-				this.afterMath(calcSum)
-		} else if ( opValue === '-' ) {
-				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-				this.afterMath(calcSum)
-		} else if ( opValue === '+' ) {
-				calcSum = calc.addition(firstNumberValue, secondNumberValue);
-				this.afterMath(calcSum)
-		}
-
 
 	},
 
@@ -80,13 +107,12 @@ const calcEval = {
 
 		// reset for new math operations
 		numberValue = '';
-		debug.log('numberValue:' + numberValue);
-		opValue = '';
-		debug.log('opValue:' + opValue);
-		opValue2 = '';
-		debug.log('opValue2:' + opValue2);
-		calcStatus = 0;
-		debug.log("reset calcStatus: " + calcStatus);	
+		// debug.log('numberValue:' + numberValue);
+		// opValue = '';
+		// debug.log('opValue:' + opValue);
+		// opValue2 = '';
+		// debug.log('opValue2:' + opValue2);
+
 	},
 
 }
@@ -295,6 +321,8 @@ const ux = {
 
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
@@ -312,6 +340,8 @@ const ux = {
 			debug.log('calcSum:' + calcSum);
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
@@ -329,6 +359,8 @@ const ux = {
 
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
@@ -346,6 +378,8 @@ const ux = {
 
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
@@ -527,97 +561,118 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
-            // read value 
-			numberPressed = true;
-			ux.acShow = false;
-			ux.acToogle();     
-
+		// read value 
+		numberPressed = true;
+		ux.acShow = false;
+		ux.acToogle();     
+        
+		if ( equals ) {
+			inputValue = $(this).text();
+			ux.displayValue(inputValue);
+		} else {
 			inputValue += $(this).text();
 			ux.displayValue(inputValue);
+		}
 
-			debug.log('input stream..' + inputValue);
-			debug.log('this.text..' + $(this).text());			  
+
+		debug.log('input stream..' + inputValue);
+		debug.log('this.text..' + $(this).text());			  
 
 	}); // end listner for nums pressed
 	
 	$('#divide').click(function(event) {
 
-		debug.log('input stream...' + inputValue);
-
-		numberValue = parseFloat(inputValue);
-
-        if (equals) {
-			calcStatus = 3;
-		} else {
-			calcStatus++;
-		}
-        opPressed = true;
-		numberPressed = false;
+		calcStatus++;
+		opPressed = true;
 		opValue = '/'
-		inputValue = '';
-		debug.log('input stream...' + inputValue);
+		
+		if (equals && calcSum != 0) {
 
-		ux.handleOpPressed(event);
+			debug.log('opValue' + opValue);
+			calcStatus = 3;
+			calcEval.ops();
+
+		} else {
+			if ( !percent || !posNeg ) {
+				debug.log('input stream...' + inputValue);
+				numberValue = parseFloat(inputValue);
+				inputValue = '';
+
+    		ux.handleOpPressed(event);
+			}
+		}
 
 	}); // end listner for divide 
 
 	$('#multiply').click(function(event) {
 
-		
-		debug.log('input stream...' + inputValue);
-		numberValue = parseFloat(inputValue);
-	
-		if (equals) {
-			calcStatus = 3;
-		} else {
-			calcStatus++;
-		}
-        opPressed = true;
+		calcStatus++;
+		opPressed = true;
 		opValue = '*'
-		inputValue = '';
-		debug.log('input stream...' + inputValue);
+		
+		if (equals && calcSum != 0) {
 
-		ux.handleOpPressed(event);
+			calcStatus = 3;
+			calcEval.ops();
+
+		} else {
+			
+			if ( !percent || !posNeg ) {
+				debug.log('input stream...' + inputValue);
+				numberValue = parseFloat(inputValue);
+				inputValue = '';
+			}
+
+    		ux.handleOpPressed(event);
+		}
 
 	}); // end listner for mulitply
 
 	$('#subtract').click(function(event) {
 
+		calcStatus++;
+		opPressed = true;
+		opValue = '-' 
 		
-		debug.log('input stream...' + inputValue);
-		numberValue = parseFloat(inputValue);
-		
-		if (equals) {
-			calcStatus = 3;
-		} else {
-			calcStatus++;
-		}
-        opPressed = true;
-		opValue = '-'
-		inputValue = '';
-		debug.log('input stream...' + inputValue);
+		 if (equals && calcSum != 0) {
 
-		ux.handleOpPressed(event);
+			calcStatus = 3;
+			calcEval.ops();	
+
+		} else {
+
+			if ( !percent || !posNeg ) {
+				debug.log('input stream...' + inputValue);
+				numberValue = parseFloat(inputValue);
+				inputValue = '';
+			}
+
+    		ux.handleOpPressed(event);
+		}
 
 	}); // end listner for subtract
 
 	$('#add').click(function(event) {
 
-		
-		debug.log('input stream...' + inputValue);
-		numberValue = parseFloat(inputValue);
-		
-		if (equals) {
-			calcStatus = 3;
-		} else {
-			calcStatus++;
-		}
-        opPressed = true;
+		calcStatus++;
+		opPressed = true;
 		opValue = '+'
-		inputValue = '';
-		debug.log('input stream...' + opValue);
+		 
+		 if (equals && calcSum != 0) {
 
-		ux.handleOpPressed(event);
+			calcStatus = 3;
+			calcEval.ops();
+
+		} else {
+
+			if ( !percent || !posNeg ) {
+				debug.log('input stream...' + inputValue);
+				numberValue = parseFloat(inputValue);
+				inputValue = '';
+			}
+
+    		ux.handleOpPressed(event);
+		}
 
 	}); // end listner for add
 });
