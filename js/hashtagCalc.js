@@ -597,8 +597,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('input stream...' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
-
-    		ux.handleOpPressed(event);
+				ux.handleOpPressed(event);
 			}
 		}
 
@@ -621,9 +620,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('input stream...' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
-			}
+				ux.handleOpPressed(event);
+			} 
 
-    		ux.handleOpPressed(event);
+    	
 		}
 
 	}); // end listner for mulitply
@@ -645,9 +645,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('input stream...' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
+				ux.handleOpPressed(event);
 			}
 
-    		ux.handleOpPressed(event);
+    		
 		}
 
 	}); // end listner for subtract
@@ -669,9 +670,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('input stream...' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
+				ux.handleOpPressed(event);
 			}
 
-    		ux.handleOpPressed(event);
+    		
 		}
 
 	}); // end listner for add
