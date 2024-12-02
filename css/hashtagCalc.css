@@ -41,25 +41,20 @@
     margin-right: 10px;
   }
   
-  /* Create three unequal columns that floats next to each other */
+  /* portrait layout, create 1 column with buttons float left, */
+ 
+  .row {  }
+
   .column {
       float: left;
-      padding: 5px;
-      margin: 0;
-      height: 510px; /* Should be removed. Only for demonstration */
+      margin: 4%;
+      height: 100%; 
   }
   
-  /* Left and right column */
+  /* 1 column */
   .column.left {
-      width: 75%;
+      width: 96%;
       border-radius: 0px 0px 0px 5px;
-  }
-  
-  /* Right column */
-  .column.right {
-      width: 25%;
-      border-radius: 0px 0px 5px 0px;
-  
   }
   
   /* #calculator {}
@@ -104,7 +99,6 @@
   }
   
   #operators, #numbers {
-      margin: 0px;
       background-color: #808080;
   }
   
@@ -171,26 +165,21 @@
       margin-right: 5px;
     }
   
-    /* Create three unequal columns that floats next to each other */
+ /* portrait layout, create 1 column with buttons float left, */
+ 
     .column {
         float: left;
-        padding: 2.5px;
-        margin: 0;
-        height: 400px; /* Should be removed. Only for demonstration */
+        margin: 4%;
+        height: 100%; 
+        
     }
   
-    /* Left and right column */
+    /* 1 column */
     .column.left {
-        width: 75%;
+        width: 96%;
         border-radius: 0px 0px 0px 5px;
     }
   
-    /* Middle column */
-    .column.right {
-        width: 25%;
-        border-radius: 0px 0px 5px 0px;
-  
-    }
   
     /* #calculator {}
   
@@ -229,7 +218,6 @@
     }
   
     #operators, #numbers {
-        margin: 0px;
         background-color: #808080;
     }
   
