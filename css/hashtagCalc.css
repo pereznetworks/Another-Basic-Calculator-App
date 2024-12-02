@@ -42,8 +42,6 @@
   }
   
   /* portrait layout, create 1 column with buttons float left, */
- 
-  .row {  }
 
   .column {
       float: left;
