@@ -242,12 +242,14 @@ const ux = {
 
 			debug.log('opValue: ' + opValue);
 			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + opPressed);
+			debug.log('calcStatus:' + calcStatus);
 			
 			firstNumberValue = calcSum;
 			debug.log('firstNumberValue:' + firstNumberValue);
 			debug.log('calcStatus: ' + calcStatus);
 			equals = false;
+			ux.acShow = true;
+			ux.acToogle();
 
         } else if ( opValue === '+/-' ) {
 
@@ -272,7 +274,7 @@ const ux = {
 	
 				debug.log('opValue: ' + opValue);
 				debug.log('opPressesd:' + opPressed);
-				debug.log('calcStatus:' + opPressed);
+				debug.log('calcStatus:' + calcStatus);
 				
 			} else if (calcStatus > 1) {
 				
@@ -289,7 +291,7 @@ const ux = {
 				debug.log('opPressesd:' + opPressed);
 				debug.log('opValue: ' + opValue);
 				debug.log('opValue2: ' + opValue2);
-				debug.log('calcStatus:' + opPressed);
+				debug.log('calcStatus:' + calcStatus);
 				
 
 			}
@@ -322,6 +324,9 @@ const ux = {
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
 
+			ux.acShow = true;
+			ux.acToogle();
+
 			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
@@ -334,12 +339,16 @@ const ux = {
 			debug.log('secondNumberValue:' + secondNumberValue);
 			debug.log('firstNumberValue:' + firstNumberValue);
 			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + opPressed);
+			debug.log('calcStatus:' + calcStatus);
 			debug.log('calcSum:' + calcSum);
 
 			debug.log('calcSum:' + calcSum);
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+
+			ux.acShow = true;
+			ux.acToogle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -354,11 +363,15 @@ const ux = {
 			debug.log('secondNumberValue:' + secondNumberValue);
 			debug.log('firstNumberValue:' + firstNumberValue);
 			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + opPressed);
+			debug.log('calcStatus:' + calcStatus);
 			debug.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
 			debug.log('calcSum:' + calcSum);
+
+
+			ux.acShow = true;
+			ux.acToogle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -373,7 +386,7 @@ const ux = {
 			debug.log('secondNumberValue:' + secondNumberValue);
 			debug.log('firstNumberValue:' + firstNumberValue);
 			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + opPressed);
+			debug.log('calcStatus:' + calcStatus);
 			debug.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
@@ -408,31 +421,40 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			debug.log('C clicked, roll back to last entry');
 
 			if ( opPressed ) {
-
-				inputValue = '';
 				opValue = '';
+				opPressed = false;
+				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
+				inputValue = firstNumberValue;
 				debug.log('opValue:' + opValue);
-				debug.log('opValue:' + numberValue);
+				debug.log('calcstatus:' + calcStatus);
+				debug.log('inputValue:' + inputValue);
+				debug.log('numberValue:' + numberValue);
+				debug.log('firstNumberValue:' + firstNumberValue);
 			} else if ( numberPressed ){
 
 				inputValue = '';
 				firstNumberValue = initialValue;
 				numberValue = firstNumberValue;
 				secondNumberValue = 0;
+				ux.displayValue(initialValue);
 				debug.log('firstNumberValue:' + firstNumberValue);
 				debug.log('secondNumberValue:' + secondNumberValue);
 
 			} else { // if equals just pressed
+
 
 				calcSum = 0;
 				ux.displayValue(calcSum);
 				debug.log('calcSum:' + calcSum);
 				calcStatus = 0;
 				debug.log('calcStatus:' + calcStatus);
+				inputValue = initialValue;
 				numberValue = '';
 				debug.log('numberValue:' + numberValue);
 				opValue = '';
 				debug.log('opValue:' + opValue);
+				opValue2 = '';
+				debug.log('opValue:' + opValue2);
 				equals = false;
 				debug.log('equals:' + equals);
 				numberPressed = false;
@@ -445,6 +467,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('firstNumberValue:' + firstNumberValue);
 				secondNumberValue = 0;
 				debug.log('secondNumberValue:' + secondNumberValue);
+				// TODO: storage of memory values cleared
+				debug.log("memory storage cleared ")
 			}
 
 			ux.acShow = true;
@@ -459,6 +483,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			debug.log('calcSum:' + calcSum);
 			calcStatus = 0;
 			debug.log('calcStatus:' + calcStatus);
+			inputValue = '';
 			numberValue = '';
 			debug.log('numberValue:' + numberValue);
 			opValue = '';
