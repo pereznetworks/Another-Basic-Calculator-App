@@ -617,6 +617,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		opValue = $(this).text()
 		debug.log('opValue' + opValue);
 		calcStatus++;
+		firstentry = true;
 		
 		if (equals && calcSum != 0) {
 
