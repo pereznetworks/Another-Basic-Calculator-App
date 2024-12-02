@@ -5,6 +5,7 @@ let allClear = '';
 let equals = false;
 let percent = false;
 let initialValue = 0;
+let firstentry = true;
 let inputValue = null;
 let opValue2 = '';
 let opValue = '';
@@ -592,7 +593,11 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		ux.acShow = false;
 		ux.acToogle();     
         
-		if ( equals ) {
+		if (firstentry) {
+			inputValue = $(this).text();
+			ux.displayValue(inputValue);
+			firstentry = false;
+		} else if ( equals ) {
 			inputValue = $(this).text();
 			ux.displayValue(inputValue);
 		} else {
