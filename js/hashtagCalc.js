@@ -5,7 +5,7 @@ let allClear = '';
 let equals = false;
 let percent = false;
 let initialValue = 0;
-let inputValue = '';
+let inputValue = null;
 let opValue2 = '';
 let opValue = '';
 let calcSum = 0;
@@ -424,12 +424,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				opValue = '';
 				opPressed = false;
 				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
-				inputValue = firstNumberValue;
+				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
 				debug.log('opValue:' + opValue);
 				debug.log('calcstatus:' + calcStatus);
 				debug.log('inputValue:' + inputValue);
 				debug.log('numberValue:' + numberValue);
 				debug.log('firstNumberValue:' + firstNumberValue);
+
 			} else if ( numberPressed ){
 
 				inputValue = '';
@@ -605,11 +606,12 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	}); // end listner for nums pressed
 	
-	$('#divide').click(function(event) {
+	$('#divide, #multiply, #subtract, #add').click(function(event) {
 
-		calcStatus++;
 		opPressed = true;
-		opValue = '/'
+		opValue = $(this).text()
+		debug.log('opValue' + opValue);
+		calcStatus++;
 		
 		if (equals && calcSum != 0) {
 
@@ -620,86 +622,13 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		} else {
 			if ( !percent || !posNeg ) {
 				debug.log('input stream...' + inputValue);
-				numberValue = parseFloat(inputValue);
-				inputValue = '';
+				inputValue === null ? numberValue = 0 : numberValue = parseFloat(inputValue);
+				debug.log('numberValue...' + numberValue);
+				inputValue = null;
 				ux.handleOpPressed(event);
 			}
 		}
 
-	}); // end listner for divide 
+	}); // end listner for basic math ops
 
-	$('#multiply').click(function(event) {
-
-		calcStatus++;
-		opPressed = true;
-		opValue = '*'
-		
-		if (equals && calcSum != 0) {
-
-			calcStatus = 3;
-			calcEval.ops();
-
-		} else {
-			
-			if ( !percent || !posNeg ) {
-				debug.log('input stream...' + inputValue);
-				numberValue = parseFloat(inputValue);
-				inputValue = '';
-				ux.handleOpPressed(event);
-			} 
-
-    	
-		}
-
-	}); // end listner for mulitply
-
-	$('#subtract').click(function(event) {
-
-		calcStatus++;
-		opPressed = true;
-		opValue = '-' 
-		
-		 if (equals && calcSum != 0) {
-
-			calcStatus = 3;
-			calcEval.ops();	
-
-		} else {
-
-			if ( !percent || !posNeg ) {
-				debug.log('input stream...' + inputValue);
-				numberValue = parseFloat(inputValue);
-				inputValue = '';
-				ux.handleOpPressed(event);
-			}
-
-    		
-		}
-
-	}); // end listner for subtract
-
-	$('#add').click(function(event) {
-
-		calcStatus++;
-		opPressed = true;
-		opValue = '+'
-		 
-		 if (equals && calcSum != 0) {
-
-			calcStatus = 3;
-			calcEval.ops();
-
-		} else {
-
-			if ( !percent || !posNeg ) {
-				debug.log('input stream...' + inputValue);
-				numberValue = parseFloat(inputValue);
-				inputValue = '';
-				ux.handleOpPressed(event);
-			}
-
-    		
-		}
-
-	}); // end listner for add
-});
+}); // end $(document).ready
