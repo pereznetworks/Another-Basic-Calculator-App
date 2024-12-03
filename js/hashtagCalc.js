@@ -84,9 +84,11 @@ const calcEval = {
 			// entered something like, + 3 = or 3 + 4 =
 			
 			firstNumberValue = calcSum;
-			secondNumberValue = parseFloat(numberValue, 10);
+			secondNumberValue = parseFloat(inputValue, 10);
+			calcSum = 3;
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
+			debug.log('calcSum: ' + calcSum)
 			this.runningTotalDoMath();
 
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
@@ -335,6 +337,9 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
+			debug.log('opPressesd:' + opPressed);
+			numberPressed = false;
+			debug.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '*' ) {
 
@@ -358,6 +363,9 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
+			debug.log('opPressesd:' + opPressed);
+			numberPressed = false;
+			debug.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '-' ) {
 
@@ -381,6 +389,9 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
+			debug.log('opPressesd:' + opPressed);
+			numberPressed = false;
+			debug.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '+' ) {
 
@@ -400,6 +411,9 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
+			debug.log('opPressesd:' + opPressed);
+			numberPressed = false;
+			debug.log('numberPressesd:' + numberPressed);
 
 		}
 	}
@@ -600,6 +614,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		// read value 
 		numberPressed = true;
 		equalsJustPressed = false;
+		opPressedOnce = false;
 		ux.acShow = false;
 		ux.acToogle();     
         
@@ -633,7 +648,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			calcStatus++;
 			firstentry = true;
 			
-			if (equals && calcSum != 0) {
+			if (equals && numberPressed && calcSum != 0) {
 
 				debug.log('opValue' + opValue);
 				calcStatus = 3;
