@@ -3,10 +3,12 @@
 let version = 'v2.0a'
 let allClear = '';
 let equals = false;
+let equalsJustPressed = false;
 let percent = false;
 let initialValue = 0;
 let firstentry = true;
 let inputValue = null;
+let opPressedOnce = false;
 let opValue2 = '';
 let opValue = '';
 let calcSum = 0;
@@ -514,6 +516,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			inputValue = '';
 			numberPressed = false;
 			opPressed = true;
+			equalsJustPressed = false 
 			opValue = $(this).text();
 			debug.log('opValue:', opValue);
 			secondNumberValue = 0;
@@ -566,20 +569,26 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#equals').click(function(event){
 
-		debug.log('equals pressed');
-		equals = true;
-		opValue2 = '=';
-		calcStatus++
 
-		numberValue = parseFloat(inputValue);
-		debug.log('input stream.. ' + inputValue);
-		debug.log('numberValue ' + numberValue);
+		if (!equalsJustPressed) {
+			
+			debug.log('equals pressed');
+			equals = true;
+			equalsJustPressed = true;
+			opPressedOnce = false;
+			opValue2 = '=';
+			calcStatus++
 
-		// eval all numeric entry and operators and do math
-		if (calcStatus == 3) {
-		  calcEval.ops()	
-		} else {
-			ux.handleOpPressed(event);	
+			numberValue = parseFloat(inputValue);
+			debug.log('input stream.. ' + inputValue);
+			debug.log('numberValue ' + numberValue);
+
+			// eval all numeric entry and operators and do math
+			if (calcStatus == 3) {
+			calcEval.ops()	
+			} else {
+				ux.handleOpPressed(event);	
+			}
 		}
 		
 
@@ -590,6 +599,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		// read value 
 		numberPressed = true;
+		equalsJustPressed = false;
 		ux.acShow = false;
 		ux.acToogle();     
         
@@ -613,25 +623,30 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
 
-		opPressed = true;
-		opValue = $(this).text()
-		debug.log('opValue' + opValue);
-		calcStatus++;
-		firstentry = true;
-		
-		if (equals && calcSum != 0) {
+		equalsJustPressed = false;
 
+		if (!opPressedOnce) {
+			opPressedOnce = true;
+			opPressed = true;
+			opValue = $(this).text()
 			debug.log('opValue' + opValue);
-			calcStatus = 3;
-			calcEval.ops();
+			calcStatus++;
+			firstentry = true;
+			
+			if (equals && calcSum != 0) {
 
-		} else {
-			if ( !percent || !posNeg ) {
-				debug.log('input stream...' + inputValue);
-				inputValue === null ? numberValue = 0 : numberValue = parseFloat(inputValue);
-				debug.log('numberValue...' + numberValue);
-				inputValue = null;
-				ux.handleOpPressed(event);
+				debug.log('opValue' + opValue);
+				calcStatus = 3;
+				calcEval.ops();
+
+			} else {
+				if ( !percent || !posNeg ) {
+					debug.log('input stream...' + inputValue);
+					inputValue === null ? numberValue = 0 : numberValue = parseFloat(inputValue);
+					debug.log('numberValue...' + numberValue);
+					inputValue = null;
+					ux.handleOpPressed(event);
+				}
 			}
 		}
 
