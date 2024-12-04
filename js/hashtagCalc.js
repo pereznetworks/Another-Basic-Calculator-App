@@ -19,7 +19,7 @@ let firstNumberValue = 0;
 let secondNumberValue = 0;
 let numberPressed = false;
 let opPressed = false;
-
+let eventObject;
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 
@@ -235,7 +235,7 @@ const ux = {
 	handleOpPressed: function (event) {
 		
 		// setup for various math, based on previous operator entered
-
+		
 		ux.acShow = false;
 		ux.acToogle();
 		debug.log('calcStatus: ' + calcStatus);
@@ -416,9 +416,10 @@ const ux = {
 			debug.log('numberPressesd:' + numberPressed);
 
 		}
-	}
+	},
 
 }
+
 
 $(document).ready( function () {
 
@@ -431,11 +432,15 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#ac').click(function(event){
 
+	  
+		
+		debug.log('AC pressed ...');
 		allClear = $(this).text();
 
 		if ( allClear == 'C' ) {
 
 			debug.log('C clicked, roll back to last entry');
+			
 
 			if ( opPressed ) {
 				opValue = '';
@@ -526,6 +531,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#posNeg, #percent').click(function(event){
 
+	  
+
 			numberValue = parseFloat(inputValue);
 			inputValue = '';
 			numberPressed = false;
@@ -583,6 +590,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#equals').click(function(event){
 
+	  buttonAnimattion(event);
 
 		if (!equalsJustPressed) {
 			
@@ -611,6 +619,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
 
+	  
 		// read value 
 		numberPressed = true;
 		equalsJustPressed = false;
@@ -637,6 +646,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	}); // end listner for nums pressed
 	
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
+
+	  
 
 		equalsJustPressed = false;
 

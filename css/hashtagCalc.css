@@ -42,22 +42,20 @@
   }
   
   /* portrait layout, create 1 column with buttons float left, */
+ 
+  /* .row {} may need this for landscape layout */
 
   .column {
       float: left;
       margin: 4%;
       height: 100%; 
-  }
-  
-  /* 1 column */
-  .column.left {
       width: 96%;
       border-radius: 0px 0px 0px 5px;
   }
   
   /* #calculator {}
   
-  #total {} */
+  #total {} not used, yet*/
   
   #input {
       background-color: black;
@@ -95,12 +93,12 @@
       50% { opacity: 0.5; }
       0% { opacity: 0.0; }
   }
-  
-  #operators, #numbers {
+
+  #buttons {
       background-color: #808080;
   }
   
-  #numbers a, #operators a {
+  #buttons a {
       float: left;
       display: block;
       width: 70px;
@@ -110,25 +108,22 @@
       text-align: center;
       color: black;
       font-size: 40px;
-      background-color: #808080;
       background: linear-gradient(#EDEDED, #808080);
-      /* background: linear-gradient(linear, left top, left bottom, from(#EDEDED), to(#808080)); */
+      transition: 5ms;
       border: .5px solid #707075;
       border-radius: 10px;
   }
 
-  #numbers > #zero {
+  #buttons a:active {
+    background: linear-gradient( #808080, #EDEDED);
+  }
+
+  #buttons > #zero {
     width: 165px;
   }
   
   a {
       cursor: pointer;
-  }
-  
-  #operaters a::before, #numbers a::before  {
-    background: linear-gradient(#EDEDED, #808080);
-    border: .5px solid #707075;
-    transition: 5ms;
   }
 
 
@@ -215,38 +210,16 @@
         0% { opacity: 0.0; }
     }
   
-    #operators, #numbers {
+    #buttons {
         background-color: #808080;
     }
   
-    #operators a, #numbers a  {
-        float: left;
-        display: block;
-        width: 70px;
-        height: 70px;
+    #buttons a  {
         padding: 6px;
         margin: 6px 6px;
-        text-align: center;
-        color: black;
-        font-size: 40px;
-        background-color: #808080;
-        background: linear-gradient(#EDEDED, #808080);
-        background: linear-gradient(linear, left top, left bottom, from(#EDEDED), to(#808080));
-        border: .5px solid #707075;
-        border-radius: 10px;
     }
   
-    a {
-        cursor: pointer;
-    }
-
-    #operaters a::before, #numbers a::before  {
-        background: linear-gradient(#EDEDED, #808080);
-        border: .5px solid #707075;
-        transition: 5ms;
-      }
-  
-  #numbers > #zero {
+  #buttons > #zero {
       float: left;
       display: block;
       width: 150px;
