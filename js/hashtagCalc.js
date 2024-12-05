@@ -496,6 +496,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('numberPressed:' + numberPressed);
 				opPressed = false;
 				debug.log('opPressed:' + opPressed);
+				posNegPercentPressed = false;
+				debug.log('posNegPercentPressed: ' + posNegPercentPressed);
 				percent = false;
 				debug.log('percent:' + percent);
 				firstNumberValue = 0;
@@ -504,6 +506,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				debug.log('secondNumberValue:' + secondNumberValue);
 				// TODO: storage of memory values cleared
 				debug.log("memory storage cleared ")
+				
 			}
 
 			ux.acShow = true;
@@ -642,6 +645,10 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		ux.acShow = false;
 		ux.acToogle();     
         
+
+		posNegPercentPressed = false;
+		debug.log('posNegPercentPressed: ' + posNegPercentPressed);
+
 		if (firstentry) {
 			inputValue = $(this).text();
 			ux.displayValue(inputValue);
@@ -663,7 +670,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
 
 	  
-
+		posNegPercentPressed = false;
+		debug.log('posNegPercentPressed: ' + posNegPercentPressed);
+		
 		equalsJustPressed = false;
 
 		if (!opPressedOnce) {
