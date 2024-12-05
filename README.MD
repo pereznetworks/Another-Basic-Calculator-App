@@ -24,6 +24,28 @@
 
 ## Status
 
+  - Fixes :
+
+    - Button press animation: 
+    
+      - for awhile, I hadn't realized that my button transition wasn't working correctly across all browsers and devices 
+
+      - I fixed the transition, still pure css for ui layout and tranisiton 
+      
+      - Still using "a" elements instead of "buttons".
+
+    - Math Ops:
+
+      - I fixed some math ops. Added some logic to catch some wierd button press combinations. 
+
+    - Future changes 
+    
+      - will be made in another version, using bootstrap or react
+
+      - Landscape and advanced layouts 
+      
+      - New math and logic code, plus more advanced math ops
+
 ## version 2.0a
 
   - Milestone :
