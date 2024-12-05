@@ -26,23 +26,25 @@
 
   - Fixes :
 
-    - Button layout :
+    - Calculator Button layout :
 
-      - using 1 column, with float left, all button now align nice and sqaure 
-
-        - some css declarations are commented out
-          - might be using them in the future 
-          - some left in html, so less change when new layouts are implemented 
-            - hopefully *=)*
+      - using 1 column, with float left, all buttons now align nice and sqaure 
 
     - Button press animation fixed: 
 
-      - still using pure css for ui layout and transition 
+      - Still using pure css for ui layout and transition 
+      
       - Still using "a" elements instead of "buttons".
+
+      - Javascript is used only for..
+      
+        - eventlisteners, app logic and for calculator display,
 
     - Math Ops:
 
-      - I fixed some math ops. Added some logic to catch some wierd button press combinations. 
+      - I fixed some math ops. 
+      
+      - Added some logic to catch some wierd button press combinations. 
 
     - Future changes 
     
