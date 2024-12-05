@@ -590,8 +590,6 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#equals').click(function(event){
 
-	  buttonAnimattion(event);
-
 		if (!equalsJustPressed) {
 			
 			debug.log('equals pressed');
