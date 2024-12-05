@@ -28,7 +28,7 @@
 
     - Button layout :
 
-      - using 1 column, with float left, all button now align nice a sqaure 
+      - using 1 column, with float left, all button now align nice and sqaure 
 
         - some css declarations are commented out
           - might be using them in the future 
