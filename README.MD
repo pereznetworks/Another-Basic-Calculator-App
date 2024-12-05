@@ -30,7 +30,9 @@
     
       - for awhile, I hadn't realized that my button transition wasn't working correctly across all browsers and devices 
 
-      - I fixed the transition, still pure css for ui layout and tranisiton 
+      - I fixed the transition
+      
+      - still pure css for ui layout and transition 
       
       - Still using "a" elements instead of "buttons".
 
