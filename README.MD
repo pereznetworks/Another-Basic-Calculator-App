@@ -26,14 +26,18 @@
 
   - Fixes :
 
-    - Button press animation: 
-    
-      - for awhile, I hadn't realized that my button transition wasn't working correctly across all browsers and devices 
+    - Button layout :
 
-      - I fixed the transition
-      
-      - still pure css for ui layout and transition 
-      
+      - using 1 column, with float left, all button now align nice a sqaure 
+
+        - some css declarations are commented out
+          - might be using them in the future 
+          - some left in html, so less change when neew layouts are implemented 
+            - hopefully *=)*
+
+    - Button press animation fixed: 
+
+      - still using pure css for ui layout and transition 
       - Still using "a" elements instead of "buttons".
 
     - Math Ops:
@@ -42,7 +46,7 @@
 
     - Future changes 
     
-      - will be made in another version, using bootstrap or react
+      - new UI, with bootstrap, react, or both
 
       - Landscape and advanced layouts 
       
