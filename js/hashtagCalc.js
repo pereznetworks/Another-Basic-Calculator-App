@@ -690,14 +690,14 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				calcEval.ops();
 
 			} else {
-				if ( !percent || !posNeg ) {
+				if ( !percent && !posNeg ) {
 					debug.log('input stream...' + inputValue);
 					inputValue === null ? numberValue = 0 : numberValue = parseFloat(inputValue);
 					debug.log('numberValue...' + numberValue);
 					inputValue = null;
 					ux.handleOpPressed(event);
 				}
-			}
+			} 
 		}
 
 	}); // end listner for basic math ops
