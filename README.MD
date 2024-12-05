@@ -32,7 +32,7 @@
 
         - some css declarations are commented out
           - might be using them in the future 
-          - some left in html, so less change when neew layouts are implemented 
+          - some left in html, so less change when new layouts are implemented 
             - hopefully *=)*
 
     - Button press animation fixed: 
