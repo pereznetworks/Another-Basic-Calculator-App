@@ -20,6 +20,7 @@ let secondNumberValue = 0;
 let numberPressed = false;
 let opPressed = false;
 let eventObject;
+let posNegPercentPressed;
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 
@@ -159,7 +160,18 @@ const calc = {
 		}
 	},
 	posNeg: function(numValue1){
-		this.sumValue = numValue1 * -1;
+
+		let negNum = false;
+		debug.log('numValue1..' + numValue1);
+
+		if (negNum)  {
+			this.sumValue = Math.abs(numValue1);
+		} else {
+			this.sumValue = -Math.abs(numValue1)
+			negNum = true
+		}
+		
+		debug.log('posNeg..' + this.sumValue)
 		return this.sumValue;
 	},
 	equals: function() {				
@@ -531,60 +543,65 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	$('#posNeg, #percent').click(function(event){
 
-	  
+			if (!posNegPercentPressed) {
 
-			numberValue = parseFloat(inputValue);
-			inputValue = '';
-			numberPressed = false;
-			opPressed = true;
-			equalsJustPressed = false 
-			opValue = $(this).text();
-			debug.log('opValue:', opValue);
-			secondNumberValue = 0;
+				posNegPercentPressed = true;
 
-			// has a math operation has taken place or should, and what to do
-			if ( opValue === '%' && equals == true ) {
+				debug.log('inputValue: ' + inputValue);
+				numberValue = parseFloat(inputValue);
+				inputValue = '';
+				numberPressed = false;
+				opPressed = true;
+				equalsJustPressed = false 
+				opValue = $(this).text();
+				debug.log('opValue:', opValue);
+				secondNumberValue = 0;
 
-				firstNumberValue = calcSum;
-				debug.log('calcSum = firstNumberValue:' + firstNumberValue);
-				calcSum = calc.percent(numberOfValues, firstNumberValue);
-				numberOfValues = 0;
-				percent = true;
-				numberValue = '';
-				equals = false;
+				// has a math operation has taken place or should, and what to do
+				if ( opValue === '%' && equals == true ) {
 
-			} else if ( opValue === '%' ) {
+					firstNumberValue = calcSum;
+					debug.log('calcSum = firstNumberValue:' + firstNumberValue);
+					calcSum = calc.percent(numberOfValues, firstNumberValue);
+					numberOfValues = 0;
+					percent = true;
+					numberValue = '';
+					equals = false;
 
-				firstNumberValue = parseFloat(numberValue, 10);
-				debug.log('firstNumberValue:' + firstNumberValue);
-				calcSum = calc.percent(numberOfValues, firstNumberValue);
-				numberOfValues = 0;
-				percent = true;
-				numberValue = '';
+				} else if ( opValue === '%' ) {
 
-			} else if ( opValue === '+/-' ) {
+					firstNumberValue = parseFloat(numberValue, 10);
+					debug.log('firstNumberValue:' + firstNumberValue);
+					calcSum = calc.percent(numberOfValues, firstNumberValue);
+					numberOfValues = 0;
+					percent = true;
+					numberValue = '';
 
-				firstNumberValue = parseFloat(numberValue, 10);
-				numberValue = '';
-				calcSum = calc.posNeg(firstNumberValue);
-				posNeg = true;
+				} else if ( opValue === '+/-' ) {
 
-		}
+					firstNumberValue = parseFloat(numberValue, 10);
+					numberValue = '';
+					calcSum = calc.posNeg(firstNumberValue);
+					posNeg = true;
 
-			if(isNaN(calcSum)) {
-				let setToZero = 0
-				ux.displayValue(setToZero);
-				firstNumberValue = setToZero;
-				secondNumberValue = setToZero;
-				calcStatus = 0;
-			} else {
-				// calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
 			}
-				
-			debug.log('calcSum:' + calcSum);
-			firstNumberValue = calcSum;
-			debug.log('firstNumberValue: ' + firstNumberValue);
+
+				if(isNaN(calcSum)) {
+					let setToZero = 0
+					ux.displayValue(setToZero);
+					firstNumberValue = setToZero;
+					secondNumberValue = setToZero;
+					calcStatus = 0;
+				} else {
+					// calcSum = mathSettings.setDecimals(calcSum);
+					ux.displayValue(calcSum);
+				}
+					
+				debug.log('calcSum:' + calcSum);
+				firstNumberValue = calcSum;
+				debug.log('firstNumberValue: ' + firstNumberValue);
+
+			}
 
 	}); // end listener for +/-  %
 
