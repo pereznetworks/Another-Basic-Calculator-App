@@ -668,12 +668,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 	}); // end listner for nums pressed
 	
 	$('#divide, #multiply, #subtract, #add').click(function(event) {
-
-	  
-		posNegPercentPressed = false;
-		debug.log('posNegPercentPressed: ' + posNegPercentPressed);
 		
 		equalsJustPressed = false;
+		debug.log("equals just pressed: " + equalsJustPressed);
 
 		if (!opPressedOnce) {
 			opPressedOnce = true;
@@ -681,6 +678,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			opPressed = true;
 			opValue = $(this).text()
 			debug.log('opValue' + opValue);
+			debug.log('posNegPercentPressed: ' + posNegPercentPressed);
 			calcStatus++;
 			debug.log('calcStatus' + calcStatus);
 			firstentry = true;
