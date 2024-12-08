@@ -677,10 +677,12 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		if (!opPressedOnce) {
 			opPressedOnce = true;
+			debug.log('opPressesOnce: ' + opPressedOnce);
 			opPressed = true;
 			opValue = $(this).text()
 			debug.log('opValue' + opValue);
 			calcStatus++;
+			debug.log('calcStatus' + calcStatus);
 			firstentry = true;
 			
 			if (equals && numberPressed && calcSum != 0) {
@@ -689,14 +691,16 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				calcStatus = 3;
 				calcEval.ops();
 
-			} else {
-				if ( !percent && !posNeg ) {
+			} else if ( !posNegPercentPressed ) {
 					debug.log('input stream...' + inputValue);
-					inputValue === null ? numberValue = 0 : numberValue = parseFloat(inputValue);
+					if (inputValue == null) {
+						numberValue = 0;
+					} else {
+						numberValue = parseFloat(inputValue);
+					}
 					debug.log('numberValue...' + numberValue);
 					inputValue = null;
 					ux.handleOpPressed(event);
-				}
 			} 
 		}
 
