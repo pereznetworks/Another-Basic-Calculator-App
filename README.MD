@@ -149,11 +149,10 @@
 
   - MIT License
 
-## Original Version 2.0a
 
-### Milestone
+### Basic Logging 
 
-  - all basic mode features, unit tested successfully
+  - all basic mode features, tested successfully
   - basic math operations give correct answers
 
   - javascript custom debug feature
@@ -165,10 +164,6 @@
     - [click here for notes from stackoverflow.com](https://stackoverflow.com/questions/13815640/a-proper-wrapper-for-console-log-with-correct-line-number)
 
 ### TODO
-
-  - fix things that work intermittently
-    - clear
-    - multiple math ops
 
   - better data model and app logic
 
@@ -189,6 +184,4 @@
     - a backspace key,
       - preferably within current UI
 
-  - backend ops
-    - new build environment
-    - considering a CMS
+
