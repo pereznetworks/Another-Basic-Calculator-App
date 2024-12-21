@@ -1,6 +1,6 @@
 
 
-let version = 'v2.5a'
+let version = 'v2.5b'
 let allClear = '';
 let equals = false;
 let equalsJustPressed = false;

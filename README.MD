@@ -5,7 +5,7 @@
 
 <table border="0">
  <tr>
-    <td style="margin:1em;font-size:30px; text-align:center;" colspan="2">#Calc Version 2.0a</td>
+    <td style="margin:1em;font-size:30px; text-align:center;" colspan="2">#Calc Version 2.5b</td>
  </tr>
  <tr>
     <td> Basic Math </td>
@@ -19,7 +19,7 @@
     <td> real calculator UX feel </td>
  </tr>
  <tr>
-    <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.5a</a></td>
+    <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.5b</a></td>
  </tr>
 </table>
 
@@ -91,11 +91,11 @@
         - test for NaN
 
 
-## version 2.5a
+## version 2.5b
 
  - Lanscape layout implemented !
 
-## version 3.0a
+## version 3.0b
 
   - Goal : 
   
