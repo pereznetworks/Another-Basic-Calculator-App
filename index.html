@@ -1,46 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>#Calc 1.0a</title>
-<link rel="stylesheet" href="css/hashtagCalc.css" />
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/hashtagCalc.js"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<div id="calculator" class="outer-div">
-  <div id="total" class="display">
-    <!-- <p id="input1" placeholder""></p> -->
-    <p id="input" class="inputBlink">0</p>
-    <!-- <p id="input1" placeholder=""></p> -->
-  </div>
-  <div class="row">
-    <div id="buttons" class="column">
-      <a id="ac">AC</a>
-      <a id="posNeg" style="font-size: 34px;">+/-</a>
-      <a id="percent">%</a>
-      <a id="divide">/</a>
-      <a id="seven">7</a>
-      <a id="eight">8</a>
-      <a id="nine">9</a>
-      <a id="multiply">*</a>
-      <a id="four">4</a>
-      <a id="five">5</a>
-      <a id="six">6</a>
-      <a id="subtract">-</a>
-      <a id="one">1</a>
-      <a id="two">2</a>
-      <a id="three">3</a>
-      <a id="add">+</a>
-      <a id="zero" >0</a>
-      <a id="decimal">.</a>
-      <a id="equals">=</a>
+<html>
+
+  <head>
+    <title>#Calc 1.0a</title>
+    <link rel="stylesheet" href="css/hashtagCalc.css" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/hashtagCalc.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  
+  <body>
+  <div id="calculator" class="outer-div">
+    <div id="total" class="display">
+      <!-- <p id="input1" placeholder""></p> -->
+      <p id="input" class="inputBlink">0</p>
+      <!-- <p id="input1" placeholder=""></p> -->
+    </div>
+    <div class="row">
+      <div class="row left">
+        <a id="ac" class="clear">AC</a>
+        <a id="posNeg" class="numbers" style="font-size: 34px;">+/-</a>
+        <a id="percent" class="numbers">%</a>
+        <a id="seven" class="numbers">7</a>
+        <a id="eight" class="numbers">8</a>
+        <a id="nine" class="numbers">9</a>
+        <a id="four" class="numbers">4</a>
+        <a id="five" class="numbers">5</a>
+        <a id="six" class="numbers">6</a>
+        <a id="one" class="numbers">1</a>
+        <a id="two" class="numbers">2</a>
+        <a id="three" class="numbers">3</a>
+        <a id="zero" class="numbers">0</a>
+        <a id="decimal" class="numbers">.</a>
+      </div>
+      <div class="row right">
+        <a id="divide" class="ops">/</a>
+        <a id="multiply" class="ops">*</a>
+        <a id="subtract" class="ops">-</a>
+        <a id="add" class="ops">+</a>
+        <a id="equals" class="ops">=</a>    
+      </div>
+    </div>
+    <div class="rowLandscape">
+      <div class="rowLandscape left">
+        <a id="lseven" class="numbers">7</a>
+        <a id="leight" class="numbers">8</a>
+        <a id="lnine" class="numbers">9</a>
+        <a id="lfour" class="numbers">4</a>
+        <a id="lfive" class="numbers">5</a>
+        <a id="lsix" class="numbers">6</a>
+        <a id="lone" class="numbers">1</a>
+        <a id="ltwo" class="numbers">2</a>
+        <a id="lthree" class="numbers">3</a>
+        <a id="lzero" class="numbers">0</a>
+        <a id="ldecimal" class="numbers">.</a>
+      </div>
+      <div class="rowLandscape right">
+        <a id="ldivide" class="ops">/</a>
+        <a id="lac" class="ops clear">AC</a>
+        <a id="lmultiply" class="ops">*</a>
+        <a id="lposNeg" class="ops" style="font-size: 34px;">+/-</a>
+        <a id="lsubtract" class="ops">-</a>
+        <a id="lpercent" class="ops">%</a>
+        <a id="ladd" class="ops">+</a>
+        <a id="lequals" class="ops">=</a>    
+      </div>
     </div>
   </div>
-</div>
-<footer>
-  <p id="version"></p>
-</footer>
-</body>
+
+  <footer>
+    <p id="version"></p>
+  </footer>
+
+  </body>
+
 </html>

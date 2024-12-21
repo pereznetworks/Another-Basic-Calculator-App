@@ -442,7 +442,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 // event-listeners
 
-	$('#ac').click(function(event){
+	$('#ac, #lac').click(function(event){
 
 	  
 		
@@ -544,7 +544,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		}
 	}); // end all-clear button event handler
 
-	$('#posNeg, #percent').click(function(event){
+	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
 
 			if (!posNegPercentPressed) {
 
@@ -608,7 +608,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	}); // end listener for +/-  %
 
-	$('#equals').click(function(event){
+	$('#equals, #lequals').click(function(event){
 
 		if (!equalsJustPressed) {
 			
@@ -635,7 +635,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	}); // end equals 
 
-	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal').click(function(event) {
+	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal, #lnine, #leight, #lseven, #lsix, #lfive, #lfour, #lthree, #ltwo, #lone, #lzero, #ldecimal').click(function(event) {
 
 	  
 		// read value 
@@ -667,7 +667,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 	}); // end listner for nums pressed
 	
-	$('#divide, #multiply, #subtract, #add').click(function(event) {
+	$('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd').click(function(event) {
 		
 		equalsJustPressed = false;
 		debug.log("equals just pressed: " + equalsJustPressed);
