@@ -196,6 +196,13 @@
         margin: 6px 6px;
       }
 
+      a:active {
+        background: none;
+      }
+      a:hover {
+          background: linear-gradient( #808080, #EDEDED);
+      }
+
     #zero {
       float: left;
       display: block;
@@ -303,6 +310,13 @@
             padding: 6px;
             margin: 4px 4px;
             font-size: 30px;
+          }
+
+          a:active {
+            background: none;
+          }
+          a:hover {
+              background: linear-gradient( #808080, #EDEDED);
           }
   
         .rowLandscape #lzero {
