@@ -149,7 +149,7 @@
 
   - MIT License
 
-## Current Version 2.0a
+## Original Version 2.0a
 
 ### Milestone
 
