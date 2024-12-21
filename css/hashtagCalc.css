@@ -197,9 +197,6 @@
       }
 
       a:active {
-        background: none;
-      }
-      a:hover {
           background: linear-gradient( #808080, #EDEDED);
       }
 
@@ -313,10 +310,7 @@
           }
 
           a:active {
-            background: none;
-          }
-          a:hover {
-              background: linear-gradient( #808080, #EDEDED);
+            background: linear-gradient( #808080, #EDEDED);
           }
   
         .rowLandscape #lzero {
