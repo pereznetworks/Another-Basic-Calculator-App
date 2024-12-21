@@ -10,6 +10,8 @@
  <tr>
     <td> Basic Math </td>
     <td rowspan="4" > <image src="./images/calcSplashScreen.jpg"> </td>
+    <td> Landscape Layout </td>
+    <td rowspan="4" > <image src="./images/calcSplashScreen-LandscapeView.jpg"> </td>
  </tr>
  <tr>
     <td> Standard Display </td>
