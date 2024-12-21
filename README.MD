@@ -17,12 +17,18 @@
     <td> real calculator UX feel </td>
  </tr>
  <tr>
-    <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.0a</a></td>
+    <td> <a class="link" href="https://pereznetworks.github.io/Another-Basic-Calculator-App/">try #Calc 2.5a</a></td>
  </tr>
 </table>
 
 
 ## Status
+
+  - New : 
+
+    - Turn your mobile phone sideways, and check out new landscape layout 
+
+      - basic mode only ;-)
 
   - Fixes :
 
@@ -83,14 +89,16 @@
         - test for NaN
 
 
-## version 2.1a
+## version 2.5a
 
-  - Goal : implement same UX with React-Bootstrap 
+ - Lanscape layout implemented !
 
 ## version 3.0a
 
   - Goal : 
   
+    - implement UX with React-Bootstrap
+    
     - implement at least 2 "coming features"
     
     - implement new app data model
