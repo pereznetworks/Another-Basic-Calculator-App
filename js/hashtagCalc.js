@@ -21,6 +21,7 @@ let numberPressed = false;
 let opPressed = false;
 let eventObject;
 let posNegPercentPressed;
+
 // evaluate current input, operators, numbers, complete math operation
 const calcEval = {
 
@@ -653,9 +654,6 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			inputValue = $(this).text();
 			ux.displayValue(inputValue);
 			firstentry = false;
-		} else if ( equals ) {
-			inputValue = $(this).text();
-			ux.displayValue(inputValue);
 		} else {
 			inputValue += $(this).text();
 			ux.displayValue(inputValue);
