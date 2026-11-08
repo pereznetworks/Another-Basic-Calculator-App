@@ -1,3 +1,30 @@
+import { calc } from './doMath.js';
+import { debug } from './calcSettings.js';
+import { mathSettings } from './calcSettings.js';
+import { tape } from './calcSettings.js';
+import { calcEval } from './evalUtils.js';
+
+let version = 'v2.5b'
+let allClear = '';
+let equals = false;
+let equalsJustPressed = false;
+let percent = false;
+let initialValue = 0;
+let firstentry = true;
+let inputValue = null;
+let opPressedOnce = false;
+let opValue2 = '';
+let opValue = '';
+let calcSum = 0;
+let calcStatus = 0;
+let numberValue = 0;
+let numberOfValues = 0;
+let firstNumberValue = 0;
+let secondNumberValue = 0;
+let numberPressed = false;
+let opPressed = false;
+let posNegPercentPressed;
+
 // UI specific tasks
 const ux = {
 	acShow: true,  // whether to show AC
