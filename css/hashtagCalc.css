@@ -36,10 +36,10 @@
     border: 2px solid #707075;
     border-radius: 5px 5px 5px 5px;
     width: 378px;
-    height: 90px;
     margin-top: 10px;
     margin-left: 15px;
     margin-right: 10px;
+    /* container-type: inline-size; */
   }
 
   #input {
@@ -56,6 +56,7 @@
       border-radius: 5px 5px 0px 0px;
       overflow-x: scroll;
       overflow:auto;
+      font-size: clamp(12px, 8cqw, 24px); 
       }
   
   .inputBlink{
