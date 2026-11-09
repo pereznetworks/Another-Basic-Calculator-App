@@ -23,21 +23,23 @@ let posNegPercentPressed;
 
 import { calc } from './doMath.js';
 import { debug } from './calcSettings.js';
+import { mathSettings } from './calcSettings.js';
+import { tape } from './calcSettings.js';
 import { ux } from './workingDisplay.js';
 import { calcEval } from './evalUtils.js';
 
-// not using yet 
-import { mathSettings } from './calcSettings.js';
-import { tape } from './calcSettings.js';
-
 $(document).ready( function () {
 
-	ux.displayVersion(version);
+ux.displayVersion(version);
 
-	// turn on debugger or not
-	if (debug.loggingOn) {console.log.bind(window.console)}
+// turn on debugger or not
+if (debug.loggingOn) {console.log.bind(window.console)}
+
+// event-listeners
 
 	$('#ac, #lac').click(function(event){
+
+	  
 		
 		debug.log('AC pressed ...');
 		allClear = $(this).text();
