@@ -28,6 +28,11 @@ import { tape } from './calcSettings.js';
 import { ux } from './workingDisplay.js';
 import { calcEval } from './evalUtils.js';
 
+
+
+
+
+
 $(document).ready( function () {
 
 ux.displayVersion(version);
