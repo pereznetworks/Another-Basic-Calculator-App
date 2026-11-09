@@ -218,7 +218,7 @@ $(document).ready( function () {
 
 			// eval all numeric entry and operators and do math
 			if (calcStatus == 3) {
-			calcEval.ops()	
+			calcEval.ops(firstNumberValue, secondNumberValue, opValue)	
 			} else {
 				ux.handleOpPressed(event);	
 			}
@@ -277,7 +277,7 @@ $(document).ready( function () {
 
 				debug.log('opValue' + opValue);
 				calcStatus = 3;
-				calcEval.ops();
+				calcEval.ops(firstNumberValue, secondNumberValue, opValue);
 
 			} else if ( !posNegPercentPressed ) {
 					debug.log('input stream...' + inputValue);

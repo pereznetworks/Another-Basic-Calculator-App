@@ -2,14 +2,14 @@
 const calcEval = {
 
 	isValueANum: function (value) {
-		let setToZero = 0
+		let setToZero =0
 		if (isNaN(value)){
 			value = setToZero;
 		}
 		return value
 	},
 
-	runningTotalDoMath: function () {
+	runningTotalDoMath: function (firstNumberValue, secondNumberValue, opValue) {
 
 		// make sure value are numbers 
 		firstNumberValue = this.isValueANum(firstNumberValue);
@@ -40,6 +40,7 @@ const calcEval = {
 				debug.log("calcStatus: " + calcStatus);	
 		}
 
+
 	},
 
 	ops: function () {
@@ -66,7 +67,7 @@ const calcEval = {
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
 			debug.log('calcSum: ' + calcSum)
-			this.runningTotalDoMath();
+			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
 			
@@ -75,7 +76,7 @@ const calcEval = {
 			secondNumberValue = parseFloat(numberValue, 10);
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
-			this.runningTotalDoMath();
+			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		}
 
