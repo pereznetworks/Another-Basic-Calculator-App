@@ -89,14 +89,6 @@ const calcEval = {
 		ux.displayValue(fixedValue);
 		debug.log("calcSum:" + fixedValue);
 
-		// reset for new math operations
-		numberValue = '';
-		// debug.log('numberValue:' + numberValue);
-		// opValue = '';
-		// debug.log('opValue:' + opValue);
-		// opValue2 = '';
-		// debug.log('opValue2:' + opValue2);
-
 		return fixedValue;
 
 	},
