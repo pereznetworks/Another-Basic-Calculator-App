@@ -28,11 +28,14 @@
 
   - New : 
 
+    - In the middle of a rewrite, so app may be broken until rewrite is complete
+      - transitioning to modules and eventually native ECMAScript Modules (ESM)  
+
+  - Fixes :
+
     - Turn your mobile phone sideways, and check out new landscape layout 
 
       - basic mode only ;-)
-
-  - Fixes :
 
     - Calculator Button layout :
 

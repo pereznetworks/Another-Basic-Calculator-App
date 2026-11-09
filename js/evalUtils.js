@@ -40,7 +40,7 @@ const calcEval = {
 				debug.log("calcStatus: " + calcStatus);	
 		}
 
-
+		return { calcSum, calcStatus };
 	},
 
 	ops: function () {
@@ -63,7 +63,7 @@ const calcEval = {
 			
 			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(inputValue, 10);
-			calcSum = 3;
+			calcStatus = 3;
 			debug.log('secondNumberValue: ' + secondNumberValue);
 			debug.log('opValue: ' + opValue);
 			debug.log('calcSum: ' + calcSum)
@@ -80,6 +80,7 @@ const calcEval = {
 
 		}
 
+		return { calcSum, calcStatus, firstNumberValue, secondNumberValue, opValue };
 	},
 
 	afterMath : function (valueToFix ) {
@@ -95,6 +96,8 @@ const calcEval = {
 		// debug.log('opValue:' + opValue);
 		// opValue2 = '';
 		// debug.log('opValue2:' + opValue2);
+
+		return fixedValue;
 
 	},
 
