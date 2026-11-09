@@ -46,7 +46,7 @@ const debug = {
 	loggingOn: false,
 	
 	log: function (value){
-		if(this.loggingOn){
+		if(value){
 			this.log = console.log.bind(window.console);
 		}
 	}
