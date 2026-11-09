@@ -28,7 +28,7 @@ const mathSettings = {
 	trailingZeros: false,  // by default, don't display trailing zeros
 
 	setDecimals: function(value) {
-		debug.log('value:' + value);
+		debugTool.log('value:' + value);
 		return parseFloat(value.toPrecision(mathSettings.numDecimals));
 		// toFixed allows for more decimals
 		// for basic math, need to reduce number of digits 
@@ -41,13 +41,16 @@ const tape = {
 	showTape: false,
 }
 
-const debug = {
+const debugTool = {
+// dev use only 
 // to be replaced by logging state of app and errors
 	loggingOn: false,
-	
-	log: function (value){
-		if(value){
+
+	log: function (){
+		if(this.loggingOn){
 			this.log = console.log.bind(window.console);
+		} else {
+			this.log = function(){};
 		}
 	}
 }
@@ -91,7 +94,7 @@ const calc = {
 	posNeg: function(numValue1){
 
 		let negNum = false;
-		debug.log('numValue1..' + numValue1);
+		debugTool.log('numValue1..' + numValue1);
 
 		if (negNum)  {
 			this.sumValue = Math.abs(numValue1);
@@ -100,7 +103,7 @@ const calc = {
 			negNum = true
 		}
 		
-		debug.log('posNeg..' + this.sumValue)
+		debugTool.log('posNeg..' + this.sumValue)
 		return this.sumValue;
 	},
 	equals: function() {				
@@ -123,31 +126,31 @@ const calcEval = {
 
 		// make sure value are numbers 
 		firstNumberValue = this.isValueANum(firstNumberValue);
-		debug.log('firstNumberValue: ' + firstNumberValue);
+		debugTool.log('firstNumberValue: ' + firstNumberValue);
 		secondNumberValue = this.isValueANum(secondNumberValue);
-		debug.log('secondNumberValue: ' + secondNumberValue);
+		debugTool.log('secondNumberValue: ' + secondNumberValue);
 
 		// do math, get and save calcSum
 		if ( opValue === '/' && secondNumberValue != 0 ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				debug.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '*' && secondNumberValue != 0 ) {
 				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				debug.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '-' && secondNumberValue != 0  ) {
 				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				debug.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '+' && secondNumberValue != 0 ) {
 				calcSum = calc.addition(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2; 
-				debug.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		}
 
 		return { calcSum, calcStatus };
@@ -161,11 +164,11 @@ const calcEval = {
 		if ( opValue === '' ) {  // this usually when very first number is entered
 			
 			firstNumberValue = parseFloat(numberValue, 10);
-			debug.log('firstNumberValue: ' + firstNumberValue);
+			debugTool.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 			// in case someone, tries something like, 3 +
 			ux.displayValue(calcSum);
-			debug.log("calcSum:" + calcSum);
+			debugTool.log("calcSum:" + calcSum);
 			//so display value entered, no math actually happens
 
 		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  
@@ -174,18 +177,18 @@ const calcEval = {
 			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(inputValue, 10);
 			calcStatus = 3;
-			debug.log('secondNumberValue: ' + secondNumberValue);
-			debug.log('opValue: ' + opValue);
-			debug.log('calcSum: ' + calcSum)
+			debugTool.log('secondNumberValue: ' + secondNumberValue);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('calcSum: ' + calcSum)
 			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
 			
 			firstNumberValue = calcSum;
-			debug.log('firstNumberValue: ' + firstNumberValue);
+			debugTool.log('firstNumberValue: ' + firstNumberValue);
 			secondNumberValue = parseFloat(numberValue, 10);
-			debug.log('secondNumberValue: ' + secondNumberValue);
-			debug.log('opValue: ' + opValue);
+			debugTool.log('secondNumberValue: ' + secondNumberValue);
+			debugTool.log('opValue: ' + opValue);
 			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		}
@@ -197,7 +200,7 @@ const calcEval = {
 
 		let fixedValue = mathSettings.setDecimals(valueToFix);
 		ux.displayValue(fixedValue);
-		debug.log("calcSum:" + fixedValue);
+		debugTool.log("calcSum:" + fixedValue);
 
 		return fixedValue;
 
@@ -211,17 +214,17 @@ const ux = {
 
 	acToogle: function () {
 
-		debug.log('run acToogle:' + this.acShow);
+		debugTool.log('run acToogle:' + this.acShow);
 
 		if ( this.acShow ) {
 			// then toogle C button to AC
 			$('#ac')[0].innerHTML = "AC";
-			debug.log('C change to AC:' + this.acShow);
+			debugTool.log('C change to AC:' + this.acShow);
 
 		} else {
 			// else toogle AC button to C
 				$('#ac')[0].innerHTML = "C";
-			debug.log('AC change to C:' + this.acShow);
+			debugTool.log('AC change to C:' + this.acShow);
 
 		}
 
@@ -230,7 +233,7 @@ const ux = {
 	displayValue: function (value) {
 
 		$('#input').removeClass('inputBlink').text(value);
-		debug.log('displaying value ' + value);
+		debugTool.log('displaying value ' + value);
 
 	},
 
@@ -245,20 +248,20 @@ const ux = {
 		
 		ux.acShow = false;
 		ux.acToogle();
-		debug.log('calcStatus: ' + calcStatus);
+		debugTool.log('calcStatus: ' + calcStatus);
 
 		if ( equals && calcStatus == 3) {
 
-			debug.log('secondNumberValue:' + secondNumberValue);
-			debug.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 
-			debug.log('opValue: ' + opValue);
-			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
 			
 			firstNumberValue = calcSum;
-			debug.log('firstNumberValue:' + firstNumberValue);
-			debug.log('calcStatus: ' + calcStatus);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('calcStatus: ' + calcStatus);
 			equals = false;
 			ux.acShow = true;
 			ux.acToogle();
@@ -266,44 +269,44 @@ const ux = {
         } else if ( opValue === '+/-' ) {
 
 			firstNumberValue = calcSum;
-			debug.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 			numberValue = '';
-			debug.log('opValue: ' + opValue);
-			debug.log('calcStatus: ' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('calcStatus: ' + calcStatus);
 
 	    } else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
 			
 			if (calcStatus == 1) {
 
-				debug.log('numberValue:' + numberValue);
+				debugTool.log('numberValue:' + numberValue);
 				firstNumberValue = parseFloat(numberValue, 10);
-				debug.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 				numberValue = '';
 
-				debug.log('secondNumberValue:' + secondNumberValue);
-				debug.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 	
-				debug.log('opValue: ' + opValue);
-				debug.log('opPressesd:' + opPressed);
-				debug.log('calcStatus:' + calcStatus);
+				debugTool.log('opValue: ' + opValue);
+				debugTool.log('opPressesd:' + opPressed);
+				debugTool.log('calcStatus:' + calcStatus);
 				
 			} else if (calcStatus > 1) {
 				
-				debug.log('input stream...' + inputValue);
-				debug.log('numberValue:' + numberValue)
+				debugTool.log('input stream...' + inputValue);
+				debugTool.log('numberValue:' + numberValue)
 				secondNumberValue = parseFloat(numberValue, 10);
-				debug.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
 				numberValue = '';
 
-				debug.log('secondNumberValue:' + secondNumberValue);
-				debug.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 	
 
-				debug.log('opPressesd:' + opPressed);
-				debug.log('opValue: ' + opValue);
-				debug.log('opValue2: ' + opValue2);
-				debug.log('calcStatus:' + calcStatus);
+				debugTool.log('opPressesd:' + opPressed);
+				debugTool.log('opValue: ' + opValue);
+				debugTool.log('opValue2: ' + opValue2);
+				debugTool.log('calcStatus:' + calcStatus);
 				
 
 			}
@@ -315,10 +318,10 @@ const ux = {
 			numberValue = '';
 			firstNumberValue = calcSum;
 
-			debug.log('opValue: ' + opValue);
-			debug.log('opValue2: ' + opValue2);
-			debug.log('firstNumberValue = calcSum: ' + calcSum);
-			debug.log('calcStatus: ' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('opValue2: ' + opValue2);
+			debugTool.log('firstNumberValue = calcSum: ' + calcSum);
+			debugTool.log('calcStatus: ' + calcStatus);
 
     	}
         
@@ -327,14 +330,14 @@ const ux = {
 
 			calcSum = calc.divide(firstNumberValue, secondNumberValue);
 
-			debug.log('secondNumberValue:' + secondNumberValue);
-			debug.log('firstNumberValue:' + firstNumberValue);
-			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + calcStatus);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.acShow = true;
 			ux.acToogle();
@@ -344,22 +347,22 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			debug.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			debug.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '*' ) {
 
 			calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-			debug.log('secondNumberValue:' + secondNumberValue);
-			debug.log('firstNumberValue:' + firstNumberValue);
-			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + calcStatus);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 
 			ux.acShow = true;
@@ -370,22 +373,22 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			debug.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			debug.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '-' ) {
 
 			calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 
-			debug.log('secondNumberValue:' + secondNumberValue);
-			debug.log('firstNumberValue:' + firstNumberValue);
-			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + calcStatus);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 
 			ux.acShow = true;
@@ -396,31 +399,31 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			debug.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			debug.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '+' ) {
 
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 
-			debug.log('secondNumberValue:' + secondNumberValue);
-			debug.log('firstNumberValue:' + firstNumberValue);
-			debug.log('opPressesd:' + opPressed);
-			debug.log('calcStatus:' + calcStatus);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			debug.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			debug.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		}
 	},
@@ -431,21 +434,18 @@ $(document).ready( function () {
 
 ux.displayVersion(version);
 
-// turn on debugger or not
-if (debug.loggingOn) {console.log.bind(window.console)}
-
 // event-listeners
 
 	$('#ac, #lac').click(function(event){
 
 	  
 		
-		debug.log('AC pressed ...');
+		debugTool.log('AC pressed ...');
 		allClear = $(this).text();
 
 		if ( allClear == 'C' ) {
 
-			debug.log('C clicked, roll back to last entry');
+			debugTool.log('C clicked, roll back to last entry');
 			
 
 			if ( opPressed ) {
@@ -453,11 +453,11 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				opPressed = false;
 				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
 				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
-				debug.log('opValue:' + opValue);
-				debug.log('calcstatus:' + calcStatus);
-				debug.log('inputValue:' + inputValue);
-				debug.log('numberValue:' + numberValue);
-				debug.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('opValue:' + opValue);
+				debugTool.log('calcstatus:' + calcStatus);
+				debugTool.log('inputValue:' + inputValue);
+				debugTool.log('numberValue:' + numberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 
 			} else if ( numberPressed ){
 
@@ -466,40 +466,40 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				numberValue = firstNumberValue;
 				secondNumberValue = 0;
 				ux.displayValue(initialValue);
-				debug.log('firstNumberValue:' + firstNumberValue);
-				debug.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
 
 			} else { // if equals just pressed
 
 
 				calcSum = 0;
 				ux.displayValue(calcSum);
-				debug.log('calcSum:' + calcSum);
+				debugTool.log('calcSum:' + calcSum);
 				calcStatus = 0;
-				debug.log('calcStatus:' + calcStatus);
+				debugTool.log('calcStatus:' + calcStatus);
 				inputValue = initialValue;
 				numberValue = '';
-				debug.log('numberValue:' + numberValue);
+				debugTool.log('numberValue:' + numberValue);
 				opValue = '';
-				debug.log('opValue:' + opValue);
+				debugTool.log('opValue:' + opValue);
 				opValue2 = '';
-				debug.log('opValue:' + opValue2);
+				debugTool.log('opValue:' + opValue2);
 				equals = false;
-				debug.log('equals:' + equals);
+				debugTool.log('equals:' + equals);
 				numberPressed = false;
-				debug.log('numberPressed:' + numberPressed);
+				debugTool.log('numberPressed:' + numberPressed);
 				opPressed = false;
-				debug.log('opPressed:' + opPressed);
+				debugTool.log('opPressed:' + opPressed);
 				posNegPercentPressed = false;
-				debug.log('posNegPercentPressed: ' + posNegPercentPressed);
+				debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 				percent = false;
-				debug.log('percent:' + percent);
+				debugTool.log('percent:' + percent);
 				firstNumberValue = 0;
-				debug.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 				secondNumberValue = 0;
-				debug.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
 				// TODO: storage of memory values cleared
-				debug.log("memory storage cleared ")
+				debugTool.log("memory storage cleared ")
 				
 			}
 
@@ -508,32 +508,32 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		} else if ( allClear === 'AC') {
 
-			debug.log('AC clicked, reseting all values');
+			debugTool.log('AC clicked, reseting all values');
 
 			calcSum = 0;
 			ux.displayValue(calcSum);
-			debug.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 			calcStatus = 0;
-			debug.log('calcStatus:' + calcStatus);
+			debugTool.log('calcStatus:' + calcStatus);
 			inputValue = '';
 			numberValue = '';
-			debug.log('numberValue:' + numberValue);
+			debugTool.log('numberValue:' + numberValue);
 			opValue = '';
-			debug.log('opValue:' + opValue);
+			debugTool.log('opValue:' + opValue);
 			equals = false;
-			debug.log('equals:' + equals);
+			debugTool.log('equals:' + equals);
 			numberPressed = false;
-			debug.log('numberPressed:' + numberPressed);
+			debugTool.log('numberPressed:' + numberPressed);
 			opPressed = false;
-			debug.log('opPressed:' + opPressed);
+			debugTool.log('opPressed:' + opPressed);
 			percent = false;
-			debug.log('percent:' + percent);
+			debugTool.log('percent:' + percent);
 			firstNumberValue = 0;
-			debug.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 			secondNumberValue = 0;
-			debug.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
 			// TODO: storage of memory values cleared
-			debug.log("memory storage cleared ")
+			debugTool.log("memory storage cleared ")
 
 		}
 	}); // end all-clear button event handler
@@ -544,21 +544,21 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 				posNegPercentPressed = true;
 
-				debug.log('inputValue: ' + inputValue);
+				debugTool.log('inputValue: ' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
 				numberPressed = false;
 				opPressed = true;
 				equalsJustPressed = false 
 				opValue = $(this).text();
-				debug.log('opValue:', opValue);
+				debugTool.log('opValue:', opValue);
 				secondNumberValue = 0;
 
 				// has a math operation has taken place or should, and what to do
 				if ( opValue === '%' && equals == true ) {
 
 					firstNumberValue = calcSum;
-					debug.log('calcSum = firstNumberValue:' + firstNumberValue);
+					debugTool.log('calcSum = firstNumberValue:' + firstNumberValue);
 					calcSum = calc.percent(numberOfValues, firstNumberValue);
 					numberOfValues = 0;
 					percent = true;
@@ -568,7 +568,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 				} else if ( opValue === '%' ) {
 
 					firstNumberValue = parseFloat(numberValue, 10);
-					debug.log('firstNumberValue:' + firstNumberValue);
+					debugTool.log('firstNumberValue:' + firstNumberValue);
 					calcSum = calc.percent(numberOfValues, firstNumberValue);
 					numberOfValues = 0;
 					percent = true;
@@ -594,9 +594,9 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 					ux.displayValue(calcSum);
 				}
 					
-				debug.log('calcSum:' + calcSum);
+				debugTool.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
-				debug.log('firstNumberValue: ' + firstNumberValue);
+				debugTool.log('firstNumberValue: ' + firstNumberValue);
 
 			}
 
@@ -606,7 +606,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 
 		if (!equalsJustPressed) {
 			
-			debug.log('equals pressed');
+			debugTool.log('equals pressed');
 			equals = true;
 			equalsJustPressed = true;
 			opPressedOnce = false;
@@ -614,8 +614,8 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 			calcStatus++
 
 			numberValue = parseFloat(inputValue);
-			debug.log('input stream.. ' + inputValue);
-			debug.log('numberValue ' + numberValue);
+			debugTool.log('input stream.. ' + inputValue);
+			debugTool.log('numberValue ' + numberValue);
 
 			// eval all numeric entry and operators and do math
 			if (calcStatus == 3) {
@@ -641,7 +641,7 @@ if (debug.loggingOn) {console.log.bind(window.console)}
         
 
 		posNegPercentPressed = false;
-		debug.log('posNegPercentPressed: ' + posNegPercentPressed);
+		debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 
 		if (firstentry) {
 			inputValue = $(this).text();
@@ -653,41 +653,41 @@ if (debug.loggingOn) {console.log.bind(window.console)}
 		}
 
 
-		debug.log('input stream..' + inputValue);
-		debug.log('this.text..' + $(this).text());			  
+		debugTool.log('input stream..' + inputValue);
+		debugTool.log('this.text..' + $(this).text());			  
 
 	}); // end listner for nums pressed
 	
 	$('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd').click(function(event) {
 		
 		equalsJustPressed = false;
-		debug.log("equals just pressed: " + equalsJustPressed);
+		debugTool.log("equals just pressed: " + equalsJustPressed);
 
 		if (!opPressedOnce) {
 			opPressedOnce = true;
-			debug.log('opPressesOnce: ' + opPressedOnce);
+			debugTool.log('opPressesOnce: ' + opPressedOnce);
 			opPressed = true;
 			opValue = $(this).text()
-			debug.log('opValue' + opValue);
-			debug.log('posNegPercentPressed: ' + posNegPercentPressed);
+			debugTool.log('opValue' + opValue);
+			debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 			calcStatus++;
-			debug.log('calcStatus' + calcStatus);
+			debugTool.log('calcStatus' + calcStatus);
 			firstentry = true;
 			
 			if (equals && numberPressed && calcSum != 0) {
 
-				debug.log('opValue' + opValue);
+				debugTool.log('opValue' + opValue);
 				calcStatus = 3;
 				calcEval.ops(firstNumberValue, secondNumberValue, opValue);
 
 			} else if ( !posNegPercentPressed ) {
-					debug.log('input stream...' + inputValue);
+					debugTool.log('input stream...' + inputValue);
 					if (inputValue == null) {
 						numberValue = 0;
 					} else {
 						numberValue = parseFloat(inputValue);
 					}
-					debug.log('numberValue...' + numberValue);
+					debugTool.log('numberValue...' + numberValue);
 					inputValue = null;
 					ux.handleOpPressed(event);
 			} 
