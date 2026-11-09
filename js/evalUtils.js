@@ -2,7 +2,7 @@
 const calcEval = {
 
 	isValueANum: function (value) {
-		let setToZero =0
+		let setToZero = 0
 		if (isNaN(value)){
 			value = setToZero;
 		}
@@ -39,7 +39,6 @@ const calcEval = {
 				calcStatus = 2; 
 				debug.log("calcStatus: " + calcStatus);	
 		}
-
 
 	},
 

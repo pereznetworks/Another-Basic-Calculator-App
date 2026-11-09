@@ -1,6 +1,7 @@
 const mathSettings = { 
-    // math settings for the calculator
+    // math settings how many digits to show in the display
     // not used, current display is scrolable 
+	// may need to use html/css to control the display
 	
 	maxNumDecimals: 14, // the max number of significant decimals with current calc display
 	numDecimals: 4,
