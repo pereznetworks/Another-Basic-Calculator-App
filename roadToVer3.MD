@@ -9,7 +9,7 @@
     - pass and return args 
 
 - TO DO:
-    - verify app works with no errors
+    - need to verify app works with no errors
 
 ## phase 2 - version 2.7 
 
