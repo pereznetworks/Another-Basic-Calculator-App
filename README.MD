@@ -31,7 +31,13 @@
     - In the middle of a rewrite, so app may be broken until rewrite is complete
       - transitioning to modules and eventually native ECMAScript Modules (ESM)  
 
-  - Fixes :
+  - version 2.6 fixes
+
+    - remove logging to conssole m
+    - ove to module pattern 
+    - for now still have to verify and debug
+
+  - version 2.5 Fixes :
 
     - Turn your mobile phone sideways, and check out new landscape layout 
 
