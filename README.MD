@@ -33,7 +33,7 @@
 
   - version 2.6 fixes
 
-    - remove logging to conssole m
+    - remove logging to conssole
     - ove to module pattern 
     - for now still have to verify and debug
 
