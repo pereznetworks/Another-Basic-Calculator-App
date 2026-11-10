@@ -4,7 +4,7 @@
 // need to handle changes to display, using ux.display, in workingDisplay
 // move mathSettings functions here ?
 
-import ux from './workingDisplay.js';
+import { ux } from './ux.js';
 
 const calcEval = {
 
@@ -85,4 +85,4 @@ const calcEval = {
 	},
 
 }
-export { calcEval };
+export { calcEval };	

@@ -7,8 +7,6 @@ const ux = {
 
 	acToogle: function () {
 
-		debug.log('run acToogle:' + this.acShow);
-
 		if ( this.acShow ) {
 			// then toogle C button to AC
 			$('#ac')[0].innerHTML = "AC";

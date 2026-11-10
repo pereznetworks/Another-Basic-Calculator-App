@@ -1,4 +1,7 @@
-import { ux } from './workingDisplay.js';
+import { ux } from './ux.js';
+import { calcEval } from './calcEval.js';
+import { mathSettings } from './mathSettings.js';
+
 
 let version = 'v2.6'
 let allClear = '';
@@ -6,7 +9,7 @@ let percent = false;
 let initialValue = 0;
 let posNegPercentPressed;
 
-calcValues = {
+const calcValues = {
 	firstNumberValue: 0,
 	secondNumberValue: 0,
 	calcSum: 0,
@@ -28,20 +31,20 @@ ux.displayVersion(version);
 
 	$('#ac, #lac').click(function(event){
 
-	  
+	  console.log('All clear button pressed');
 		
 		allClear = $(this).text();
 
 		if ( allClear == 'C' ) {
 			
 
-			if ( opPressed ) {
-				opValue = '';
-				opPressed = false;
-				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
+			if ( calcValues.opPressed ) {
+				calcValues.opValue = '';
+				calcValues.opPressed = false;
+				calcValues.calcStatus > 1 ? calcValues.calcStatus -= 1 : calcValues.calcStatus = 0;
 				calcValues.firstNumberValue == NaN ? calcValues.inputValue = '' : calcValues.inputValue = calcValues.firstNumberValue;
 
-			} else if ( numberPressed ){
+			} else if ( calcValues.numberPressed ){
 
 				calcValues.inputValue = '';
 				calcValues.firstNumberValue = initialValue;
@@ -116,7 +119,7 @@ ux.displayVersion(version);
 				} else if ( calcValues.opValue === '%' ) {
 
 					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
-					calcValues.calcSum = calc.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
+					calcValues.calcSum = calcEval.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
 					calcValues.numberOfValues = 0;
 					calcValues.percent = true;
 					calcValues.numberValue = '';
@@ -125,7 +128,7 @@ ux.displayVersion(version);
 
 					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
 					calcValues.numberValue = '';
-					calcValues.calcSum = calcValues.posNeg(calcValues.firstNumberValue);
+					calcValues.calcSum = calcEval.posNeg(calcValues.firstNumberValue);
 					calcValues.posNegPressed = true;
 
 			}
@@ -137,7 +140,7 @@ ux.displayVersion(version);
 					calcValues.secondNumberValue = setToZero;
 					calcStatus = 0;
 				} else {
-					// calcSum = mathSettings.setDecimals(calcSum);
+					calcSum = mathSettings.setDecimals(calcSum);
 					ux.displayValue(calcValues.calcSum);
 				}
 					

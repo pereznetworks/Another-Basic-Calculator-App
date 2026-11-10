@@ -3,17 +3,20 @@
 ## phase 1 - version 2.6
 
 - implement modules 
-    - no globals 
-    - remove original debug refs
-    - move with-in modules, functions if possible 
+    - no globals
     - pass and return args 
+    - no more logging to console 
+    - fully self contained modules 
+    - move args with-in functions if possible 
+  
 
 - TO DO:
-    - need to verify app works with no errors
+    - lots of breaking changes 
+        - need to verify app still works with no errors
 
 ## phase 2 - version 2.7 
 
-- test cases
+- rewrite app, no jquery, use modern framework instead
 
 ## phase 3 - version 2.8 
 
