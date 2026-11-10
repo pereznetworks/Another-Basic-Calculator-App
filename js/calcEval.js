@@ -5,6 +5,7 @@
 // move mathSettings functions here ?
 
 import { ux } from './ux.js';
+import { calc } from './calc.js';
 
 const calcEval = {
 

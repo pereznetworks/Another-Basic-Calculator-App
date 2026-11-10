@@ -54,4 +54,4 @@ const calc = {
 		return this.sumValue;
 	}
 }
-export default calc;
+export { calc };

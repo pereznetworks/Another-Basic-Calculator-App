@@ -1,13 +1,12 @@
 import { ux } from './ux.js';
 import { calcEval } from './calcEval.js';
 import { mathSettings } from './mathSettings.js';
+import { calc } from './calc.js';
 
 
 let version = 'v2.6'
 let allClear = '';
-let percent = false;
 let initialValue = 0;
-let posNegPercentPressed;
 
 const calcValues = {
 	firstNumberValue: 0,
@@ -20,7 +19,8 @@ const calcValues = {
 	inputValue: null,
 	equals: false,
 	numberPressed: false,
-	opPressed: false
+	opPressed: false,
+	posNegPercentPressed: false
 }
 
 $(document).ready( function () {
@@ -65,8 +65,8 @@ ux.displayVersion(version);
 				calcValues.equals = false;
 				calcValues.numberPressed = false;
 				calcValues.opPressed = false;
-				posNegPercentPressed = false;
-				percent = false;
+				calcValues.posNegPercentPressed = false;
+				calcValues.percent = false;
 				calcValues.firstNumberValue = 0;
 				calcValues.secondNumberValue = 0;
 				
@@ -86,7 +86,7 @@ ux.displayVersion(version);
 			calcValues.equals = false;
 			calcValues.numberPressed = false;
 			calcValues.opPressed = false;
-			percent = false;
+			calcValues.percent = false;
 			calcValues.firstNumberValue = 0;
 			calcValues.secondNumberValue = 0;
 		}
@@ -94,9 +94,9 @@ ux.displayVersion(version);
 
 	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
 
-			if (!posNegPercentPressed) {
+			if (!calcValues.posNegPercentPressed) {
 
-				posNegPercentPressed = true;
+				calcValues.posNegPercentPressed = true;
 
 				calcValues.numberPressed = false;
 				calcValues.opPressed = true;
@@ -109,7 +109,7 @@ ux.displayVersion(version);
 				// has a math operation has taken place or should, and what to do
 				if ( calcValues.opValue === '%' && calcValues.equals == true ) {
 
-					percent = true;
+					calcValues.percent = true;
 					calcValues.firstNumberValue = calcValues.calcSum;
 					calcValues.calcSum = calc.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
 					calcValues.numberOfValues = 0;
@@ -119,7 +119,7 @@ ux.displayVersion(version);
 				} else if ( calcValues.opValue === '%' ) {
 
 					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
-					calcValues.calcSum = calcEval.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
+					calcValues.calcSum = calc.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
 					calcValues.numberOfValues = 0;
 					calcValues.percent = true;
 					calcValues.numberValue = '';
@@ -128,8 +128,8 @@ ux.displayVersion(version);
 
 					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
 					calcValues.numberValue = '';
-					calcValues.calcSum = calcEval.posNeg(calcValues.firstNumberValue);
-					calcValues.posNegPressed = true;
+					calcValues.calcSum = calc.posNeg(calcValues.firstNumberValue);
+					calcValues.posNegPercentPressed = true;
 
 			}
 
@@ -138,10 +138,11 @@ ux.displayVersion(version);
 					ux.displayValue(setToZero);
 					calcValues.firstNumberValue = setToZero;
 					calcValues.secondNumberValue = setToZero;
-					calcStatus = 0;
+					calcValues.calcStatus = 0;
 				} else {
-					calcSum = mathSettings.setDecimals(calcSum);
+					calcValues.calcSum = mathSettings.setDecimals(calcValues.calcSum);
 					ux.displayValue(calcValues.calcSum);
+				}
 				}
 					
 				calcValues.firstNumberValue = calcValues.calcSum;
