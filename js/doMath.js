@@ -1,4 +1,6 @@
 // math happens here
+// conforms to module pattern
+
 const calc = {
 	sumValue: 0,
 	allClear: function() {
@@ -37,7 +39,6 @@ const calc = {
 	posNeg: function(numValue1){
 
 		let negNum = false;
-		debug.log('numValue1..' + numValue1);
 
 		if (negNum)  {
 			this.sumValue = Math.abs(numValue1);
@@ -46,7 +47,7 @@ const calc = {
 			negNum = true
 		}
 		
-		debug.log('posNeg..' + this.sumValue)
+
 		return this.sumValue;
 	},
 	equals: function() {				
