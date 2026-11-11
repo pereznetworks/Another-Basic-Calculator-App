@@ -33,7 +33,7 @@
 
   - version 2.6 major fixes coming ...
 
-   - 
+   - remove code using and any refs to jquery
 
   - version 2.5 minor fixes and new :
 
