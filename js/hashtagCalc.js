@@ -7,20 +7,25 @@ import { calc } from './calc.js';
 let version = 'v2.6'
 let allClear = '';
 let initialValue = 0;
+let numberValue = '';
 
 const calcValues = {
 	firstNumberValue: 0,
 	secondNumberValue: 0,
 	calcSum: 0,
-	calcStatus: 0,
-	numberValue: '',
 	opValue: '',
 	opValue2: '',
-	inputValue: null,
+	inputValue: ''
+}
+const status = {
+	numberOfValues: 0,
 	equals: false,
+	calcStatus: 0,
 	numberPressed: false,
 	opPressed: false,
-	posNegPercentPressed: false
+	opPressedOnce: false,
+	posNegPercentPressed: false,
+	equalsJustPressed: false
 }
 
 $(document).ready( function () {
@@ -46,9 +51,9 @@ ux.displayVersion(version);
 
 			} else if ( calcValues.numberPressed ){
 
-				calcValues.inputValue = '';
+				calcValues.inputValue = null;
 				calcValues.firstNumberValue = initialValue;
-				calcValues.numberValue = calcValues.firstNumberValue;
+				numberValue = calcValues.firstNumberValue;
 				calcValues.secondNumberValue = 0;
 				ux.displayValue(initialValue);
 
@@ -59,7 +64,7 @@ ux.displayVersion(version);
 				ux.displayValue(calcValues.calcSum);
 				calcValues.calcStatus = 0;
 				calcValues.inputValue = initialValue;
-				calcValues.numberValue = '';
+				numberValue = '';
 				calcValues.opValue = '';
 				calcValues.opValue2 = '';
 				calcValues.equals = false;
@@ -81,7 +86,7 @@ ux.displayVersion(version);
 			ux.displayValue(calcValues.calcSum);
 			calcValues.calcStatus = 0;
 			calcValues.inputValue = '';
-			calcValues.numberValue = '';
+			numberValue = '';
 			calcValues.opValue = '';
 			calcValues.equals = false;
 			calcValues.numberPressed = false;
@@ -101,7 +106,7 @@ ux.displayVersion(version);
 				calcValues.numberPressed = false;
 				calcValues.opPressed = true;
 				calcValues.equalsJustPressed = false 
-				calcValues.numberValue = parseFloat(calcValues.inputValue);
+				numberValue = parseFloat(calcValues.inputValue);
 				calcValues.inputValue = '';
 				calcValues.opValue = $(this).text();
 				calcValues.secondNumberValue = 0;
@@ -113,41 +118,41 @@ ux.displayVersion(version);
 					calcValues.firstNumberValue = calcValues.calcSum;
 					calcValues.calcSum = calc.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
 					calcValues.numberOfValues = 0;
-					calcValues.numberValue = '';
+					numberValue = '';
 					calcValues.equals = false;
 
 				} else if ( calcValues.opValue === '%' ) {
 
-					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
+					calcValues.firstNumberValue = parseFloat(numberValue, 10);
 					calcValues.calcSum = calc.percent(calcValues.numberOfValues, calcValues.firstNumberValue);
-					calcValues.numberOfValues = 0;
+					numberOfValues = 0;
 					calcValues.percent = true;
-					calcValues.numberValue = '';
+					numberValue = '';
 
 				} else if ( calcValues.opValue === '+/-' ) {
 
-					calcValues.firstNumberValue = parseFloat(calcValues.numberValue, 10);
-					calcValues.numberValue = '';
+					calcValues.firstNumberValue = parseFloat(numberValue, 10);
+					numberValue = '';
 					calcValues.calcSum = calc.posNeg(calcValues.firstNumberValue);
 					calcValues.posNegPercentPressed = true;
 
 			}
 
-				if(isNaN(calcValues.calcSum)) {
-					let setToZero = 0
-					ux.displayValue(setToZero);
-					calcValues.firstNumberValue = setToZero;
-					calcValues.secondNumberValue = setToZero;
-					calcValues.calcStatus = 0;
-				} else {
-					calcValues.calcSum = mathSettings.setDecimals(calcValues.calcSum);
-					ux.displayValue(calcValues.calcSum);
-				}
-				}
-					
-				calcValues.firstNumberValue = calcValues.calcSum;
-
+			if(isNaN(calcValues.calcSum)) {
+				let setToZero = 0
+				ux.displayValue(setToZero);
+				calcValues.firstNumberValue = setToZero;
+				calcValues.secondNumberValue = setToZero;
+				calcValues.calcStatus = 0;
+			} else {
+				calcValues.calcSum = mathSettings.setDecimals(calcValues.calcSum);
+				ux.displayValue(calcValues.calcSum);
 			}
+			}
+				
+			calcValues.firstNumberValue = calcValues.calcSum;
+
+			
 
 	}); // end listener for +/-  %
 
@@ -165,9 +170,8 @@ ux.displayVersion(version);
 
 			// eval all numeric entry and operators and do math
 			if (calcValues.calcStatus == 3) {
-			calcEval.ops(calcValues.firstNumberValue, calcValues.secondNumberValue, calcValues.opValue)
+			calcEval.ops([calcValues, calcStatus]);
 			} else {
-				ux.handleOpPressed(calcValues, event);
 			}
 		}
 		
@@ -214,13 +218,13 @@ ux.displayVersion(version);
 			if (calcValues.equals && calcValues.numberPressed && calcValues.calcSum != 0) {
 
 				calcValues.calcStatus = 3;
-				calcEval.ops(calcValues.firstNumberValue, calcValues.secondNumberValue, calcValues.opValue);
+				calcEval.ops([calcValues, calcStatus]);
 
 			} else if ( !calcValues.posNegPercentPressed ) {
 					if (calcValues.inputValue == null) {
-						calcValues.numberValue = 0;
+						numberValue = 0;
 					} else {
-						calcValues.numberValue = parseFloat(calcValues.inputValue);
+						numberValue = parseFloat(calcValues.inputValue);
 					}
 					calcValues.inputValue = null;
 					ux.handleOpPressed(calcValues, event);

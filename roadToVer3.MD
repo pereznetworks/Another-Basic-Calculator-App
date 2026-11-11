@@ -2,34 +2,38 @@
 
 ## phase 1 - version 2.6
 
-- implement modules 
-    - no globals
-    - pass and return args 
-    - no more logging to console 
-    - fully self contained modules 
-    - move args with-in functions if possible 
-  
-
-- TO DO:
-    - lots of breaking changes 
-        - need to verify app still works with no errors
+- no more logging to console
+- no more jquery, using modern js, with browser api calls
+- no more logging to console 
 
 ## phase 2 - version 2.7 
 
-- rewrite app, no jquery, use modern framework instead
+- rewrite methods
+    - use module pattern and ECMA
+    - no more globals
+    - pass and return args 
 
 ## phase 3 - version 2.8 
 
-- implement state 
-- implement ECMA
+- implement state using native js and aplinejs
+    - reactjs requires nodejs, build env and web server
+    - other options have similar requirements 
 
 ## phase 4 - version 2.9 
 
-- implement GUI/UX refresh 
+- new UI 
+    - new basic calculator UI
+    - new UI for new calculator modes 
+
+- new modes 
+    - scientific, accounting 
+    - contractor specific 
+    - conversion
 
 ## phase 5 - version 3.0
 
-- verify no bugs 
-- sync all changes across branches 
-- merge all branches 
-- publish as 3.0 
+- new basic calculator UI
+- complete bug fixes
+- verify sync on changes across branches
+- as new modes are finished
+    - start to release new modes as 3.x 

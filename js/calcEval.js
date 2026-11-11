@@ -17,7 +17,7 @@ const calcEval = {
 		return value
 	},
 
-	runningTotalDoMath: function (firstNumberValue, secondNumberValue, opValue) {
+	runningTotalDoMath: function (firstNumberValue, secondNumberValue, opValue, calcSum) {
 
 		// make sure value are numbers 
 		firstNumberValue = this.isValueANum(firstNumberValue);
@@ -42,10 +42,10 @@ const calcEval = {
 				calcStatus = 2; 
 		}
 
-		return { calcSum, calcStatus };
+		return { firstNumberValue, secondNumberValue, opValue, calcSum, calcStatus };
 	},
 
-	ops: function (firstNumberValue, secondNumberValue, opValue) {
+	ops: function (firstNumberValue, secondNumberValue, opValue, calcStatus, calcSum) {
 		// entered : 3 = 
 	    // or : + 3 = 
 		// or starting running total like : 6 + 4 = 10 + 3 = 
@@ -55,7 +55,7 @@ const calcEval = {
 			firstNumberValue = parseFloat(numberValue, 10);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 			// in case someone, tries something like, 3 +
-			ux.displayValue(calcSum);
+			//ux.displayValue(calcSum);
 			//so only a number pressed entered, no math actually happens
 
 		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  
@@ -64,13 +64,11 @@ const calcEval = {
 			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(inputValue, 10);
 			calcStatus = 3;
-			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
 			
 			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(numberValue, 10);
-			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		}
 
