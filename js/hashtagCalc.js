@@ -218,12 +218,12 @@ const ux = {
 
 		if ( this.acShow ) {
 			// then toogle C button to AC
-			$('#ac')[0].innerHTML = "AC";
+			document.getElementById('ac').textContent = "AC";
 			// debugTool.log('C change to AC:' + this.acShow);
 
 		} else {
 			// else toogle AC button to C
-				$('#ac')[0].innerHTML = "C";
+				document.getElementById('ac').textContent = "C";
 			// debugTool.log('AC change to C:' + this.acShow);
 
 		}
@@ -232,14 +232,16 @@ const ux = {
 
 	displayValue: function (value) {
 
-		$('#input').removeClass('inputBlink').text(value);
+		const input = document.getElementById('input');
+		input.classList.remove('inputBlink');
+		input.textContent = value;
 		// debugTool.log('displaying value ' + value);
 
 	},
 
 	displayVersion: function (version) {
-		$('#version').html('#Calc ' + version);
-		$('title').html('#Calc ' + version)
+		document.getElementById('version').textContent = '#Calc ' + version;
+		document.querySelector('title').textContent = '#Calc ' + version;
 	},
 
 	handleOpPressed: function (event) {
@@ -430,18 +432,20 @@ const ux = {
 
 }
 
-$(document).ready( function () {
+document.addEventListener('DOMContentLoaded', function() {
 
-ux.displayVersion(version);
+	ux.displayVersion(version);
 
-// event-listeners
+	// event-listeners
 
-	$('#ac, #lac').click(function(event){
+	document.addEventListener('click', function(event) {
+		const button = event.target.closest('#ac, #lac');
+		if (!button) return;
 
 	  
 		
 		// debugTool.log('AC pressed ...');
-		allClear = $(this).text();
+		allClear = button.textContent;
 
 		if ( allClear == 'C' ) {
 
@@ -538,7 +542,9 @@ ux.displayVersion(version);
 		}
 	}); // end all-clear button event handler
 
-	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
+	document.addEventListener('click', function(event) {
+		const button = event.target.closest('#posNeg, #percent, #lposNeg, #lpercent');
+		if (!button) return;
 
 			if (!posNegPercentPressed) {
 
@@ -550,7 +556,7 @@ ux.displayVersion(version);
 				numberPressed = false;
 				opPressed = true;
 				equalsJustPressed = false 
-				opValue = $(this).text();
+				opValue = button.textContent;
 				// debugTool.log('opValue:', opValue);
 				secondNumberValue = 0;
 
@@ -602,7 +608,8 @@ ux.displayVersion(version);
 
 	}); // end listener for +/-  %
 
-	$('#equals, #lequals').click(function(event){
+	document.addEventListener('click', function(event) {
+		if (!event.target.closest('#equals, #lequals')) return;
 
 		if (!equalsJustPressed) {
 			
@@ -629,7 +636,9 @@ ux.displayVersion(version);
 
 	}); // end equals 
 
-	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal, #lnine, #leight, #lseven, #lsix, #lfive, #lfour, #lthree, #ltwo, #lone, #lzero, #ldecimal').click(function(event) {
+	document.addEventListener('click', function(event) {
+		const button = event.target.closest('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal, #lnine, #leight, #lseven, #lsix, #lfive, #lfour, #lthree, #ltwo, #lone, #lzero, #ldecimal');
+		if (!button) return;
 
 	  
 		// read value 
@@ -644,21 +653,23 @@ ux.displayVersion(version);
 		// debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 
 		if (firstentry) {
-			inputValue = $(this).text();
+			inputValue = button.textContent;
 			ux.displayValue(inputValue);
 			firstentry = false;
 		} else {
-			inputValue += $(this).text();
+			inputValue += button.textContent;
 			ux.displayValue(inputValue);
 		}
 
 
 		// debugTool.log('input stream..' + inputValue);
-		// debugTool.log('this.text..' + $(this).text());			  
+		// debugTool.log('button.textContent..' + button.textContent);
 
 	}); // end listner for nums pressed
 	
-	$('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd').click(function(event) {
+	document.addEventListener('click', function(event) {
+		const button = event.target.closest('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd');
+		if (!button) return;
 		
 		equalsJustPressed = false;
 		// debugTool.log("equals just pressed: " + equalsJustPressed);
@@ -667,7 +678,7 @@ ux.displayVersion(version);
 			opPressedOnce = true;
 			// debugTool.log('opPressesOnce: ' + opPressedOnce);
 			opPressed = true;
-			opValue = $(this).text()
+			opValue = button.textContent;
 			// debugTool.log('opValue' + opValue);
 			// debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 			calcStatus++;
@@ -695,4 +706,4 @@ ux.displayVersion(version);
 
 	}); // end listner for basic math ops
 
-}); // end $(document).ready
+});
