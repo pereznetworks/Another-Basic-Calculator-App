@@ -5,6 +5,7 @@
 - no more logging to console
 - no more jquery, using modern js, with browser api calls
 - no more logging to console 
+- still have to fix AC/C function
 
 ## phase 2 - version 2.7 
 
