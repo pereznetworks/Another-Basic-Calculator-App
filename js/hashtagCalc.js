@@ -1,30 +1,25 @@
 
 
-let version = 'v2.6.0';
+let version = 'v2.5b'
 let allClear = '';
-
-let initialValue = 0;
-let calcSum = 0;
-let numberOfValues = 0;
-let firstNumberValue = 0;
-let secondNumberValue = 0;
-
-let inputValue = null;
-let numberValue = '';
-let calcStatus = 0;
-let firstentry = true;
 let equals = false;
 let equalsJustPressed = false;
 let percent = false;
-let numberPressed = false;
+let initialValue = 0;
+let firstentry = true;
+let inputValue = null;
 let opPressedOnce = false;
-let opPressed = false;
-let posNeg = false;
-let posNegPercentPressed = false;
 let opValue2 = '';
 let opValue = '';
-
-
+let calcSum = 0;
+let calcStatus = 0;
+let numberValue = '';
+let numberOfValues = 0;
+let firstNumberValue = 0;
+let secondNumberValue = 0;
+let numberPressed = false;
+let opPressed = false;
+let posNegPercentPressed;
 
 const mathSettings = { 
 	
@@ -33,7 +28,7 @@ const mathSettings = {
 	trailingZeros: false,  // by default, don't display trailing zeros
 
 	setDecimals: function(value) {
-		console.log('value:' + value);
+		debugTool.log('value:' + value);
 		return parseFloat(value.toPrecision(mathSettings.numDecimals));
 		// toFixed allows for more decimals
 		// for basic math, need to reduce number of digits 
@@ -46,7 +41,7 @@ const tape = {
 	showTape: false,
 }
 
-const debug = {
+const debugTool = {
 // dev use only 
 // to be replaced by logging state of app and errors
 	loggingOn: false,
@@ -99,7 +94,7 @@ const calc = {
 	posNeg: function(numValue1){
 
 		let negNum = false;
-		// console.log('numValue1..' + numValue1);
+		debugTool.log('numValue1..' + numValue1);
 
 		if (negNum)  {
 			this.sumValue = Math.abs(numValue1);
@@ -108,7 +103,7 @@ const calc = {
 			negNum = true
 		}
 		
-		// console.log('posNeg..' + this.sumValue)
+		debugTool.log('posNeg..' + this.sumValue)
 		return this.sumValue;
 	},
 	equals: function() {				
@@ -131,31 +126,31 @@ const calcEval = {
 
 		// make sure value are numbers 
 		firstNumberValue = this.isValueANum(firstNumberValue);
-		// console.log('firstNumberValue: ' + firstNumberValue);
+		debugTool.log('firstNumberValue: ' + firstNumberValue);
 		secondNumberValue = this.isValueANum(secondNumberValue);
-		// console.log('secondNumberValue: ' + secondNumberValue);
+		debugTool.log('secondNumberValue: ' + secondNumberValue);
 
 		// do math, get and save calcSum
 		if ( opValue === '/' && secondNumberValue != 0 ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				// console.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '*' && secondNumberValue != 0 ) {
 				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				// console.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '-' && secondNumberValue != 0  ) {
 				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2;
-				// console.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		} else if ( opValue === '+' && secondNumberValue != 0 ) {
 				calcSum = calc.addition(firstNumberValue, secondNumberValue);
 				this.afterMath(calcSum)
 				calcStatus = 2; 
-				// console.log("calcStatus: " + calcStatus);	
+				debugTool.log("calcStatus: " + calcStatus);	
 		}
 
 		return { calcSum, calcStatus };
@@ -169,11 +164,11 @@ const calcEval = {
 		if ( opValue === '' ) {  // this usually when very first number is entered
 			
 			firstNumberValue = parseFloat(numberValue, 10);
-			// console.log('firstNumberValue: ' + firstNumberValue);
+			debugTool.log('firstNumberValue: ' + firstNumberValue);
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 			// in case someone, tries something like, 3 +
 			ux.displayValue(calcSum);
-			// console.log("calcSum:" + calcSum);
+			debugTool.log("calcSum:" + calcSum);
 			//so display value entered, no math actually happens
 
 		} else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {  
@@ -182,18 +177,18 @@ const calcEval = {
 			firstNumberValue = calcSum;
 			secondNumberValue = parseFloat(inputValue, 10);
 			calcStatus = 3;
-			// console.log('secondNumberValue: ' + secondNumberValue);
-			// console.log('opValue: ' + opValue);
-			// console.log('calcSum: ' + calcSum)
+			debugTool.log('secondNumberValue: ' + secondNumberValue);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('calcSum: ' + calcSum)
 			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		} else if ( calcStatus >= 2 ) {  // entered something like, 3 + 3 = 6 + 4 =
 			
 			firstNumberValue = calcSum;
-			// console.log('firstNumberValue: ' + firstNumberValue);
+			debugTool.log('firstNumberValue: ' + firstNumberValue);
 			secondNumberValue = parseFloat(numberValue, 10);
-			// console.log('secondNumberValue: ' + secondNumberValue);
-			// console.log('opValue: ' + opValue);
+			debugTool.log('secondNumberValue: ' + secondNumberValue);
+			debugTool.log('opValue: ' + opValue);
 			this.runningTotalDoMath(firstNumberValue, secondNumberValue, opValue);
 
 		}
@@ -205,7 +200,7 @@ const calcEval = {
 
 		let fixedValue = mathSettings.setDecimals(valueToFix);
 		ux.displayValue(fixedValue);
-		// console.log("calcSum:" + fixedValue);
+		debugTool.log("calcSum:" + fixedValue);
 
 		return fixedValue;
 
@@ -219,17 +214,17 @@ const ux = {
 
 	acToogle: function () {
 
-		// console.log('run acToogle:' + this.acShow);
+		debugTool.log('run acToogle:' + this.acShow);
 
 		if ( this.acShow ) {
 			// then toogle C button to AC
-			document.getElementById('ac').textContent = "AC";
-			// console.log('C change to AC:' + this.acShow);
+			$('#ac')[0].innerHTML = "AC";
+			debugTool.log('C change to AC:' + this.acShow);
 
 		} else {
 			// else toogle AC button to C
-				document.getElementById('ac').textContent = "C";
-			// console.log('AC change to C:' + this.acShow);
+				$('#ac')[0].innerHTML = "C";
+			debugTool.log('AC change to C:' + this.acShow);
 
 		}
 
@@ -237,16 +232,14 @@ const ux = {
 
 	displayValue: function (value) {
 
-		const input = document.getElementById('input');
-		input.classList.remove('inputBlink');
-		input.textContent = value;
-		// console.log('displaying value ' + value);
+		$('#input').removeClass('inputBlink').text(value);
+		debugTool.log('displaying value ' + value);
 
 	},
 
 	displayVersion: function (version) {
-		document.getElementById('version').textContent = '#Calc ' + version;
-		document.querySelector('title').textContent = '#Calc ' + version;
+		$('#version').html('#Calc ' + version);
+		$('title').html('#Calc ' + version)
 	},
 
 	handleOpPressed: function (event) {
@@ -255,20 +248,20 @@ const ux = {
 		
 		ux.acShow = false;
 		ux.acToogle();
-		// console.log('calcStatus: ' + calcStatus);
+		debugTool.log('calcStatus: ' + calcStatus);
 
 		if ( equals && calcStatus == 3) {
 
-			// console.log('secondNumberValue:' + secondNumberValue);
-			// console.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 
-			// console.log('opValue: ' + opValue);
-			// console.log('opPressesd:' + opPressed);
-			// console.log('calcStatus:' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
 			
 			firstNumberValue = calcSum;
-			// console.log('firstNumberValue:' + firstNumberValue);
-			// console.log('calcStatus: ' + calcStatus);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('calcStatus: ' + calcStatus);
 			equals = false;
 			ux.acShow = true;
 			ux.acToogle();
@@ -276,44 +269,44 @@ const ux = {
         } else if ( opValue === '+/-' ) {
 
 			firstNumberValue = calcSum;
-			// console.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 			numberValue = '';
-			// console.log('opValue: ' + opValue);
-			// console.log('calcStatus: ' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('calcStatus: ' + calcStatus);
 
 	    } else if ( opValue === "+" || opValue === "-" || opValue === "*" || opValue === "/" ) {
 
 			
 			if (calcStatus == 1) {
 
-				// console.log('numberValue:' + numberValue);
+				debugTool.log('numberValue:' + numberValue);
 				firstNumberValue = parseFloat(numberValue, 10);
-				// console.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 				numberValue = '';
 
-				// console.log('secondNumberValue:' + secondNumberValue);
-				// 	console.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 	
-				// console.log('opValue: ' + opValue);
-				// console.log('opPressesd:' + opPressed);
-				// console.log('calcStatus:' + calcStatus);
+				debugTool.log('opValue: ' + opValue);
+				debugTool.log('opPressesd:' + opPressed);
+				debugTool.log('calcStatus:' + calcStatus);
 				
 			} else if (calcStatus > 1) {
 				
-				// console.log('input stream...' + inputValue);
-				// console.log('numberValue:' + numberValue)
+				debugTool.log('input stream...' + inputValue);
+				debugTool.log('numberValue:' + numberValue)
 				secondNumberValue = parseFloat(numberValue, 10);
-				// console.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
 				numberValue = '';
 
-				// console.log('secondNumberValue:' + secondNumberValue);
-				// console.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
+	
 
-
-				// console.log('opPressesd:' + opPressed);
-				// console.log('opValue: ' + opValue);
-				// console.log('opValue2: ' + opValue2);
-				// console.log('calcStatus:' + calcStatus);
+				debugTool.log('opPressesd:' + opPressed);
+				debugTool.log('opValue: ' + opValue);
+				debugTool.log('opValue2: ' + opValue2);
+				debugTool.log('calcStatus:' + calcStatus);
 				
 
 			}
@@ -325,10 +318,10 @@ const ux = {
 			numberValue = '';
 			firstNumberValue = calcSum;
 
-			// console.log('opValue: ' + opValue);
-			// console.log('opValue2: ' + opValue2);
-			// console.log('firstNumberValue = calcSum: ' + calcSum);
-			// console.log('calcStatus: ' + calcStatus);
+			debugTool.log('opValue: ' + opValue);
+			debugTool.log('opValue2: ' + opValue2);
+			debugTool.log('firstNumberValue = calcSum: ' + calcSum);
+			debugTool.log('calcStatus: ' + calcStatus);
 
     	}
         
@@ -337,14 +330,14 @@ const ux = {
 
 			calcSum = calc.divide(firstNumberValue, secondNumberValue);
 
-			// console.log('secondNumberValue:' + secondNumberValue);
-			// console.log('firstNumberValue:' + firstNumberValue);
-			// console.log('opPressesd:' + opPressed);
-			// console.log('calcStatus:' + calcStatus);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.acShow = true;
 			ux.acToogle();
@@ -354,22 +347,22 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			// console.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			// console.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '*' ) {
 
 			calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-			// console.log('secondNumberValue:' + secondNumberValue);
-			// console.log('firstNumberValue:' + firstNumberValue);
-			// console.log('opPressesd:' + opPressed);
-			// console.log('calcStatus:' + calcStatus);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 			ux.displayValue(calcSum);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 
 			ux.acShow = true;
@@ -380,22 +373,22 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			// console.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			// console.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '-' ) {
 
 			calcSum = calc.subtract(firstNumberValue, secondNumberValue);
 
-			// console.log('secondNumberValue:' + secondNumberValue);
-			// console.log('firstNumberValue:' + firstNumberValue);
-			// console.log('opPressesd:' + opPressed);
-			// console.log('calcStatus:' + calcStatus);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 
 			ux.acShow = true;
@@ -406,103 +399,107 @@ const ux = {
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			// console.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			// console.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		} else if ( numberPressed && calcStatus > 1 && opValue === '+' ) {
 
 			calcSum = calc.addition(firstNumberValue, secondNumberValue);
 
-			// console.log('secondNumberValue:' + secondNumberValue);
-			// console.log('firstNumberValue:' + firstNumberValue);
-			// console.log('opPressesd:' + opPressed);
-			// console.log('calcStatus:' + calcStatus);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('opPressesd:' + opPressed);
+			debugTool.log('calcStatus:' + calcStatus);
+			debugTool.log('calcSum:' + calcSum);
 
 			ux.displayValue(calcSum);
-			// console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
 			secondNumberValue = 0;
 			calcStatus = 3;
 			opPressed = false;
-			// console.log('opPressesd:' + opPressed);
+			debugTool.log('opPressesd:' + opPressed);
 			numberPressed = false;
-			// console.log('numberPressesd:' + numberPressed);
+			debugTool.log('numberPressesd:' + numberPressed);
 
 		}
 	},
 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready( function () {
 
-	ux.displayVersion(version);
+ux.displayVersion(version);
 
-	// event-listeners
+// event-listeners
 
-	document.addEventListener('click', function(event) {
-		const button = event.target.closest('#ac, #lac');
-		if (!button) return;
+	$('#ac, #lac').click(function(event){
 
 	  
-		allClear = button.textContent;
+		
+		debugTool.log('AC pressed ...');
+		allClear = $(this).text();
 
-		if ( allClear === 'C' ) {
+		if ( allClear == 'C' ) {
+
+			debugTool.log('C clicked, roll back to last entry');
+			
 
 			if ( opPressed ) {
 				opValue = '';
 				opPressed = false;
 				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
 				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
-	
+				debugTool.log('opValue:' + opValue);
+				debugTool.log('calcstatus:' + calcStatus);
+				debugTool.log('inputValue:' + inputValue);
+				debugTool.log('numberValue:' + numberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 
-			} else if ( numberPressed && opPressed ) {
+			} else if ( numberPressed ){
 
 				inputValue = '';
+				firstNumberValue = initialValue;
 				numberValue = firstNumberValue;
-				ux.displayValue(firstNumberValue );
-
-			} else if ( numberPressed && !opPressed ) {
-
-				inputValue = '';
-				firstNumberValue = 0;
-				numberValue = '';
 				secondNumberValue = 0;
-				ux.displayValue(initialValue );
+				ux.displayValue(initialValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
+
 			} else { // if equals just pressed
 
 
 				calcSum = 0;
 				ux.displayValue(calcSum);
-				// console.log('calcSum:' + calcSum);
+				debugTool.log('calcSum:' + calcSum);
 				calcStatus = 0;
-				// console.log('calcStatus:' + calcStatus);
+				debugTool.log('calcStatus:' + calcStatus);
 				inputValue = initialValue;
 				numberValue = '';
-				// console.log('numberValue:' + numberValue);
+				debugTool.log('numberValue:' + numberValue);
 				opValue = '';
-				// console.log('opValue:' + opValue);
+				debugTool.log('opValue:' + opValue);
 				opValue2 = '';
-				// console.log('opValue:' + opValue2);
+				debugTool.log('opValue:' + opValue2);
 				equals = false;
-				// console.log('equals:' + equals);
+				debugTool.log('equals:' + equals);
 				numberPressed = false;
-				// console.log('numberPressed:' + numberPressed);
+				debugTool.log('numberPressed:' + numberPressed);
 				opPressed = false;
-				// console.log('opPressed:' + opPressed);
+				debugTool.log('opPressed:' + opPressed);
 				posNegPercentPressed = false;
-				// console.log('posNegPercentPressed: ' + posNegPercentPressed);
+				debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 				percent = false;
-				// console.log('percent:' + percent);
+				debugTool.log('percent:' + percent);
 				firstNumberValue = 0;
-				// console.log('firstNumberValue:' + firstNumberValue);
+				debugTool.log('firstNumberValue:' + firstNumberValue);
 				secondNumberValue = 0;
-				// console.log('secondNumberValue:' + secondNumberValue);
+				debugTool.log('secondNumberValue:' + secondNumberValue);
 				// TODO: storage of memory values cleared
-				// console.log("memory storage cleared ")
+				debugTool.log("memory storage cleared ")
 				
 			}
 
@@ -511,59 +508,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		} else if ( allClear === 'AC') {
 
-			// console.log('AC clicked, reseting all values');
+			debugTool.log('AC clicked, reseting all values');
 
 			calcSum = 0;
 			ux.displayValue(calcSum);
-			// 	console.log('calcSum:' + calcSum);
+			debugTool.log('calcSum:' + calcSum);
 			calcStatus = 0;
-			// console.log('calcStatus:' + calcStatus);
+			debugTool.log('calcStatus:' + calcStatus);
 			inputValue = '';
 			numberValue = '';
-			// console.log('numberValue:' + numberValue);
+			debugTool.log('numberValue:' + numberValue);
 			opValue = '';
-			// console.log('opValue:' + opValue);
+			debugTool.log('opValue:' + opValue);
 			equals = false;
-			// console.log('equals:' + equals);
+			debugTool.log('equals:' + equals);
 			numberPressed = false;
-			// console.log('numberPressed:' + numberPressed);
+			debugTool.log('numberPressed:' + numberPressed);
 			opPressed = false;
-			// console.log('opPressed:' + opPressed);
+			debugTool.log('opPressed:' + opPressed);
 			percent = false;
-			// console.log('percent:' + percent);
+			debugTool.log('percent:' + percent);
 			firstNumberValue = 0;
-			// console.log('firstNumberValue:' + firstNumberValue);
+			debugTool.log('firstNumberValue:' + firstNumberValue);
 			secondNumberValue = 0;
-			// console.log('secondNumberValue:' + secondNumberValue);
+			debugTool.log('secondNumberValue:' + secondNumberValue);
 			// TODO: storage of memory values cleared
-			// console.log("memory storage cleared ")
+			debugTool.log("memory storage cleared ")
 
 		}
 	}); // end all-clear button event handler
 
-	document.addEventListener('click', function(event) {
-		const button = event.target.closest('#posNeg, #percent, #lposNeg, #lpercent');
-		if (!button) return;
+	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
 
 			if (!posNegPercentPressed) {
 
 				posNegPercentPressed = true;
 
-				// // console.log('inputValue: ' + inputValue);
+				debugTool.log('inputValue: ' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
 				numberPressed = false;
 				opPressed = true;
 				equalsJustPressed = false 
-				opValue = button.textContent;
-				// console.log('opValue:', opValue);
+				opValue = $(this).text();
+				debugTool.log('opValue:', opValue);
 				secondNumberValue = 0;
 
 				// has a math operation has taken place or should, and what to do
 				if ( opValue === '%' && equals == true ) {
 
 					firstNumberValue = calcSum;
-					// console.log('calcSum = firstNumberValue:' + firstNumberValue);
+					debugTool.log('calcSum = firstNumberValue:' + firstNumberValue);
 					calcSum = calc.percent(numberOfValues, firstNumberValue);
 					numberOfValues = 0;
 					percent = true;
@@ -573,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				} else if ( opValue === '%' ) {
 
 					firstNumberValue = parseFloat(numberValue, 10);
-					// console.log('firstNumberValue:' + firstNumberValue);
+					debugTool.log('firstNumberValue:' + firstNumberValue);
 					calcSum = calc.percent(numberOfValues, firstNumberValue);
 					numberOfValues = 0;
 					percent = true;
@@ -588,31 +583,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			}
 
-			if(isNaN(calcSum)) {
-				let setToZero = 0
-				ux.displayValue(setToZero);
-				firstNumberValue = setToZero;
-				secondNumberValue = setToZero;
-				calcStatus = 0;
-			} else {
-				// calcSum = mathSettings.setDecimals(calcSum);
-				ux.displayValue(calcSum);
-			}
-				
-			console.log('calcSum:' + calcSum);
-			firstNumberValue = calcSum;
-			// console.log('firstNumberValue: ' + firstNumberValue);
+				if(isNaN(calcSum)) {
+					let setToZero = 0
+					ux.displayValue(setToZero);
+					firstNumberValue = setToZero;
+					secondNumberValue = setToZero;
+					calcStatus = 0;
+				} else {
+					// calcSum = mathSettings.setDecimals(calcSum);
+					ux.displayValue(calcSum);
+				}
+					
+				debugTool.log('calcSum:' + calcSum);
+				firstNumberValue = calcSum;
+				debugTool.log('firstNumberValue: ' + firstNumberValue);
 
 			}
 
 	}); // end listener for +/-  %
 
-	document.addEventListener('click', function(event) {
-		if (!event.target.closest('#equals, #lequals')) return;
+	$('#equals, #lequals').click(function(event){
 
 		if (!equalsJustPressed) {
 			
-			// console.log('equals pressed');
+			debugTool.log('equals pressed');
 			equals = true;
 			equalsJustPressed = true;
 			opPressedOnce = false;
@@ -620,8 +614,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			calcStatus++
 
 			numberValue = parseFloat(inputValue);
-			// console.log('input stream.. ' + inputValue);
-			// console.log('numberValue ' + numberValue);
+			debugTool.log('input stream.. ' + inputValue);
+			debugTool.log('numberValue ' + numberValue);
 
 			// eval all numeric entry and operators and do math
 			if (calcStatus == 3) {
@@ -635,9 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}); // end equals 
 
-	document.addEventListener('click', function(event) {
-		const button = event.target.closest('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal, #lnine, #leight, #lseven, #lsix, #lfive, #lfour, #lthree, #ltwo, #lone, #lzero, #ldecimal');
-		if (!button) return;
+	$('#nine, #eight, #seven, #six, #five, #four, #three, #two, #one, #zero, #decimal, #lnine, #leight, #lseven, #lsix, #lfive, #lfour, #lthree, #ltwo, #lone, #lzero, #ldecimal').click(function(event) {
 
 	  
 		// read value 
@@ -649,55 +641,53 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
 		posNegPercentPressed = false;
-		// console.log('posNegPercentPressed: ' + posNegPercentPressed);
+		debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 
 		if (firstentry) {
-			inputValue = button.textContent;
+			inputValue = $(this).text();
 			ux.displayValue(inputValue);
 			firstentry = false;
 		} else {
-			inputValue += button.textContent;
+			inputValue += $(this).text();
 			ux.displayValue(inputValue);
 		}
 
 
-		// console.log('input stream..' + inputValue);
-		// console.log('button.textContent..' + button.textContent);
+		debugTool.log('input stream..' + inputValue);
+		debugTool.log('this.text..' + $(this).text());			  
 
 	}); // end listner for nums pressed
 	
-	document.addEventListener('click', function(event) {
-		const button = event.target.closest('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd');
-		if (!button) return;
+	$('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd').click(function(event) {
 		
-		// equalsJustPressed = false;
-		// console.log("equals just pressed: " + equalsJustPressed);
+		equalsJustPressed = false;
+		debugTool.log("equals just pressed: " + equalsJustPressed);
 
 		if (!opPressedOnce) {
 			opPressedOnce = true;
-			// console.log('opPressesOnce: ' + opPressedOnce);
+			debugTool.log('opPressesOnce: ' + opPressedOnce);
 			opPressed = true;
-			opValue = button.textContent;
-			// console.log('opValue' + opValue);
-			// console.log('posNegPercentPressed: ' + posNegPercentPressed);
+			opValue = $(this).text()
+			debugTool.log('opValue' + opValue);
+			debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 			calcStatus++;
-			//console.log('calcStatus' + calcStatus);
+			debugTool.log('calcStatus' + calcStatus);
 			firstentry = true;
 			
 			if (equals && numberPressed && calcSum != 0) {
 
-				// console.log('opValue' + opValue);
+				debugTool.log('opValue' + opValue);
 				calcStatus = 3;
 				calcEval.ops(firstNumberValue, secondNumberValue, opValue);
 
 			} else if ( !posNegPercentPressed ) {
-					// console.log('input stream...' + inputValue);
+					debugTool.log('input stream...' + inputValue);
 					if (inputValue == null) {
 						numberValue = 0;
 					} else {
 						numberValue = parseFloat(inputValue);
 					}
-					//console.log('numberValue...' + numberValue);
+					debugTool.log('numberValue...' + numberValue);
 					inputValue = null;
 					ux.handleOpPressed(event);
 			} 
@@ -705,4 +695,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}); // end listner for basic math ops
 
-});
+}); // end $(document).ready
