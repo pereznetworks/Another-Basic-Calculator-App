@@ -44,8 +44,8 @@ const tape = {
 
 const debugTool = {
 // dev use only 
-// to be replaced by logging state of app and errors
-	loggingOn: true,
+// to be replaced by logging state of app and error
+	loggingOn: false,
 
 	log: function (){
 		if(this.loggingOn){
