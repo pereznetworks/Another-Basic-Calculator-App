@@ -1,6 +1,6 @@
 
 
-let version = 'v2.5b'
+let version = 'v2.6.0'
 let allClear = '';
 let equals = false;
 let equalsJustPressed = false;
@@ -20,6 +20,7 @@ let secondNumberValue = 0;
 let numberPressed = false;
 let opPressed = false;
 let posNegPercentPressed;
+let posNeg = false;
 
 const mathSettings = { 
 	
