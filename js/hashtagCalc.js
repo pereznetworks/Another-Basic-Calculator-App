@@ -1,6 +1,6 @@
 
 
-let version = 'v2.5b'
+let version = 'v2.6.0'
 let allClear = '';
 let equals = false;
 let equalsJustPressed = false;
@@ -19,7 +19,8 @@ let firstNumberValue = 0;
 let secondNumberValue = 0;
 let numberPressed = false;
 let opPressed = false;
-let posNegPercentPressed;
+let posNegPercentPressed = false;
+let posNeg = false;
 
 const mathSettings = { 
 	
@@ -43,7 +44,7 @@ const tape = {
 
 const debugTool = {
 // dev use only 
-// to be replaced by logging state of app and errors
+// to be replaced by logging state of app and error
 	loggingOn: false,
 
 	log: function (){
@@ -82,25 +83,29 @@ const calc = {
 		this.sumValue = numValue1 + numValue2;
 		return this.sumValue;
 	},
-	percent: function(numberOfValues, numValue1, numValue2){
-		if (numberOfValues == 0 ) {
+	percent: function(numValue1){
+
+		if (!percent) {
+			percent = true;
 			this.sumValue = numValue1 / 100;
 			return this.sumValue;
-		} else if ( numberOfValues == 1 ) {
-			this.sumValue = numValue1 * ( numValue2 / 100 )
+			 
+		} else {
+			percent = false;
+			this.sumValue = numValue1 * 100;
 			return this.sumValue;
-		}
+		} 
+
 	},
 	posNeg: function(numValue1){
 
-		let negNum = false;
+		// toggle the sign of the number
 		debugTool.log('numValue1..' + numValue1);
 
-		if (negNum)  {
+		if (Math.sign(numValue1) === -1)  {
 			this.sumValue = Math.abs(numValue1);
 		} else {
 			this.sumValue = -Math.abs(numValue1)
-			negNum = true
 		}
 		
 		debugTool.log('posNeg..' + this.sumValue)
@@ -452,7 +457,7 @@ ux.displayVersion(version);
 				opValue = '';
 				opPressed = false;
 				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
-				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
+				(isNaN(firstNumberValue)) ? inputValue = '' : inputValue = firstNumberValue;
 				debugTool.log('opValue:' + opValue);
 				debugTool.log('calcstatus:' + calcStatus);
 				debugTool.log('inputValue:' + inputValue);
@@ -540,65 +545,62 @@ ux.displayVersion(version);
 
 	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
 
-			if (!posNegPercentPressed) {
+			posNegPercentPressed = true;
+			debugTool.log("calcSum: " + calcSum);
+			debugTool.log('inputValue: ' + inputValue);
+	
+			(isNaN(parseFloat(inputValue))) ? numberValue = calcSum : numberValue = parseFloat(inputValue);
+			inputValue = '';
+			numberPressed = false;
+			opPressed = true;
+			equalsJustPressed = false 
+			opValue = $(this).text();
+			debugTool.log('opValue:', opValue);
+			secondNumberValue = 0;
 
-				posNegPercentPressed = true;
+			// has a math operation has taken place or should, and what to do
+			if ( opValue === '%' && equals == true ) {
 
-				debugTool.log('inputValue: ' + inputValue);
-				numberValue = parseFloat(inputValue);
-				inputValue = '';
-				numberPressed = false;
-				opPressed = true;
-				equalsJustPressed = false 
-				opValue = $(this).text();
-				debugTool.log('opValue:', opValue);
-				secondNumberValue = 0;
-
-				// has a math operation has taken place or should, and what to do
-				if ( opValue === '%' && equals == true ) {
-
-					firstNumberValue = calcSum;
-					debugTool.log('calcSum = firstNumberValue:' + firstNumberValue);
-					calcSum = calc.percent(numberOfValues, firstNumberValue);
-					numberOfValues = 0;
-					percent = true;
-					numberValue = '';
-					equals = false;
-
-				} else if ( opValue === '%' ) {
-
-					firstNumberValue = parseFloat(numberValue, 10);
-					debugTool.log('firstNumberValue:' + firstNumberValue);
-					calcSum = calc.percent(numberOfValues, firstNumberValue);
-					numberOfValues = 0;
-					percent = true;
-					numberValue = '';
-
-				} else if ( opValue === '+/-' ) {
-
-					firstNumberValue = parseFloat(numberValue, 10);
-					numberValue = '';
-					calcSum = calc.posNeg(firstNumberValue);
-					posNeg = true;
-
-			}
-
-				if(isNaN(calcSum)) {
-					let setToZero = 0
-					ux.displayValue(setToZero);
-					firstNumberValue = setToZero;
-					secondNumberValue = setToZero;
-					calcStatus = 0;
-				} else {
-					// calcSum = mathSettings.setDecimals(calcSum);
-					ux.displayValue(calcSum);
-				}
-					
-				debugTool.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
-				debugTool.log('firstNumberValue: ' + firstNumberValue);
+				debugTool.log('calcSum = firstNumberValue:' + firstNumberValue);
+				calcSum = calc.percent(numberOfValues, firstNumberValue);
+				numberOfValues = 0;
+				numberValue = '';
+				equals = false;
 
+			} else if ( opValue === '%' ) {
+
+				calcSum = calc.percent(numberValue);
+				debugTool.log('percent:' + percent);
+				debugTool.log('firstNumberValue:' + numberValue);
+				debugTool.log('calcSum:' + calcSum);
+				numberOfValues = 0;
+				numberValue = '';
+
+			} else if ( opValue === '+/-' ) {
+
+				firstNumberValue = parseFloat(numberValue, 10);
+				numberValue = '';
+				calcSum = calc.posNeg(firstNumberValue);
+				posNeg = true;
 			}
+
+
+			if(isNaN(calcSum)) {
+				let setToZero = 0
+				ux.displayValue(setToZero);
+				firstNumberValue = setToZero;
+				secondNumberValue = setToZero;
+				calcStatus = 0;
+			} else {
+				firstNumberValue = calcSum;
+				debugTool.log('use calcSum as firstNumberValue: ' + firstNumberValue);
+				// calcSum = mathSettings.setDecimals(calcSum);
+				debugTool.log('send calcSum to display: ' + calcSum);
+				ux.displayValue(calcSum);
+			}
+				
+			
 
 	}); // end listener for +/-  %
 
