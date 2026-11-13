@@ -16,7 +16,6 @@ let firstentry = true;
 let equals = false;
 let equalsJustPressed = false;
 let percent = false;
-let numJustPressed = false;
 let numberPressed = false;
 let opPressedOnce = false;
 let opPressed = false;
@@ -98,10 +97,18 @@ const calc = {
 		}
 	},
 	posNeg: function(numValue1){
-		// Toggle the current sign so repeated +/- presses alternate between
-		// positive and negative values instead of always forcing a negative result.
-		posNeg = !posNeg;
-		this.sumValue = posNeg ? -Math.abs(numValue1) : Math.abs(numValue1);
+
+		let negNum = false;
+		// console.log('numValue1..' + numValue1);
+
+		if (negNum)  {
+			this.sumValue = Math.abs(numValue1);
+		} else {
+			this.sumValue = -Math.abs(numValue1)
+			negNum = true
+		}
+		
+		// console.log('posNeg..' + this.sumValue)
 		return this.sumValue;
 	},
 	equals: function() {				
@@ -129,26 +136,26 @@ const calcEval = {
 		// console.log('secondNumberValue: ' + secondNumberValue);
 
 		// do math, get and save calcSum
-		if ( opValue === '/' ) {
-			if ( secondNumberValue === 0 ) {
-				calcSum = Number.POSITIVE_INFINITY;
-			} else {
+		if ( opValue === '/' && secondNumberValue != 0 ) {
 				calcSum = calc.divide(firstNumberValue, secondNumberValue);
-			}
-			this.afterMath(calcSum)
-			calcStatus = 2;
-		} else if ( opValue === '*' ) {
-			calcSum = calc.multiply(firstNumberValue, secondNumberValue);
-			this.afterMath(calcSum)
-			calcStatus = 2;
-		} else if ( opValue === '-' ) {
-			calcSum = calc.subtract(firstNumberValue, secondNumberValue);
-			this.afterMath(calcSum)
-			calcStatus = 2;
-		} else if ( opValue === '+' ) {
-			calcSum = calc.addition(firstNumberValue, secondNumberValue);
-			this.afterMath(calcSum)
-			calcStatus = 2; 
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				// console.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '*' && secondNumberValue != 0 ) {
+				calcSum = calc.multiply(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				// console.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '-' && secondNumberValue != 0  ) {
+				calcSum = calc.subtract(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2;
+				// console.log("calcStatus: " + calcStatus);	
+		} else if ( opValue === '+' && secondNumberValue != 0 ) {
+				calcSum = calc.addition(firstNumberValue, secondNumberValue);
+				this.afterMath(calcSum)
+				calcStatus = 2; 
+				// console.log("calcStatus: " + calcStatus);	
 		}
 
 		return { calcSum, calcStatus };
@@ -445,21 +452,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		if ( allClear === 'C' ) {
 
-			if ( calcStatus == 2 ) {
+			if ( opPressed ) {
 				opValue = '';
 				opPressed = false;
-				calcStatus == 3 ? calcStatus = 2 : calcStatus = 0;
+				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
 				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
 	
 
-			} else if ( calcStatus == 1 ) {
-
-				ux.displayValue(firstNumberValue ); // display what ever was entered before the last digit pressed
-
-			} else if ( calcStatus == 3 ) {
+			} else if ( numberPressed && opPressed ) {
 
 				inputValue = '';
-				ux.displayValue(secondNumberValue);
+				numberValue = firstNumberValue;
+				ux.displayValue(firstNumberValue );
+
+			} else if ( numberPressed && !opPressed ) {
+
+				inputValue = '';
+				firstNumberValue = 0;
+				numberValue = '';
+				secondNumberValue = 0;
+				ux.displayValue(initialValue );
 			} else { // if equals just pressed
 
 
@@ -481,7 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				// console.log('numberPressed:' + numberPressed);
 				opPressed = false;
 				// console.log('opPressed:' + opPressed);
-				posNeg = false;
 				posNegPercentPressed = false;
 				// console.log('posNegPercentPressed: ' + posNegPercentPressed);
 				percent = false;
@@ -519,7 +530,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			opPressed = false;
 			// console.log('opPressed:' + opPressed);
 			percent = false;
-			posNeg = false;
 			// console.log('percent:' + percent);
 			firstNumberValue = 0;
 			// console.log('firstNumberValue:' + firstNumberValue);
@@ -535,12 +545,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		const button = event.target.closest('#posNeg, #percent, #lposNeg, #lpercent');
 		if (!button) return;
 
-			if (!posNegPercentPressed) { // only allow one of these buttons to be pressed at a time
+			if (!posNegPercentPressed) {
 
 				posNegPercentPressed = true;
-				numJustPressed ? calcStatus = 2 : calcStatus = 1;
 
-					// console.log('inputValue: ' + inputValue);
+				// // console.log('inputValue: ' + inputValue);
 				numberValue = parseFloat(inputValue);
 				inputValue = '';
 				numberPressed = false;
@@ -587,11 +596,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				calcStatus = 0;
 			} else {
 				// calcSum = mathSettings.setDecimals(calcSum);
-				calcStatus = 1;  // this value will be used for next math operation
 				ux.displayValue(calcSum);
 			}
 				
-			// console.log('calcSum:' + calcSum);
+			console.log('calcSum:' + calcSum);
 			firstNumberValue = calcSum;
 			// console.log('firstNumberValue: ' + firstNumberValue);
 
@@ -602,26 +610,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.addEventListener('click', function(event) {
 		if (!event.target.closest('#equals, #lequals')) return;
 
-		if (!equalsJustPressed) { // only allow one equals to be pressed at a time
+		if (!equalsJustPressed) {
 			
 			// console.log('equals pressed');
 			equals = true;
 			equalsJustPressed = true;
 			opPressedOnce = false;
 			opValue2 = '=';
-			calcStatus = 3;
+			calcStatus++
 
 			numberValue = parseFloat(inputValue);
 			// console.log('input stream.. ' + inputValue);
 			// console.log('numberValue ' + numberValue);
 
 			// eval all numeric entry and operators and do math
+			if (calcStatus == 3) {
 			calcEval.ops(firstNumberValue, secondNumberValue, opValue)	
-			
-		} 
-			// ux.handleOpPressed(event);
-			// this call to ux.handleOpPressed(event) is no longer needed, (?)
-			//  because the math has already been done in calcEval.ops() above
+			} else {
+				ux.handleOpPressed(event);	
+			}
+		}
+		
+
+
 	}); // end equals 
 
 	document.addEventListener('click', function(event) {
@@ -631,10 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  
 		// read value 
 		numberPressed = true;
-		numJustPressed = true;
 		equalsJustPressed = false;
-		calcStatus == 0 ? calcStatus = 1 : calcStatus = 3;
-		// calc status is 1 when first number entered, 2 when operator pressed, 3 when second number entered
 		opPressedOnce = false;
 		ux.acShow = false;
 		ux.acToogle();     
@@ -665,20 +673,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		// equalsJustPressed = false;
 		// console.log("equals just pressed: " + equalsJustPressed);
 
-		if (!opPressedOnce) { // only allow one operator to be pressed at a time
+		if (!opPressedOnce) {
 			opPressedOnce = true;
 			// console.log('opPressesOnce: ' + opPressedOnce);
-			calcStatus = 2;
-			// calc status is 1 when first number entered, 2 when operator pressed, 3 when second number entered
-			// math can be done with just an opValue being entered, because first and secondNumber values are set to 0 
-			// calcStatus will be 1 when equals is pressed, and then value can used for next math operation
-			// assuming that there is 1 number entered, and then an operator pressed
-			// or running total is expected, such as 3 + 4 = [7] + 5   1 + 2 [3] + 4 [7] + 5 [12]
-		
 			opPressed = true;
 			opValue = button.textContent;
 			// console.log('opValue' + opValue);
 			// console.log('posNegPercentPressed: ' + posNegPercentPressed);
+			calcStatus++;
 			//console.log('calcStatus' + calcStatus);
 			firstentry = true;
 			
