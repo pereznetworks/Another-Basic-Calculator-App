@@ -20,6 +20,9 @@ let secondNumberValue = 0;
 let numberPressed = false;
 let opPressed = false;
 let posNegPercentPressed;
+let toNeg = true;
+let percentPressed = false;
+let posNegPressed = false;
 
 const mathSettings = { 
 	
@@ -44,7 +47,7 @@ const tape = {
 const debugTool = {
 	// dev use only 
 	// to be replaced by logging state of app and errors
-	loggingOn: false,
+	loggingOn: true,
 
 	log: function (){
 		if(this.loggingOn){
@@ -91,16 +94,15 @@ const calc = {
 			return this.sumValue;
 		}
 	},
-	posNeg: function(numValue1){
+	posNeg: function(toNeg, numValue1){
 
-		let negNum = false;
 		debugTool.log('numValue1..' + numValue1);
 
-		if (negNum)  {
-			this.sumValue = Math.abs(numValue1);
+		if (toNeg)  {
+			this.sumValue = -Math.abs(numValue1);
 		} else {
-			this.sumValue = -Math.abs(numValue1)
-			negNum = true
+			this.sumValue = Math.abs(numValue1)
+
 		}
 		
 		debugTool.log('posNeg..' + this.sumValue)
@@ -540,19 +542,17 @@ ux.displayVersion(version);
 
 	$('#posNeg, #percent, #lposNeg, #lpercent').click(function(event){
 
-			if (!posNegPercentPressed) {
-
 				posNegPercentPressed = true;
 
 				debugTool.log('inputValue: ' + inputValue);
 				numberValue = parseFloat(inputValue);
-				inputValue = '';
 				numberPressed = false;
 				opPressed = true;
 				equalsJustPressed = false 
 				opValue = $(this).text();
 				debugTool.log('opValue:', opValue);
 				secondNumberValue = 0;
+	
 
 				// has a math operation has taken place or should, and what to do
 				if ( opValue === '%' && equals == true ) {
@@ -574,14 +574,13 @@ ux.displayVersion(version);
 					percent = true;
 					numberValue = '';
 
-				} else if ( opValue === '+/-' ) {
+				} else if ( opValue === '+/-') {
 
-					firstNumberValue = parseFloat(numberValue, 10);
-					numberValue = '';
-					calcSum = calc.posNeg(firstNumberValue);
-					posNeg = true;
-
-			}
+						calcSum = calc.posNeg(toNeg, numberValue);
+						toNeg = !toNeg;
+						debugTool.log('toNeg:' + toNeg);
+						debugTool.log('calcSum:' + calcSum);
+				}
 
 				if(isNaN(calcSum)) {
 					let setToZero = 0
@@ -597,8 +596,6 @@ ux.displayVersion(version);
 				debugTool.log('calcSum:' + calcSum);
 				firstNumberValue = calcSum;
 				debugTool.log('firstNumberValue: ' + firstNumberValue);
-
-			}
 
 	}); // end listener for +/-  %
 
