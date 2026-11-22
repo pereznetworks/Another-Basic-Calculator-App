@@ -21,6 +21,7 @@ let numberPressed = false;
 let opPressed = false;
 let posNegPercentPressed;
 let toNeg = true;
+let toPercent = true;
 let percentPressed = false;
 let posNegPressed = false;
 
@@ -85,12 +86,12 @@ const calc = {
 		this.sumValue = numValue1 + numValue2;
 		return this.sumValue;
 	},
-	percent: function(numberOfValues, numValue1, numValue2){
-		if (numberOfValues == 0 ) {
+	percent: function(toPercent, numValue1){
+		if (toPercent) {
 			this.sumValue = numValue1 / 100;
 			return this.sumValue;
-		} else if ( numberOfValues == 1 ) {
-			this.sumValue = numValue1 * ( numValue2 / 100 )
+		} else {
+			this.sumValue = numValue1 * 100;
 			return this.sumValue;
 		}
 	},
@@ -567,12 +568,21 @@ ux.displayVersion(version);
 
 				} else if ( opValue === '%' ) {
 
-					firstNumberValue = parseFloat(numberValue, 10);
-					debugTool.log('firstNumberValue:' + firstNumberValue);
-					calcSum = calc.percent(numberOfValues, firstNumberValue);
-					numberOfValues = 0;
-					percent = true;
-					numberValue = '';
+					if (toPercent) {
+						firstNumberValue = parseFloat(numberValue, 10);
+						debugTool.log('firstNumberValue:' + firstNumberValue);
+						calcSum = calc.percent(toPercent, firstNumberValue);
+						numberOfValues = 0;
+						toPercent = false;
+						numberValue = '';
+					} else {
+				
+						debugTool.log('using CalcSum:' + calcSum);
+						calcSum = calc.percent(toPercent, calcSum);
+						numberOfValues = 0;
+						toPercent = true;
+						numberValue = '';
+					}
 
 				} else if ( opValue === '+/-') {
 
