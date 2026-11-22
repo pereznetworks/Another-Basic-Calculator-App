@@ -558,11 +558,11 @@ ux.displayVersion(version);
 				// has a math operation has taken place or should, and what to do
 				if ( opValue === '%' && equals == true ) {
 
+					toPercent = true;
 					firstNumberValue = calcSum;
 					debugTool.log('calcSum = firstNumberValue:' + firstNumberValue);
 					calcSum = calc.percent(numberOfValues, firstNumberValue);
 					numberOfValues = 0;
-					percent = true;
 					numberValue = '';
 					equals = false;
 
