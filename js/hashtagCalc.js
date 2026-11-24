@@ -447,7 +447,7 @@ const ux = {
 
 $(document).ready( function () {
 
-ux.displayVersion(version);
+// ux.displayVersion(version);
 
 // event-listeners
 
