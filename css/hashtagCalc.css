@@ -24,23 +24,21 @@
   footer {
     bottom:0;
     right: 0;
-    width:100;
+    width:100%;
     margin: auto;
     position: absolute;
 
   }
 
   /* Style the display  */
-  .display {
-    background-color: black;
-    border: 2px solid #707075;
-    border-radius: 5px 5px 5px 5px;
-    width: 378px;
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-right: 10px;
-    /* container-type: inline-size; */
-  }
+    .display {
+      background-color: black;
+      border: 2px solid #707075;
+      border-radius: 5px 5px 5px 5px;
+      width: 90%;
+      height: 90px;
+      margin: 5px auto;
+    }
 
   #input {
       background-color: black;
@@ -114,6 +112,7 @@
             background: linear-gradient(#EDEDED, #808080);
             transition: 5ms;
             border-radius: 10px;
+            border: 1px solid #111111;
         }
 
             a:active {
