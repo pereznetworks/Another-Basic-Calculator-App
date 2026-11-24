@@ -2,7 +2,7 @@
 const ux = {
 	acShow: true,  // whether to show AC
 
-	acToogle: function () {
+	acToggle: function () {
 
 		debug.log('run acToogle:' + this.acShow);
 
@@ -37,7 +37,7 @@ const ux = {
 		// setup for various math, based on previous operator entered
 		
 		ux.acShow = false;
-		ux.acToogle();
+		ux.acToggle();
 		debug.log('calcStatus: ' + calcStatus);
 
 		if ( equals && calcStatus == 3) {
@@ -54,7 +54,7 @@ const ux = {
 			debug.log('calcStatus: ' + calcStatus);
 			equals = false;
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
         } else if ( opValue === '+/-' ) {
 
@@ -130,7 +130,7 @@ const ux = {
 			debug.log('calcSum:' + calcSum);
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -156,7 +156,7 @@ const ux = {
 
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -182,7 +182,7 @@ const ux = {
 
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;

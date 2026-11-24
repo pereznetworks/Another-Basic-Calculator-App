@@ -1,29 +1,41 @@
 
 
 let version = 'v2.5b'
+
 let allClear = '';
-let equals = false;
-let equalsJustPressed = false;
-let percent = false;
+
 let initialValue = 0;
-let firstentry = true;
+let firstEntry = true;
 let inputValue = null;
+
 let opPressedOnce = false;
 let opValue2 = '';
 let opValue = '';
-let calcSum = 0;
+
+let percent = false;
+
 let calcStatus = 0;
+
+let equals = false;
+let equalsJustPressed = false;
+
+let calcSum = 0;
 let numberValue = '';
 let numberOfValues = 0;
 let firstNumberValue = 0;
 let secondNumberValue = 0;
+
+
 let numberPressed = false;
+let numJustPressed = false;
+let opJustPressed = false;
 let opPressed = false;
-let posNegPercentPressed;
+let posNegPercentPressed = false;
 let toNeg = true;
 let toPercent = true;
 let percentPressed = false;
 let posNegPressed = false;
+let numberInput = false
 
 const mathSettings = { 
 	
@@ -215,9 +227,9 @@ const calcEval = {
 const ux = {
 	acShow: true,  // whether to show AC
 
-	acToogle: function () {
+	acToggle: function () {
 
-		debugTool.log('run acToogle:' + this.acShow);
+		debugTool.log('run acToggle:' + this.acShow);
 
 		if ( this.acShow ) {
 			// then toogle C button to AC
@@ -250,7 +262,7 @@ const ux = {
 		// setup for various math, based on previous operator entered
 		
 		ux.acShow = false;
-		ux.acToogle();
+		ux.acToggle();
 		debugTool.log('calcStatus: ' + calcStatus);
 
 		if ( equals && calcStatus == 3) {
@@ -267,7 +279,7 @@ const ux = {
 			debugTool.log('calcStatus: ' + calcStatus);
 			equals = false;
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
         } else if ( opValue === '+/-' ) {
 
@@ -343,7 +355,7 @@ const ux = {
 			debugTool.log('calcSum:' + calcSum);
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -369,7 +381,7 @@ const ux = {
 
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -395,7 +407,7 @@ const ux = {
 
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 			numberValue = 0;
 			firstNumberValue = calcSum;
@@ -449,31 +461,40 @@ ux.displayVersion(version);
 		if ( allClear == 'C' ) {
 
 			debugTool.log('C clicked, roll back to last entry');
-			
+			debugTool.log('numberPressed:' + numberPressed);
+			debugTool.log('opPressed:' + opPressed);
 
-			if ( opPressed ) {
+			if ( opJustPressed) {
+
 				opValue = '';
 				opPressed = false;
+				opPressedOnce = false;
+				equalsJustPressed = false;
+				equals = false;
 				calcStatus > 1 ? calcStatus -= 1 : calcStatus = 0;
 				firstNumberValue == NaN ? inputValue = '' : inputValue = firstNumberValue;
+				debugTool.log('equalsJustPressed:' + equalsJustPressed);
+				debugTool.log('equals:' + equals);
 				debugTool.log('opValue:' + opValue);
+				debugTool.log('opPressedOnce:' + opPressedOnce);
+				debugTool.log('opPressed:' + opPressed);
 				debugTool.log('calcstatus:' + calcStatus);
 				debugTool.log('inputValue:' + inputValue);
 				debugTool.log('numberValue:' + numberValue);
 				debugTool.log('firstNumberValue:' + firstNumberValue);
 
-			} else if ( numberPressed ){
+			} else if (numJustPressed) {
+				
+					// clear the input value and reset first entry flag
+					inputValue = '0';
+					firstEntry = true;
+					ux.displayValue(inputValue);
+					debugTool.log('opValue:' + opValue);
+					debugTool.log('firstNumberValue:' + firstNumberValue);
+					debugTool.log('secondNumberValue:' + secondNumberValue);
 
-				inputValue = '';
-				firstNumberValue = initialValue;
-				numberValue = firstNumberValue;
-				secondNumberValue = 0;
-				ux.displayValue(initialValue);
-				debugTool.log('firstNumberValue:' + firstNumberValue);
-				debugTool.log('secondNumberValue:' + secondNumberValue);
-
-			} else { // if equals just pressed
-
+			} else {
+			 // if equals just pressed
 
 				calcSum = 0;
 				ux.displayValue(calcSum);
@@ -507,7 +528,7 @@ ux.displayVersion(version);
 			}
 
 			ux.acShow = true;
-			ux.acToogle();
+			ux.acToggle();
 
 		} else if ( allClear === 'AC') {
 
@@ -619,6 +640,8 @@ ux.displayVersion(version);
 			opPressedOnce = false;
 			opValue2 = '=';
 			calcStatus++
+			ux.acShow = true;
+			ux.acToggle();
 
 			numberValue = parseFloat(inputValue);
 			debugTool.log('input stream.. ' + inputValue);
@@ -641,19 +664,23 @@ ux.displayVersion(version);
 	  
 		// read value 
 		numberPressed = true;
+		numJustPressed = true;
 		equalsJustPressed = false;
 		opPressedOnce = false;
+
+		opJustPressed = false;
 		ux.acShow = false;
-		ux.acToogle();     
+		ux.acToggle();     
         
 
 		posNegPercentPressed = false;
 		debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 
-		if (firstentry) {
+		if (firstEntry) {
+			numberInput = true;
 			inputValue = $(this).text();
 			ux.displayValue(inputValue);
-			firstentry = false;
+			firstEntry = false;
 		} else {
 			inputValue += $(this).text();
 			ux.displayValue(inputValue);
@@ -667,6 +694,8 @@ ux.displayVersion(version);
 	
 	$('#divide, #multiply, #subtract, #add, #ldivide, #lmultiply, #lsubtract, #ladd').click(function(event) {
 		
+		opJustPressed = true;
+		numJustPressed = false;
 		equalsJustPressed = false;
 		debugTool.log("equals just pressed: " + equalsJustPressed);
 
@@ -679,7 +708,7 @@ ux.displayVersion(version);
 			debugTool.log('posNegPercentPressed: ' + posNegPercentPressed);
 			calcStatus++;
 			debugTool.log('calcStatus' + calcStatus);
-			firstentry = true;
+			firstEntry = true;
 			
 			if (equals && numberPressed && calcSum != 0) {
 
